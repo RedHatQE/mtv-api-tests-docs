@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Build and Registry - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link active">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="container-build-and-registry">Container Build and Registry</h1>
+<p>This page covers building the mtv-api-tests container image, explains the Dockerfile internals, and describes how to push images to <code>ghcr.io/redhatqe/mtv-api-tests</code>.</p>
+<hr />
+<h2 id="pre-built-image">Pre-built Image</h2>
+<p>A public pre-built image is available and recommended for most users:</p>
+<div class="highlight"><pre><span></span><code>ghcr.io/redhatqe/mtv-api-tests:latest
+</code></pre></div>
+
+<p>You only need to build a custom image if you are modifying tests, updating dependencies, or pinning specific versions of OpenShift libraries.</p>
+<hr />
+<h2 id="building-the-image">Building the Image</h2>
+<h3 id="basic-build">Basic Build</h3>
+<p>Build with either Podman (preferred) or Docker:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using Podman</span>
+podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile<span class="w"> </span>-t<span class="w"> </span>mtv-api-tests<span class="w"> </span>.
+
+<span class="c1"># Using Docker</span>
+docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile<span class="w"> </span>-t<span class="w"> </span>mtv-api-tests<span class="w"> </span>.
+</code></pre></div>
+
+<h3 id="build-with-custom-openshift-dependencies">Build with Custom OpenShift Dependencies</h3>
+<p>The Dockerfile supports two build arguments for pinning specific commits of OpenShift Python libraries. This is useful for testing against unreleased fixes or development branches:</p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>build<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-arg<span class="w"> </span><span class="nv">OPENSHIFT_PYTHON_WRAPPER_COMMIT</span><span class="o">=</span>abc123def456<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--build-arg<span class="w"> </span><span class="nv">OPENSHIFT_PYTHON_UTILITIES_COMMIT</span><span class="o">=</span>789xyz<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>Dockerfile<span class="w"> </span>-t<span class="w"> </span>mtv-api-tests<span class="w"> </span>.
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Build Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OPENSHIFT_PYTHON_WRAPPER_COMMIT</code></td>
+<td><code>''</code> (empty)</td>
+<td>Git commit hash from <a href="https://github.com/RedHatQE/openshift-python-wrapper">openshift-python-wrapper</a></td>
+</tr>
+<tr>
+<td><code>OPENSHIFT_PYTHON_UTILITIES_COMMIT</code></td>
+<td><code>''</code> (empty)</td>
+<td>Git commit hash from <a href="https://github.com/RedHatQE/openshift-python-utilities">openshift-python-utilities</a></td>
+</tr>
+</tbody>
+</table>
+<p>When these arguments are empty (the default), the locked versions from <code>uv.lock</code> are used. When a commit hash is provided, <code>uv pip install</code> overrides the locked version with the specified commit from GitHub.</p>
+<h3 id="tagging-for-a-registry">Tagging for a Registry</h3>
+<p>Tag the image for your target registry:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For GitHub Container Registry</span>
+podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile<span class="w"> </span>-t<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest<span class="w"> </span>.
+
+<span class="c1"># For Quay.io</span>
+podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>quay.io/youruser/mtv-api-tests:latest<span class="w"> </span>.
+
+<span class="c1"># For Docker Hub</span>
+podman<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>docker.io/youruser/mtv-api-tests:latest<span class="w"> </span>.
+</code></pre></div>
+
+<hr />
+<h2 id="dockerfile-internals">Dockerfile Internals</h2>
+<p>The Dockerfile uses a multi-stage copy pattern on a Fedora 41 base with uv as the Python package manager.</p>
+<h3 id="base-image">Base Image</h3>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">quay.io/fedora/fedora:41</span>
+</code></pre></div>
+
+<p>Fedora 41 provides an up-to-date Linux userland with dnf package management. It serves as a stable foundation for the compilation toolchain required by several Python dependencies.</p>
+<h3 id="environment-variables">Environment Variables</h3>
+<div class="highlight"><pre><span></span><code><span class="k">ENV</span><span class="w"> </span><span class="nv">JUNITFILE</span><span class="o">=</span><span class="si">${</span><span class="nv">APP_DIR</span><span class="si">}</span>/output/
+<span class="k">ENV</span><span class="w"> </span><span class="nv">UV_PYTHON</span><span class="o">=</span>python3.12
+<span class="k">ENV</span><span class="w"> </span><span class="nv">UV_COMPILE_BYTECODE</span><span class="o">=</span><span class="m">1</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">UV_NO_SYNC</span><span class="o">=</span><span class="m">1</span>
+<span class="k">ENV</span><span class="w"> </span><span class="nv">UV_CACHE_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">APP_DIR</span><span class="si">}</span>/.cache
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JUNITFILE</code></td>
+<td><code>/app/output/</code></td>
+<td>Directory for JUnit XML test output</td>
+</tr>
+<tr>
+<td><code>UV_PYTHON</code></td>
+<td><code>python3.12</code></td>
+<td>Forces uv to use Python 3.12</td>
+</tr>
+<tr>
+<td><code>UV_COMPILE_BYTECODE</code></td>
+<td><code>1</code></td>
+<td>Pre-compiles <code>.py</code> files to <code>.pyc</code> bytecode for faster container startup</td>
+</tr>
+<tr>
+<td><code>UV_NO_SYNC</code></td>
+<td><code>1</code></td>
+<td>Prevents automatic <code>uv sync</code> on every <code>uv run</code>, since dependencies are already installed at build time</td>
+</tr>
+<tr>
+<td><code>UV_CACHE_DIR</code></td>
+<td><code>/app/.cache</code></td>
+<td>Isolates the uv cache for clean removal after dependency installation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-dependencies">System Dependencies</h3>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>libxml2-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>libcurl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>openssl<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>openssl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>libcurl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>gcc<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>clang<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>python3-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>dnf<span class="w"> </span>clean<span class="w"> </span>all<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/cache/dnf<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/dnf<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>truncate<span class="w"> </span>-s0<span class="w"> </span>/var/log/*.log<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/cache/yum
+</code></pre></div>
+
+<p>These packages fall into two categories:</p>
+<p><strong>Compilation toolchain</strong> — required to build Python C extensions from source:
+- <code>gcc</code> — GNU C compiler
+- <code>clang</code> — LLVM C/C++ compiler
+- <code>python3-devel</code> — Python headers and development files</p>
+<p><strong>Library development headers</strong> — required by specific Python packages:
+- <code>libxml2-devel</code> — XML parsing (used by lxml, needed by OpenShift client libraries)
+- <code>libcurl-devel</code> — HTTP client (used by pycurl)
+- <code>openssl</code> / <code>openssl-devel</code> — TLS/SSL support (used by cryptography and other security libraries)</p>
+<p>The final commands in this layer clean up dnf caches, package metadata, and log files to reduce image size.</p>
+<h3 id="source-code-copy">Source Code Copy</h3>
+<div class="highlight"><pre><span></span><code><span class="k">WORKDIR</span><span class="w"> </span><span class="s">${APP_DIR}</span>
+
+<span class="k">RUN</span><span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="si">${</span><span class="nv">APP_DIR</span><span class="si">}</span>/output
+
+<span class="k">COPY</span><span class="w"> </span>utilities<span class="w"> </span>utilities
+<span class="k">COPY</span><span class="w"> </span>tests<span class="w"> </span>tests
+<span class="k">COPY</span><span class="w"> </span>libs<span class="w"> </span>libs
+<span class="k">COPY</span><span class="w"> </span>exceptions<span class="w"> </span>exceptions
+<span class="k">COPY</span><span class="w"> </span>README.md<span class="w"> </span>pyproject.toml<span class="w"> </span>uv.lock<span class="w"> </span>conftest.py<span class="w"> </span>pytest.ini<span class="w"> </span>./
+</code></pre></div>
+
+<p>The image includes only the files necessary for test execution:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>utilities/</code></td>
+<td>Helper modules for migration operations, post-migration checks, and resource management</td>
+</tr>
+<tr>
+<td><code>tests/</code></td>
+<td>Test files, test configuration (<code>tests/tests_config/config.py</code>), and conftest files</td>
+</tr>
+<tr>
+<td><code>libs/</code></td>
+<td>Provider abstraction layer (<code>BaseProvider</code> and implementations)</td>
+</tr>
+<tr>
+<td><code>exceptions/</code></td>
+<td>Custom exception classes</td>
+</tr>
+<tr>
+<td><code>pyproject.toml</code></td>
+<td>Project metadata and dependency declarations</td>
+</tr>
+<tr>
+<td><code>uv.lock</code></td>
+<td>Locked dependency versions with integrity hashes</td>
+</tr>
+<tr>
+<td><code>conftest.py</code></td>
+<td>Root-level pytest fixtures</td>
+</tr>
+<tr>
+<td><code>pytest.ini</code></td>
+<td>Pytest configuration (markers, default options, JUnit output)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> Development tooling (<code>pre-commit</code>, <code>.github/</code>, <code>tox.toml</code>, <code>tools/</code>, <code>docs/</code>) is intentionally excluded from the container to keep the image focused and small.</p>
+</blockquote>
+<h3 id="uv-package-manager-installation">uv Package Manager Installation</h3>
+<div class="highlight"><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>ghcr.io/astral-sh/uv:latest<span class="w"> </span>/uv<span class="w"> </span>/uvx<span class="w"> </span>/usr/local/bin/
+</code></pre></div>
+
+<p>Rather than installing uv through pip or curl, the Dockerfile uses a multi-stage <code>COPY --from</code> to pull the pre-built <code>uv</code> and <code>uvx</code> binaries directly from the <a href="https://github.com/astral-sh/uv">official uv container image</a>. This approach is fast, reproducible, and avoids adding installation tooling to the image.</p>
+<h3 id="dependency-installation">Dependency Installation</h3>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>uv<span class="w"> </span>sync<span class="w"> </span>--locked<span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OPENSHIFT_PYTHON_WRAPPER_COMMIT</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/RedHatQE/openshift-python-wrapper.git@<span class="nv">$OPENSHIFT_PYTHON_WRAPPER_COMMIT</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OPENSHIFT_PYTHON_UTILITIES_COMMIT</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/RedHatQE/openshift-python-utilities.git@<span class="nv">$OPENSHIFT_PYTHON_UTILITIES_COMMIT</span><span class="p">;</span><span class="w"> </span><span class="k">fi</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>find<span class="w"> </span><span class="si">${</span><span class="nv">APP_DIR</span><span class="si">}</span>/<span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;__pycache__&quot;</span><span class="w"> </span>-print0<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-0<span class="w"> </span>rm<span class="w"> </span>-rfv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="si">${</span><span class="nv">APP_DIR</span><span class="si">}</span>/.cache
+</code></pre></div>
+
+<p>This layer performs four operations in a single <code>RUN</code> to minimize image layers:</p>
+<ol>
+<li><strong><code>uv sync --locked</code></strong> — Installs all dependencies exactly as specified in <code>uv.lock</code>, ensuring reproducible builds</li>
+<li><strong>Conditional overrides</strong> — If build arguments are provided, overrides specific OpenShift packages with pinned Git commits</li>
+<li><strong>Cache cleanup</strong> — Removes <code>__pycache__</code> directories (bytecode was already compiled via <code>UV_COMPILE_BYTECODE=1</code>)</li>
+<li><strong>uv cache removal</strong> — Deletes the uv download cache (<code>/app/.cache</code>) since packages are already installed</li>
+</ol>
+<h3 id="default-command">Default Command</h3>
+<div class="highlight"><pre><span></span><code><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;uv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;run&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pytest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--collect-only&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>The default command runs pytest in <code>--collect-only</code> mode, which lists all discovered tests without executing them. This serves as a safe default that verifies the container is functional. Override it with your actual test command at runtime:</p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>tier0<span class="w"> </span>-v<span class="w"> </span>--tc<span class="o">=</span>source_provider:vsphere-8.0.1<span class="w"> </span>...
+</code></pre></div>
+
+<h3 id="dockerignore">.dockerignore</h3>
+<p>The <code>.dockerignore</code> file excludes Python bytecode from the build context:</p>
+<div class="highlight"><pre><span></span><code>*.pyc
+*.pyo
+*__pycache__/
+</code></pre></div>
+
+<p>This prevents stale compiled bytecode from the host from being copied into the image, since the container builds its own via <code>UV_COMPILE_BYTECODE=1</code>.</p>
+<hr />
+<h2 id="image-size-optimizations">Image Size Optimizations</h2>
+<p>The Dockerfile employs several strategies to minimize the final image size:</p>
+<ol>
+<li><strong>Single-layer cleanup</strong> — dnf cache removal, log truncation, and yum cache deletion in the same <code>RUN</code> as installation</li>
+<li><strong>Multi-stage binary copy</strong> — Copies only the <code>uv</code>/<code>uvx</code> binaries from the astral image instead of installing from the internet</li>
+<li><strong>Build cache removal</strong> — Deletes the uv download cache (<code>/app/.cache</code>) after dependency installation</li>
+<li><strong>Bytecode cleanup</strong> — Removes <code>__pycache__</code> directories (the compiled <code>.pyc</code> files from <code>UV_COMPILE_BYTECODE</code> are embedded elsewhere)</li>
+<li><strong>Selective COPY</strong> — Only the directories required for test execution are copied; dev tools and documentation are excluded</li>
+<li><strong><code>.dockerignore</code></strong> — Prevents host-side <code>.pyc</code>/<code>.pyo</code> files from inflating the build context</li>
+</ol>
+<hr />
+<h2 id="pushing-to-ghcrio">Pushing to ghcr.io</h2>
+<h3 id="authentication">Authentication</h3>
+<p>Authenticate with GitHub Container Registry before pushing:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using a GitHub Personal Access Token (PAT) with write:packages scope</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$GITHUB_TOKEN</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>podman<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>YOUR_GITHUB_USERNAME<span class="w"> </span>--password-stdin
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> Your PAT must have the <code>write:packages</code> scope. Classic tokens also need the <code>read:packages</code> scope. Fine-grained tokens should have "Packages: Read and write" permission.</p>
+</blockquote>
+<h3 id="push-the-image">Push the Image</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Tag and push</span>
+podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile<span class="w"> </span>-t<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest<span class="w"> </span>.
+podman<span class="w"> </span>push<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest
+</code></pre></div>
+
+<p>To push a versioned tag alongside <code>latest</code>:</p>
+<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>tag<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:2.8.3
+podman<span class="w"> </span>push<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:2.8.3
+podman<span class="w"> </span>push<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> The project version is defined in <code>pyproject.toml</code> (<code>version = "2.8.3"</code>). Use this as a reference when tagging release images.</p>
+</blockquote>
+<h3 id="verify-the-push">Verify the Push</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># List tags for the package</span>
+podman<span class="w"> </span>pull<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest
+podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>ghcr.io/redhatqe/mtv-api-tests:latest
+</code></pre></div>
+
+<p>The default <code>CMD</code> runs <code>pytest --collect-only</code>, so a successful pull and run displays all discovered tests without executing them.</p>
+<hr />
+<h2 id="dependency-management-with-uv">Dependency Management with uv</h2>
+<p>The container uses <a href="https://github.com/astral-sh/uv">uv</a> as its Python package manager. Dependencies are managed through two files:</p>
+<h3 id="pyprojecttoml">pyproject.toml</h3>
+<p>Declares project metadata and dependency version ranges. Key dependencies include:</p>
+<ul>
+<li><strong>Test framework</strong>: <code>pytest</code>, <code>pytest-xdist</code> (parallel execution), <code>pytest-testconfig</code>, <code>pytest-harvest</code></li>
+<li><strong>OpenShift interaction</strong>: <code>openshift-python-wrapper</code>, <code>openshift-python-utilities</code></li>
+<li><strong>Provider SDKs</strong>: <code>pyvmomi</code> (VMware), <code>ovirt-python-sdk</code> (RHV), <code>openstacksdk</code> / <code>python-glanceclient</code> (OpenStack)</li>
+<li><strong>Utilities</strong>: <code>pandas</code>, <code>rich</code>, <code>typer</code>, <code>requests</code>, <code>marshmallow</code></li>
+</ul>
+<p>The full Python version requirement is <code>&gt;=3.12, &lt;3.14</code>.</p>
+<h3 id="uvlock">uv.lock</h3>
+<p>A lock file that pins every transitive dependency to an exact version with SHA-256 integrity hashes. The <code>uv sync --locked</code> command in the Dockerfile enforces these exact versions, ensuring deterministic builds regardless of when the image is built.</p>
+<blockquote>
+<p><strong>Tip:</strong> To update locked dependencies locally, run <code>uv lock --upgrade</code> followed by <code>uv sync</code> and verify tests pass before rebuilding the container.</p>
+</blockquote>
+<hr />
+<h2 id="verifying-the-container">Verifying the Container</h2>
+<p>After building, verify the image works correctly:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all discovered tests (default CMD)</span>
+podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>mtv-api-tests
+
+<span class="c1"># List tests quietly</span>
+podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>mtv-api-tests<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>--collect-only<span class="w"> </span>-q
+
+<span class="c1"># Check Python version</span>
+podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>mtv-api-tests<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>--version
+
+<span class="c1"># Inspect installed packages</span>
+podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>mtv-api-tests<span class="w"> </span>uv<span class="w"> </span>pip<span class="w"> </span>list
+
+<span class="c1"># Interactive shell for debugging</span>
+podman<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it<span class="w"> </span>mtv-api-tests<span class="w"> </span>/bin/bash
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> Test execution requires a live OpenShift cluster, provider connections, and credentials. The commands above only verify the container build, not test functionality.</p>
+</blockquote>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="custom-exceptions.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Custom Exceptions</span>
+                </a>
+                
+                
+                <a href="cluster-cleanup.html" class="page-nav-link page-nav-next">
+                    <span class="page-nav-label">Next</span>
+                    <span class="page-nav-title">Cluster Cleanup</span>
+                </a>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#pre-built-image">Pre-built Image</a></li>
+<li><a href="#building-the-image">Building the Image</a><ul>
+<li><a href="#basic-build">Basic Build</a></li>
+<li><a href="#build-with-custom-openshift-dependencies">Build with Custom OpenShift Dependencies</a></li>
+<li><a href="#tagging-for-a-registry">Tagging for a Registry</a></li>
+</ul>
+</li>
+<li><a href="#dockerfile-internals">Dockerfile Internals</a><ul>
+<li><a href="#base-image">Base Image</a></li>
+<li><a href="#environment-variables">Environment Variables</a></li>
+<li><a href="#system-dependencies">System Dependencies</a></li>
+<li><a href="#source-code-copy">Source Code Copy</a></li>
+<li><a href="#uv-package-manager-installation">uv Package Manager Installation</a></li>
+<li><a href="#dependency-installation">Dependency Installation</a></li>
+<li><a href="#default-command">Default Command</a></li>
+<li><a href="#dockerignore">.dockerignore</a></li>
+</ul>
+</li>
+<li><a href="#image-size-optimizations">Image Size Optimizations</a></li>
+<li><a href="#pushing-to-ghcrio">Pushing to ghcr.io</a><ul>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#push-the-image">Push the Image</a></li>
+<li><a href="#verify-the-push">Verify the Push</a></li>
+</ul>
+</li>
+<li><a href="#dependency-management-with-uv">Dependency Management with uv</a><ul>
+<li><a href="#pyprojecttoml">pyproject.toml</a></li>
+<li><a href="#uvlock">uv.lock</a></li>
+</ul>
+</li>
+<li><a href="#verifying-the-container">Verifying the Container</a></li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

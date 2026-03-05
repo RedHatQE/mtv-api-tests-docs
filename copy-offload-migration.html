@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy-Offload Migration - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link active">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="copy-offload-migration">Copy-Offload Migration</h1>
+<p>Copy-offload is an MTV (Migration Toolkit for Virtualization) feature that uses the storage array to directly copy VM disks from vSphere datastores to OpenShift PVCs using offload operations such as XCOPY, volume CoW, or host-based copy. This bypasses the traditional VDDK-based transfer path, resulting in significantly faster migration times for large-scale VM migrations.</p>
+<p>Copy-offload requires shared SAN/Block storage infrastructure between vSphere and OpenShift, VAAI (vSphere APIs for Array Integration) enabled on ESXi hosts, and a StorageMap configured with offload plugin settings. The feature is implemented by the <a href="https://github.com/kubev2v/forklift/tree/main/cmd/vsphere-xcopy-volume-populator">vsphere-xcopy-volume-populator</a>, a component of the Forklift project.</p>
+<blockquote>
+<p><strong>Note:</strong> NFS storage is <strong>not supported</strong> for copy-offload. Only SAN/Block storage (iSCSI or Fibre Channel) is supported.</p>
+</blockquote>
+<hr />
+<h2 id="supported-storage-vendors">Supported Storage Vendors</h2>
+<p>The test framework validates against nine storage vendor products, defined in <code>utilities/copyoffload_constants.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">SUPPORTED_VENDORS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;ontap&quot;</span><span class="p">,</span>           <span class="c1"># NetApp ONTAP</span>
+    <span class="s2">&quot;vantara&quot;</span><span class="p">,</span>         <span class="c1"># Hitachi Vantara</span>
+    <span class="s2">&quot;primera3par&quot;</span><span class="p">,</span>     <span class="c1"># HPE Primera/3PAR</span>
+    <span class="s2">&quot;pureFlashArray&quot;</span><span class="p">,</span>  <span class="c1"># Pure Storage FlashArray</span>
+    <span class="s2">&quot;powerflex&quot;</span><span class="p">,</span>       <span class="c1"># Dell PowerFlex</span>
+    <span class="s2">&quot;powermax&quot;</span><span class="p">,</span>        <span class="c1"># Dell PowerMax</span>
+    <span class="s2">&quot;powerstore&quot;</span><span class="p">,</span>      <span class="c1"># Dell PowerStore</span>
+    <span class="s2">&quot;infinibox&quot;</span><span class="p">,</span>       <span class="c1"># Infinidat InfiniBox</span>
+    <span class="s2">&quot;flashsystem&quot;</span><span class="p">,</span>     <span class="c1"># IBM FlashSystem</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Each vendor requires a base set of storage credentials (hostname, username, password) and may require additional vendor-specific fields. The following table summarizes the requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Vendor</th>
+<th><code>storage_vendor_product</code></th>
+<th>Additional Required Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NetApp ONTAP</td>
+<td><code>ontap</code></td>
+<td><code>ontap_svm</code> (SVM/vServer name)</td>
+</tr>
+<tr>
+<td>Hitachi Vantara</td>
+<td><code>vantara</code></td>
+<td><code>vantara_storage_id</code>, <code>vantara_storage_port</code>, <code>vantara_hostgroup_id_list</code></td>
+</tr>
+<tr>
+<td>Pure Storage</td>
+<td><code>pureFlashArray</code></td>
+<td><code>pure_cluster_prefix</code></td>
+</tr>
+<tr>
+<td>Dell PowerFlex</td>
+<td><code>powerflex</code></td>
+<td><code>powerflex_system_id</code></td>
+</tr>
+<tr>
+<td>Dell PowerMax</td>
+<td><code>powermax</code></td>
+<td><code>powermax_symmetrix_id</code></td>
+</tr>
+<tr>
+<td>Dell PowerStore</td>
+<td><code>powerstore</code></td>
+<td>None (base credentials only)</td>
+</tr>
+<tr>
+<td>HPE Primera/3PAR</td>
+<td><code>primera3par</code></td>
+<td>None (base credentials only)</td>
+</tr>
+<tr>
+<td>Infinidat InfiniBox</td>
+<td><code>infinibox</code></td>
+<td>None (base credentials only)</td>
+</tr>
+<tr>
+<td>IBM FlashSystem</td>
+<td><code>flashsystem</code></td>
+<td>None (base credentials only)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vendor-specific-field-details">Vendor-Specific Field Details</h3>
+<p><strong>NetApp ONTAP</strong> -- Requires the SVM (Storage Virtual Machine) name that serves the datastores:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;ontap_svm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vserver-name&quot;</span>
+</code></pre></div>
+
+<p><strong>Hitachi Vantara</strong> -- Requires storage array identification and host group mapping. The <code>vantara_hostgroup_id_list</code> uses the format <code>port,hostgroup_id</code> separated by colons:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;vantara_storage_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+<span class="nt">&quot;vantara_storage_port&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;443&quot;</span><span class="p">,</span>
+<span class="nt">&quot;vantara_hostgroup_id_list&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CL1-A,1:CL2-B,2:CL4-A,1:CL6-A,1&quot;</span>
+</code></pre></div>
+
+<p><strong>Pure Storage FlashArray</strong> -- Requires the cluster prefix, which can be retrieved from the OpenShift cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;px_%.8s&quot;</span><span class="w"> </span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>storagecluster<span class="w"> </span>-A<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[?(@.spec.cloudStorage.provider==&quot;pure&quot;)].status.clusterUid}&#39;</span><span class="k">)</span>
+</code></pre></div>
+
+<p><strong>Dell PowerFlex</strong> -- Requires the system ID, available from the <code>vxflexos-config</code> ConfigMap:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;powerflex_system_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123def456&quot;</span>
+</code></pre></div>
+
+<p><strong>Dell PowerMax</strong> -- Requires the Symmetrix ID (12-digit format):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;powermax_symmetrix_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;000123456789&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="datastore-configuration">Datastore Configuration</h2>
+<p>Copy-offload tests support up to three datastore types to cover various migration scenarios:</p>
+<table>
+<thead>
+<tr>
+<th>Datastore Type</th>
+<th>Config Key</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary</strong></td>
+<td><code>datastore_id</code></td>
+<td>XCOPY-capable datastore where test VMs are cloned and stored. Required for all copy-offload tests.</td>
+</tr>
+<tr>
+<td><strong>Secondary</strong></td>
+<td><code>secondary_datastore_id</code></td>
+<td>Second XCOPY-capable datastore on the <strong>same storage array</strong>. Used for multi-datastore tests.</td>
+</tr>
+<tr>
+<td><strong>Non-XCOPY</strong></td>
+<td><code>non_xcopy_datastore_id</code></td>
+<td>A datastore that does <strong>not</strong> support XCOPY. Used for mixed-datastore and fallback tests.</td>
+</tr>
+</tbody>
+</table>
+<p>To find a datastore ID in vSphere: <strong>Datacenter &gt; Storage &gt; Datastore &gt; Summary &gt; More Objects ID</strong> (format: <code>datastore-123</code>).</p>
+<blockquote>
+<p><strong>Warning:</strong> If <code>secondary_datastore_id</code> is configured, both the primary and secondary datastores must be on the <strong>same physical storage array</strong> and support VAAI XCOPY primitives. If this requirement is not met, copy-offload will fall back to an alternative transfer method.</p>
+</blockquote>
+<h3 id="multi-datastore-scenarios">Multi-Datastore Scenarios</h3>
+<p>The test suite validates several multi-datastore configurations:</p>
+<ul>
+<li><strong>Multi-datastore migration</strong> (<code>TestCopyoffloadMultiDatastoreMigration</code>) -- VM with disks distributed across primary and secondary XCOPY-capable datastores</li>
+<li><strong>Mixed datastore migration</strong> (<code>TestCopyoffloadMixedDatastoreMigration</code>) -- VM with disks on both XCOPY-capable and non-XCOPY datastores; validates that XCOPY-capable disks use acceleration while others fall back gracefully</li>
+<li><strong>Fallback migration</strong> (<code>TestCopyoffloadFallbackLargeMigration</code>) -- VM with all disks on a non-XCOPY datastore, verifying fallback behavior</li>
+</ul>
+<p>The <code>mixed_datastore_config</code> fixture in <code>conftest.py</code> validates that <code>non_xcopy_datastore_id</code> is configured before mixed-datastore tests run:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mixed_datastore_config</span><span class="p">(</span><span class="n">source_provider_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">copyoffload_config_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_provider_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;copyoffload&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="n">non_xcopy_datastore_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">copyoffload_config_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;non_xcopy_datastore_id&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">non_xcopy_datastore_id</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Mixed datastore test requires &#39;non_xcopy_datastore_id&#39; to be configured in copyoffload section. &quot;</span>
+            <span class="s2">&quot;This should be a datastore that does NOT support XCOPY.&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<h3 id="rdm-raw-device-mapping-support">RDM (Raw Device Mapping) Support</h3>
+<p>Copy-offload also supports RDM virtual disk migrations. Configure <code>rdm_lun_uuid</code> in the copyoffload section:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;rdm_lun_uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;naa.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> RDM copy-offload is <strong>currently supported only for Pure Storage</strong>. The <code>datastore_id</code> must be a <strong>VMFS datastore</strong> -- RDM disks are not supported on vSAN or NFS datastores.</p>
+</blockquote>
+<hr />
+<h2 id="offload-plugin-setup">Offload Plugin Setup</h2>
+<p>Copy-offload migrations require three components configured on the OpenShift cluster: a storage secret, the offload plugin configuration within the StorageMap, and the provider annotation.</p>
+<h3 id="storage-secret">Storage Secret</h3>
+<p>The <code>copyoffload_storage_secret</code> fixture (session-scoped) creates a Kubernetes Secret containing storage array credentials. Every vendor requires the base credentials, plus vendor-specific fields as applicable:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Base secret data (required for all vendors)</span>
+<span class="n">secret_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;STORAGE_HOSTNAME&quot;</span><span class="p">:</span> <span class="n">storage_hostname</span><span class="p">,</span>
+    <span class="s2">&quot;STORAGE_USERNAME&quot;</span><span class="p">:</span> <span class="n">storage_username</span><span class="p">,</span>
+    <span class="s2">&quot;STORAGE_PASSWORD&quot;</span><span class="p">:</span> <span class="n">storage_password</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Vendor-specific fields are added based on <code>storage_vendor_product</code>. The fixture maps config keys to secret keys as follows (from <code>conftest.py</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="n">vendor_specific_fields</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ontap&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;ontap_svm&quot;</span><span class="p">,</span> <span class="s2">&quot;ONTAP_SVM&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)],</span>
+    <span class="s2">&quot;vantara&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;vantara_storage_id&quot;</span><span class="p">,</span> <span class="s2">&quot;STORAGE_ID&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;vantara_storage_port&quot;</span><span class="p">,</span> <span class="s2">&quot;STORAGE_PORT&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;vantara_hostgroup_id_list&quot;</span><span class="p">,</span> <span class="s2">&quot;HOSTGROUP_ID_LIST&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;primera3par&quot;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Only basic credentials required</span>
+    <span class="s2">&quot;pureFlashArray&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;pure_cluster_prefix&quot;</span><span class="p">,</span> <span class="s2">&quot;PURE_CLUSTER_PREFIX&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)],</span>
+    <span class="s2">&quot;powerflex&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;powerflex_system_id&quot;</span><span class="p">,</span> <span class="s2">&quot;POWERFLEX_SYSTEM_ID&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)],</span>
+    <span class="s2">&quot;powermax&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;powermax_symmetrix_id&quot;</span><span class="p">,</span> <span class="s2">&quot;POWERMAX_SYMMETRIX_ID&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)],</span>
+    <span class="s2">&quot;powerstore&quot;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Only basic credentials required</span>
+    <span class="s2">&quot;infinibox&quot;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Only basic credentials required</span>
+    <span class="s2">&quot;flashsystem&quot;</span><span class="p">:</span> <span class="p">[],</span>  <span class="c1"># Only basic credentials required</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>The secret is created via <code>create_and_store_resource()</code> in the target namespace, ensuring proper lifecycle tracking and teardown.</p>
+<h3 id="credential-resolution">Credential Resolution</h3>
+<p>All credentials support a dual-source resolution pattern: environment variables take precedence over <code>.providers.json</code> config values. This is implemented in <code>utilities/copyoffload_migration.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_copyoffload_credential</span><span class="p">(</span>
+    <span class="n">credential_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">copyoffload_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">env_var_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;COPYOFFLOAD_</span><span class="si">{</span><span class="n">credential_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">env_var_name</span><span class="p">)</span> <span class="ow">or</span> <span class="n">copyoffload_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">credential_name</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Available environment variable overrides:</p>
+<table>
+<thead>
+<tr>
+<th>Environment Variable</th>
+<th>Config Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COPYOFFLOAD_STORAGE_HOSTNAME</code></td>
+<td><code>storage_hostname</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_STORAGE_USERNAME</code></td>
+<td><code>storage_username</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_STORAGE_PASSWORD</code></td>
+<td><code>storage_password</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_ONTAP_SVM</code></td>
+<td><code>ontap_svm</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_VANTARA_STORAGE_ID</code></td>
+<td><code>vantara_storage_id</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_VANTARA_STORAGE_PORT</code></td>
+<td><code>vantara_storage_port</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_VANTARA_HOSTGROUP_ID_LIST</code></td>
+<td><code>vantara_hostgroup_id_list</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_PURE_CLUSTER_PREFIX</code></td>
+<td><code>pure_cluster_prefix</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_POWERFLEX_SYSTEM_ID</code></td>
+<td><code>powerflex_system_id</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_POWERMAX_SYMMETRIX_ID</code></td>
+<td><code>powermax_symmetrix_id</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_ESXI_HOST</code></td>
+<td><code>esxi_host</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_ESXI_USER</code></td>
+<td><code>esxi_user</code></td>
+</tr>
+<tr>
+<td><code>COPYOFFLOAD_ESXI_PASSWORD</code></td>
+<td><code>esxi_password</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="storagemap-offload-plugin-configuration">StorageMap Offload Plugin Configuration</h3>
+<p>Each copy-offload StorageMap entry includes an <code>offloadPlugin</code> block that references the storage secret and specifies the vendor. In the tests, this is constructed as:</p>
+<div class="highlight"><pre><span></span><code><span class="n">offload_plugin_config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;vsphereXcopyConfig&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;secretRef&quot;</span><span class="p">:</span> <span class="n">copyoffload_storage_secret</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;storageVendorProduct&quot;</span><span class="p">:</span> <span class="n">storage_vendor_product</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>The <code>get_storage_migration_map()</code> function in <code>utilities/mtv_migration.py</code> attaches this configuration to each datastore mapping entry:</p>
+<div class="highlight"><pre><span></span><code><span class="n">storage_map_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+    <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="n">destination_config</span><span class="p">,</span>
+    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">ds_id</span><span class="p">},</span>
+    <span class="s2">&quot;offloadPlugin&quot;</span><span class="p">:</span> <span class="n">offload_plugin_config</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>For copy-offload StorageMaps, the destination is configured with block-mode access:</p>
+<ul>
+<li><code>accessMode</code>: <code>ReadWriteOnce</code></li>
+<li><code>volumeMode</code>: <code>Block</code></li>
+</ul>
+<h3 id="provider-annotation">Provider Annotation</h3>
+<p>When copy-offload is configured, the vSphere Provider resource receives a special annotation that tells Forklift to skip VDDK image validation:</p>
+<div class="highlight"><pre><span></span><code><span class="n">provider_annotations</span><span class="p">[</span><span class="s2">&quot;forklift.konveyor.io/empty-vddk-init-image&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;yes&quot;</span>
+</code></pre></div>
+
+<p>This annotation is automatically set during provider creation in <code>utilities/utils.py</code> when a <code>copyoffload</code> section is present in the provider configuration.</p>
+<hr />
+<h2 id="the-vsphere-xcopy-volume-populator">The vsphere-xcopy-volume-populator</h2>
+<p>The <a href="https://github.com/kubev2v/forklift/tree/main/cmd/vsphere-xcopy-volume-populator">vsphere-xcopy-volume-populator</a> is the Forklift component that performs the actual storage-level disk copy operations. It runs as a pod in the <code>openshift-mtv</code> namespace and coordinates with the storage array to execute XCOPY (or equivalent) operations.</p>
+<h3 id="how-it-integrates-with-tests">How It Integrates with Tests</h3>
+<p>When a Plan is created with <code>copyoffload=True</code>, two Plan-level behaviors are activated in <code>utilities/mtv_migration.py</code>:</p>
+<ol>
+<li><strong>PVC naming template</strong> -- The Plan spec is configured with <code>pvc_name_template: "pvc"</code> to generate consistent PVC names that the volume populator framework expects:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">copyoffload</span><span class="p">:</span>
+    <span class="n">plan_kwargs</span><span class="p">[</span><span class="s2">&quot;pvc_name_template&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pvc&quot;</span>
+</code></pre></div>
+
+<ol>
+<li><strong>Plan secret polling</strong> -- After Plan creation, the framework waits for Forklift to auto-create a plan-specific secret (up to 60 seconds) containing the storage credentials needed by the volume populator:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">wait_for_plan_secret</span><span class="p">(</span><span class="n">ocp_admin_client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">plan_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Copy-offload: waiting for Forklift to create plan-specific secret...&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">TimeoutSampler</span><span class="p">(</span>
+            <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+            <span class="n">sleep</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">any</span><span class="p">(</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plan_name</span><span class="si">}</span><span class="s2">-&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">Secret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">):</span>
+            <span class="k">break</span>
+    <span class="k">except</span> <span class="n">TimeoutExpiredError</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timeout waiting for plan secret &#39;</span><span class="si">{</span><span class="n">plan_name</span><span class="si">}</span><span class="s2">-*&#39; - continuing anyway&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="clone-methods">Clone Methods</h3>
+<p>The volume populator supports two methods for cloning VMDK files on ESXi hosts:</p>
+<p><strong>SSH method</strong> (<code>esxi_clone_method: "ssh"</code>) -- Recommended. Requires SSH access to ESXi hosts. The <code>setup_copyoffload_ssh</code> fixture automates SSH key deployment:</p>
+<ol>
+<li>Retrieves the public key from the provider-created secret (<code>offload-ssh-keys-{provider_name}-public</code>)</li>
+<li>Installs the key on the ESXi host via SSH using <code>install_ssh_key_on_esxi()</code></li>
+<li>Removes the key during teardown via <code>remove_ssh_key_from_esxi()</code></li>
+</ol>
+<p><strong>VIB method</strong> (<code>esxi_clone_method: "vib"</code> or omitted) -- Requires ESXi host permissions to allow community-level VIB installation. The VIB is installed automatically by the volume populator.</p>
+<blockquote>
+<p><strong>Tip:</strong> The SSH method is recommended as it does not require VIB installation permissions on ESXi hosts.</p>
+</blockquote>
+<h3 id="debugging-the-volume-populator">Debugging the Volume Populator</h3>
+<p>To inspect volume populator logs during or after a migration:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check volume populator pod logs</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>openshift-mtv<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>vsphere-xcopy-volume-populator<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span>
+
+<span class="c1"># Check MTV Forklift controller logs</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>openshift-mtv<span class="w"> </span>deployment/forklift-controller<span class="w"> </span>--tail<span class="o">=</span><span class="m">100</span>
+
+<span class="c1"># Inspect the migration plan status</span>
+oc<span class="w"> </span>get<span class="w"> </span>plan<span class="w"> </span>-n<span class="w"> </span>openshift-mtv<span class="w"> </span>&lt;plan-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
+</code></pre></div>
+
+<hr />
+<h2 id="provider-configuration">Provider Configuration</h2>
+<p>Add the <code>copyoffload</code> section to your provider definition in <code>.providers.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;vsphere-8.0.3.00400&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vsphere&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.3.00400&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;fqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vcenter.example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://vcenter.example.com/sdk&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;administrator@vsphere.local&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-vcenter-password&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;guest_vm_linux_user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;guest_vm_linux_password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-vm-password&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;copyoffload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;storage_vendor_product&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ontap&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;datastore_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;datastore-123&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;secondary_datastore_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;datastore-456&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;default_vm_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rhel9-cloud-init-template&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;storage_hostname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;storage.example.com&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;storage_username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;storage_password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-storage-password&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ontap_svm&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vserver-name&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;esxi_clone_method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;esxi_host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;esxi01.example.com&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;esxi_user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;esxi_password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-esxi-password&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;rdm_lun_uuid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;naa.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> The provider key (<code>vsphere-8.0.3.00400</code>) is passed directly via <code>--tc=source_provider:vsphere-8.0.3.00400</code>. The value must match exactly what is defined in your <code>.providers.json</code> file.</p>
+</blockquote>
+<h3 id="configuration-validation">Configuration Validation</h3>
+<p>The <code>copyoffload_config</code> fixture (session-scoped) validates the entire configuration before any copy-offload test runs:</p>
+<ul>
+<li>Verifies the source provider is vSphere</li>
+<li>Checks the <code>copyoffload</code> section exists in provider data</li>
+<li>Validates that required storage credentials are available (from environment variables or config)</li>
+<li>Validates <code>storage_vendor_product</code> and <code>datastore_id</code> are present</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">copyoffload_config</span><span class="p">(</span><span class="n">source_provider</span><span class="p">,</span> <span class="n">source_provider_data</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">source_provider</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">VSPHERE</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Copy-offload tests require vSphere provider, but got &#39;</span><span class="si">{</span><span class="n">source_provider</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+            <span class="s2">&quot;Check your provider configuration in .providers.json&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;copyoffload&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">source_provider_data</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span>
+            <span class="s2">&quot;Copy-offload configuration not found in source provider data. &quot;</span>
+            <span class="s2">&quot;Add &#39;copyoffload&#39; section to your provider in .providers.json&quot;</span>
+        <span class="p">)</span>
+    <span class="c1"># ... credential and parameter validation</span>
+</code></pre></div>
+
+<hr />
+<h2 id="test-configuration">Test Configuration</h2>
+<p>Copy-offload test configurations are defined in <code>tests/tests_config/config.py</code>. Each test entry includes <code>"copyoffload": True</code> to enable the copy-offload migration path.</p>
+<h3 id="basic-test-configuration">Basic Test Configuration</h3>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;test_copyoffload_thin_migration&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;virtual_machines&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;xcopy-template-test&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;source_vm_power&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;guest_agent&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;clone&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;disk_type&quot;</span><span class="p">:</span> <span class="s2">&quot;thin&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;warm_migration&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;copyoffload&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<h3 id="multi-disk-configuration">Multi-Disk Configuration</h3>
+<p>Additional disks can be added with various provisioning types and disk modes:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;test_copyoffload_multi_disk_migration&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;virtual_machines&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;xcopy-template-test&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;source_vm_power&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;guest_agent&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;clone&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;add_disks&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;size_gb&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;disk_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;persistent&quot;</span><span class="p">,</span> <span class="s2">&quot;provision_type&quot;</span><span class="p">:</span> <span class="s2">&quot;thick-lazy&quot;</span><span class="p">},</span>
+            <span class="p">],</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;warm_migration&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;copyoffload&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<h3 id="snapshot-configuration">Snapshot Configuration</h3>
+<p>Snapshot tests specify the number of snapshots to create before migration:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;test_copyoffload_thin_snapshots_migration&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;virtual_machines&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;xcopy-template-test&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;source_vm_power&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;guest_agent&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;clone&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;disk_type&quot;</span><span class="p">:</span> <span class="s2">&quot;thin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;snapshots&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;warm_migration&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;copyoffload&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<h3 id="scale-configuration">Scale Configuration</h3>
+<p>Scale tests configure multiple VMs for concurrent migration:</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;test_copyoffload_scale_migration&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;virtual_machines&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;xcopy-template-test&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;source_vm_power&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;guest_agent&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;clone&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;disk_type&quot;</span><span class="p">:</span> <span class="s2">&quot;thick-lazy&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;add_disks&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;size_gb&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;provision_type&quot;</span><span class="p">:</span> <span class="s2">&quot;thick-lazy&quot;</span><span class="p">,</span> <span class="s2">&quot;disk_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;persistent&quot;</span><span class="p">}],</span>
+        <span class="p">},</span>
+        <span class="c1"># ... repeated for 5 VMs total</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;warm_migration&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s2">&quot;copyoffload&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;guest_agent_timeout&quot;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<hr />
+<h2 id="test-suite">Test Suite</h2>
+<p>All copy-offload tests are marked with <code>@pytest.mark.copyoffload</code> and follow the standard 5-step migration test pattern: StorageMap &gt; NetworkMap &gt; Plan &gt; Migrate &gt; Check VMs.</p>
+<h3 id="test-classes">Test Classes</h3>
+<table>
+<thead>
+<tr>
+<th>Test Class</th>
+<th>Description</th>
+<th>Special Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TestCopyoffloadThinMigration</code></td>
+<td>Thin-provisioned disk migration</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadThickLazyMigration</code></td>
+<td>Thick lazy-zeroed disk migration</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadThinSnapshotsMigration</code></td>
+<td>Thin disk with 2 snapshots</td>
+<td>vSphere only</td>
+</tr>
+<tr>
+<td><code>TestCopyoffload2TbVmSnapshotsMigration</code></td>
+<td>2TB VM with snapshots</td>
+<td>vSphere only</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadMultiDiskMigration</code></td>
+<td>Multiple disks on same datastore</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadMultiDiskDifferentPathMigration</code></td>
+<td>Multiple disks on different datastores</td>
+<td><code>secondary_datastore_id</code></td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadRdmVirtualDiskMigration</code></td>
+<td>RDM virtual disk</td>
+<td><code>rdm_lun_uuid</code>, Pure Storage only</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadMultiDatastoreMigration</code></td>
+<td>Disks across multiple XCOPY datastores</td>
+<td><code>secondary_datastore_id</code></td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadMixedDatastoreMigration</code></td>
+<td>Mix of XCOPY and non-XCOPY datastores</td>
+<td><code>non_xcopy_datastore_id</code></td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadFallbackLargeMigration</code></td>
+<td>Large VM on non-XCOPY datastore (fallback)</td>
+<td><code>non_xcopy_datastore_id</code></td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadIndependentPersistentDiskMigration</code></td>
+<td>Independent persistent disk mode</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadIndependentNonpersistentDiskMigration</code></td>
+<td>Independent non-persistent disk mode</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffload10MixedDisksMigration</code></td>
+<td>10 mixed thin/thick disks</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadLargeVmMigration</code></td>
+<td>Large VM (1TB disk)</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadNonconformingNameMigration</code></td>
+<td>VM name with capitals/underscores</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadWarmMigration</code></td>
+<td>Warm migration with copy-offload</td>
+<td>VM powered on</td>
+</tr>
+<tr>
+<td><code>TestCopyoffloadScaleMigration</code></td>
+<td>5 concurrent VMs</td>
+<td>Extended <code>guest_agent_timeout</code></td>
+</tr>
+<tr>
+<td><code>TestSimultaneousCopyoffloadMigrations</code></td>
+<td>Two simultaneous migration plans</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>TestConcurrentXcopyVddkMigration</code></td>
+<td>Concurrent XCOPY + VDDK migrations</td>
+<td>--</td>
+</tr>
+</tbody>
+</table>
+<h3 id="test-structure-example">Test Structure Example</h3>
+<p>Every copy-offload test class follows this structure (from <code>tests/test_copyoffload_migration.py</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">copyoffload</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">incremental</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;class_plan_config&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">pytest</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;tests_params&quot;</span><span class="p">][</span><span class="s2">&quot;test_copyoffload_thin_migration&quot;</span><span class="p">])],</span>
+    <span class="n">indirect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MTV-559:copyoffload-thin&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">usefixtures</span><span class="p">(</span>
+    <span class="s2">&quot;multus_network_name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;copyoffload_config&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;setup_copyoffload_ssh&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cleanup_migrated_vms&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCopyoffloadThinMigration</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Copy-offload migration test - thin disk.&quot;&quot;&quot;</span>
+
+    <span class="n">storage_map</span><span class="p">:</span> <span class="n">StorageMap</span>
+    <span class="n">network_map</span><span class="p">:</span> <span class="n">NetworkMap</span>
+    <span class="n">plan_resource</span><span class="p">:</span> <span class="n">Plan</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_create_storagemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create StorageMap with copy-offload configuration.&quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_create_networkmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create NetworkMap resource.&quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_create_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create MTV Plan CR resource.&quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_migrate_vms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute migration.&quot;&quot;&quot;</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_check_vms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate migrated VMs.&quot;&quot;&quot;</span>
+        <span class="o">...</span>
+</code></pre></div>
+
+<h3 id="snapshot-tests">Snapshot Tests</h3>
+<p>The <code>CopyoffloadSnapshotBase</code> base class provides shared logic for snapshot-related tests. Before creating the StorageMap, it:</p>
+<ol>
+<li>Powers on the VM</li>
+<li>Creates the specified number of snapshots</li>
+<li>Records snapshot data for post-migration verification</li>
+<li>Powers off the VM for cold migration</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CopyoffloadSnapshotBase</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_create_storagemap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">...</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create StorageMap with copy-offload configuration after creating snapshots.&quot;&quot;&quot;</span>
+        <span class="n">vm_cfg</span> <span class="o">=</span> <span class="n">prepared_plan</span><span class="p">[</span><span class="s2">&quot;virtual_machines&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">provider_vm_api</span> <span class="o">=</span> <span class="n">prepared_plan</span><span class="p">[</span><span class="s2">&quot;source_vms_data&quot;</span><span class="p">][</span><span class="n">vm_cfg</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]][</span><span class="s2">&quot;provider_vm_api&quot;</span><span class="p">]</span>
+
+        <span class="n">source_provider</span><span class="o">.</span><span class="n">start_vm</span><span class="p">(</span><span class="n">provider_vm_api</span><span class="p">)</span>
+        <span class="n">source_provider</span><span class="o">.</span><span class="n">wait_for_vmware_guest_info</span><span class="p">(</span><span class="n">provider_vm_api</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+
+        <span class="n">snapshots_to_create</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">vm_cfg</span><span class="p">[</span><span class="s2">&quot;snapshots&quot;</span><span class="p">])</span>
+        <span class="n">snapshot_prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">vm_cfg</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">fixture_store</span><span class="p">[</span><span class="s1">&#39;session_uuid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">-snapshot&quot;</span>
+
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">snapshots_to_create</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">source_provider</span><span class="o">.</span><span class="n">create_snapshot</span><span class="p">(</span>
+                <span class="n">vm</span><span class="o">=</span><span class="n">provider_vm_api</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">snapshot_prefix</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;mtv-api-tests copy-offload snapshots migration test&quot;</span><span class="p">,</span>
+                <span class="n">memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">quiesce</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">vm_cfg</span><span class="p">[</span><span class="s2">&quot;snapshots_before_migration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_provider</span><span class="o">.</span><span class="n">vm_dict</span><span class="p">(</span>
+            <span class="n">provider_vm_api</span><span class="o">=</span><span class="n">provider_vm_api</span>
+        <span class="p">)[</span><span class="s2">&quot;snapshots_data&quot;</span><span class="p">]</span>
+
+        <span class="n">source_provider</span><span class="o">.</span><span class="n">stop_vm</span><span class="p">(</span><span class="n">provider_vm_api</span><span class="p">)</span>
+        <span class="c1"># ... continues with standard StorageMap creation</span>
+</code></pre></div>
+
+<hr />
+<h2 id="running-copy-offload-tests">Running Copy-Offload Tests</h2>
+<h3 id="using-pytest">Using pytest</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run all copy-offload tests</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>copyoffload<span class="w"> </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tc<span class="o">=</span>source_provider:vsphere-8.0.3.00400<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tc<span class="o">=</span>storage_class:my-block-storageclass
+
+<span class="c1"># Run a specific test</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>copyoffload<span class="w"> </span>-k<span class="w"> </span>test_copyoffload_thin_migration<span class="w"> </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tc<span class="o">=</span>source_provider:vsphere-8.0.3.00400<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--tc<span class="o">=</span>storage_class:my-block-storageclass
+
+<span class="c1"># List available copy-offload tests</span>
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>--collect-only<span class="w"> </span>-m<span class="w"> </span>copyoffload
+</code></pre></div>
+
+<h3 id="using-openshift-jobs">Using OpenShift Jobs</h3>
+<p>For consistent execution, deploy tests as an OpenShift Job:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt;EOF | oc apply -f -</span>
+<span class="s">apiVersion: batch/v1</span>
+<span class="s">kind: Job</span>
+<span class="s">metadata:</span>
+<span class="s">  name: mtv-copyoffload-tests</span>
+<span class="s">  namespace: mtv-tests</span>
+<span class="s">spec:</span>
+<span class="s">  template:</span>
+<span class="s">    spec:</span>
+<span class="s">      restartPolicy: Never</span>
+<span class="s">      containers:</span>
+<span class="s">      - name: tests</span>
+<span class="s">        image: ghcr.io/redhatqe/mtv-api-tests:latest</span>
+<span class="s">        env:</span>
+<span class="s">        - name: CLUSTER_HOST</span>
+<span class="s">          valueFrom:</span>
+<span class="s">            secretKeyRef:</span>
+<span class="s">              name: mtv-test-config</span>
+<span class="s">              key: cluster_host</span>
+<span class="s">              optional: true</span>
+<span class="s">        - name: CLUSTER_PASSWORD</span>
+<span class="s">          valueFrom:</span>
+<span class="s">            secretKeyRef:</span>
+<span class="s">              name: mtv-test-config</span>
+<span class="s">              key: cluster_password</span>
+<span class="s">              optional: true</span>
+<span class="s">        command:</span>
+<span class="s">          - /bin/bash</span>
+<span class="s">          - -c</span>
+<span class="s">          - |</span>
+<span class="s">            uv run pytest -m copyoffload \</span>
+<span class="s">              -v \</span>
+<span class="s">              \${CLUSTER_HOST:+--tc=cluster_host:\${CLUSTER_HOST}} \</span>
+<span class="s">              \${CLUSTER_PASSWORD:+--tc=cluster_password:\${CLUSTER_PASSWORD}} \</span>
+<span class="s">              --tc=source_provider:vsphere-8.0.3.00400 \</span>
+<span class="s">              --tc=storage_class:my-block-storageclass</span>
+<span class="s">        volumeMounts:</span>
+<span class="s">        - name: config</span>
+<span class="s">          mountPath: /app/.providers.json</span>
+<span class="s">          subPath: providers.json</span>
+<span class="s">      volumes:</span>
+<span class="s">      - name: config</span>
+<span class="s">        secret:</span>
+<span class="s">          secretName: mtv-test-config</span>
+<span class="s">EOF</span>
+</code></pre></div>
+
+<h3 id="monitoring-and-cleanup">Monitoring and Cleanup</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Follow test logs</span>
+oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>mtv-tests<span class="w"> </span>job/mtv-copyoffload-tests<span class="w"> </span>-f
+
+<span class="c1"># Retrieve JUnit report</span>
+<span class="nv">POD_NAME</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>mtv-tests<span class="w"> </span>-l<span class="w"> </span>job-name<span class="o">=</span>mtv-copyoffload-tests<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+oc<span class="w"> </span>cp<span class="w"> </span>mtv-tests/<span class="nv">$POD_NAME</span>:/app/junit-report.xml<span class="w"> </span>./junit-report.xml
+
+<span class="c1"># Skip automatic cleanup for debugging</span>
+<span class="c1"># Add --skip-teardown to the pytest command in the Job definition</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> The <code>cleanup_migrated_vms</code> fixture automatically cleans up migrated VMs after each test class completes. Use <code>--skip-teardown</code> to preserve resources for debugging.</p>
+</blockquote>
+<hr />
+<h2 id="fixture-dependency-chain">Fixture Dependency Chain</h2>
+<p>The copy-offload fixtures form a validation chain that ensures all prerequisites are met before tests execute:</p>
+<div class="highlight"><pre><span></span><code>copyoffload_config (session)
+├── Validates vSphere provider type
+├── Validates copyoffload section exists
+├── Validates storage credentials
+└── Validates storage_vendor_product and datastore_id
+
+copyoffload_storage_secret (session, depends on copyoffload_config)
+├── Resolves credentials from env vars or config
+├── Adds vendor-specific secret fields
+└── Creates Kubernetes Secret via create_and_store_resource()
+
+setup_copyoffload_ssh (session, depends on copyoffload_config)
+├── Skips if esxi_clone_method != &quot;ssh&quot;
+├── Retrieves SSH public key from provider
+├── Installs key on ESXi host
+└── Removes key during teardown
+
+mixed_datastore_config (class)
+└── Validates non_xcopy_datastore_id exists
+</code></pre></div>
+
+<hr />
+<h2 id="mtv-version-considerations">MTV Version Considerations</h2>
+<p>For MTV versions before 2.11, copy-offload must be explicitly enabled by adding the feature flag to the ForkliftController spec:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">feature_copy_offload</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;true&#39;</span>
+</code></pre></div>
+
+<p>In MTV 2.11 and later, copy-offload is available without explicit feature flag configuration.</p>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="warm-migration.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Warm Migration</span>
+                </a>
+                
+                
+                <a href="copy-offload-scenarios.html" class="page-nav-link page-nav-next">
+                    <span class="page-nav-label">Next</span>
+                    <span class="page-nav-title">Copy-Offload Test Scenarios</span>
+                </a>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#supported-storage-vendors">Supported Storage Vendors</a><ul>
+<li><a href="#vendor-specific-field-details">Vendor-Specific Field Details</a></li>
+</ul>
+</li>
+<li><a href="#datastore-configuration">Datastore Configuration</a><ul>
+<li><a href="#multi-datastore-scenarios">Multi-Datastore Scenarios</a></li>
+<li><a href="#rdm-raw-device-mapping-support">RDM (Raw Device Mapping) Support</a></li>
+</ul>
+</li>
+<li><a href="#offload-plugin-setup">Offload Plugin Setup</a><ul>
+<li><a href="#storage-secret">Storage Secret</a></li>
+<li><a href="#credential-resolution">Credential Resolution</a></li>
+<li><a href="#storagemap-offload-plugin-configuration">StorageMap Offload Plugin Configuration</a></li>
+<li><a href="#provider-annotation">Provider Annotation</a></li>
+</ul>
+</li>
+<li><a href="#the-vsphere-xcopy-volume-populator">The vsphere-xcopy-volume-populator</a><ul>
+<li><a href="#how-it-integrates-with-tests">How It Integrates with Tests</a></li>
+<li><a href="#clone-methods">Clone Methods</a></li>
+<li><a href="#debugging-the-volume-populator">Debugging the Volume Populator</a></li>
+</ul>
+</li>
+<li><a href="#provider-configuration">Provider Configuration</a><ul>
+<li><a href="#configuration-validation">Configuration Validation</a></li>
+</ul>
+</li>
+<li><a href="#test-configuration">Test Configuration</a><ul>
+<li><a href="#basic-test-configuration">Basic Test Configuration</a></li>
+<li><a href="#multi-disk-configuration">Multi-Disk Configuration</a></li>
+<li><a href="#snapshot-configuration">Snapshot Configuration</a></li>
+<li><a href="#scale-configuration">Scale Configuration</a></li>
+</ul>
+</li>
+<li><a href="#test-suite">Test Suite</a><ul>
+<li><a href="#test-classes">Test Classes</a></li>
+<li><a href="#test-structure-example">Test Structure Example</a></li>
+<li><a href="#snapshot-tests">Snapshot Tests</a></li>
+</ul>
+</li>
+<li><a href="#running-copy-offload-tests">Running Copy-Offload Tests</a><ul>
+<li><a href="#using-pytest">Using pytest</a></li>
+<li><a href="#using-openshift-jobs">Using OpenShift Jobs</a></li>
+<li><a href="#monitoring-and-cleanup">Monitoring and Cleanup</a></li>
+</ul>
+</li>
+<li><a href="#fixture-dependency-chain">Fixture Dependency Chain</a></li>
+<li><a href="#mtv-version-considerations">MTV Version Considerations</a></li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

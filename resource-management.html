@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Management - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link active">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="resource-management">Resource Management</h1>
+<p>This page covers the resource lifecycle in mtv-api-tests: how OpenShift/Kubernetes resources are created, named, tracked, and cleaned up. The central mechanism revolves around the <code>create_and_store_resource()</code> function and the <code>fixture_store</code> dictionary that tracks every resource for automatic teardown.</p>
+<h2 id="core-principle">Core Principle</h2>
+<p>Every OpenShift resource created during a test session must go through <code>create_and_store_resource()</code>. This ensures:</p>
+<ul>
+<li>Unique, deterministic naming with UUID suffixes</li>
+<li>Kubernetes-compliant name lengths (max 63 characters)</li>
+<li>Automatic registration in the <code>fixture_store</code> for teardown</li>
+<li>Graceful handling of naming conflicts</li>
+</ul>
+<p>Direct resource instantiation and deployment bypasses tracking and will leave orphaned resources on the cluster.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Correct - tracked and cleaned up automatically</span>
+<span class="n">namespace</span> <span class="o">=</span> <span class="n">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">resource</span><span class="o">=</span><span class="n">Namespace</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-namespace&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Wrong - bypasses tracking, resource will not be cleaned up</span>
+<span class="n">namespace</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-namespace&quot;</span><span class="p">)</span>
+<span class="n">namespace</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="create_and_store_resource">create_and_store_resource()</h2>
+<p><strong>Location:</strong> <code>utilities/resources.py</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">client</span><span class="p">:</span> <span class="s2">&quot;DynamicClient&quot;</span><span class="p">,</span>
+    <span class="n">fixture_store</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">resource</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Resource</span><span class="p">],</span>
+    <span class="n">test_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</code></pre></div>
+
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client</code></td>
+<td><code>DynamicClient</code></td>
+<td>OpenShift client for API interactions</td>
+</tr>
+<tr>
+<td><code>fixture_store</code></td>
+<td><code>dict[str, Any]</code></td>
+<td>Session-scoped store for resource tracking</td>
+</tr>
+<tr>
+<td><code>resource</code></td>
+<td><code>type[Resource]</code></td>
+<td>The <code>ocp_resources</code> class to instantiate (e.g., <code>Namespace</code>, <code>Plan</code>, <code>StorageMap</code>)</td>
+</tr>
+<tr>
+<td><code>test_name</code></td>
+<td><code>str \| None</code></td>
+<td>Optional test name for associating resources with specific tests</td>
+</tr>
+<tr>
+<td><code>**kwargs</code></td>
+<td><code>Any</code></td>
+<td>Passed through to the resource constructor (e.g., <code>name</code>, <code>namespace</code>, <code>mapping</code>, <code>kind_dict</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="name-resolution">Name Resolution</h3>
+<p>The function resolves the resource name through a priority chain:</p>
+<div class="highlight"><pre><span></span><code>1. Explicit `name` kwarg  →  use as-is
+2. `yaml_file` kwarg      →  parse YAML, extract metadata.name
+3. `kind_dict` kwarg       →  extract metadata.name from dict
+4. None of the above       →  auto-generate with UUID
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> You cannot specify both <code>yaml_file</code> and <code>kind_dict</code>. The function raises <code>ValueError</code> if both are provided.</p>
+</blockquote>
+<h4 id="auto-generated-names">Auto-Generated Names</h4>
+<p>When no name is provided, the function generates one using the <code>base_resource_name</code> stored in <code>fixture_store</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">_resource_name</span> <span class="o">=</span> <span class="n">generate_name_with_uuid</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">[</span><span class="s2">&quot;base_resource_name&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<p>The <code>generate_name_with_uuid()</code> function (from <code>utilities/naming.py</code>) appends a 4-character random suffix:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">generate_name_with_uuid</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">shortuuid</span><span class="o">.</span><span class="n">ShortUUID</span><span class="p">()</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">_name</span> <span class="o">=</span> <span class="n">_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">_name</span>
+</code></pre></div>
+
+<p>For <code>Migration</code> and <code>Plan</code> resources, a migration type suffix is also appended:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">resource</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Migration</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span> <span class="n">Plan</span><span class="o">.</span><span class="n">kind</span><span class="p">):</span>
+    <span class="n">_resource_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_resource_name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="s1">&#39;warm&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;warm_migration&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;cold&#39;</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<p><strong>Example name progression:</strong></p>
+<div class="highlight"><pre><span></span><code>session_uuid:       &quot;auto-x7km&quot;
+base_resource_name: &quot;auto-x7km-source-vsphere-8-0&quot;
+auto-generated:     &quot;auto-x7km-source-vsphere-8-0-ab2f&quot;
+plan resource:      &quot;auto-x7km-source-vsphere-8-0-ab2f-cold&quot;
+</code></pre></div>
+
+<h3 id="63-character-truncation">63-Character Truncation</h3>
+<p>Kubernetes DNS-1123 limits resource names to 63 characters. When an auto-generated name exceeds this limit, the function truncates from the left, keeping the last 63 characters:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_resource_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">63</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">_resource_name</span><span class="si">=}</span><span class="s2">&#39; is too long (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_resource_name</span><span class="p">)</span><span class="si">}</span><span class="s2"> &gt; 63). Truncating.&quot;</span><span class="p">)</span>
+    <span class="n">_resource_name</span> <span class="o">=</span> <span class="n">_resource_name</span><span class="p">[</span><span class="o">-</span><span class="mi">63</span><span class="p">:]</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> Truncation preserves the right side of the name (UUID suffix and migration type), ensuring uniqueness is maintained even after truncation.</p>
+</blockquote>
+<p>The target namespace fixture applies the same 63-character constraint directly:</p>
+<div class="highlight"><pre><span></span><code><span class="n">unique_namespace_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session_uuid</span><span class="si">}{</span><span class="n">_target_namespace</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">[:</span><span class="mi">63</span><span class="p">]</span>
+</code></pre></div>
+
+<h3 id="conflict-handling">Conflict Handling</h3>
+<p>If a resource with the same name already exists on the cluster, the function catches the <code>ConflictError</code> (HTTP 409) and reuses the existing resource instead of failing:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">_resource</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">ConflictError</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_resource</span><span class="o">.</span><span class="n">kind</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">_resource_name</span><span class="si">}</span><span class="s2"> already exists, reusing it.&quot;</span><span class="p">)</span>
+    <span class="n">_resource</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The resource is still registered in <code>fixture_store</code> for teardown, even when reused. This ensures cleanup happens regardless of whether the resource was freshly created or pre-existing.</p>
+<h3 id="fixture_store-tracking">fixture_store Tracking</h3>
+<p>After deployment (or reuse), the resource metadata is appended to <code>fixture_store["teardown"]</code> under its resource kind:</p>
+<div class="highlight"><pre><span></span><code><span class="n">_resource_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="n">_resource</span><span class="o">.</span><span class="n">namespace</span><span class="p">,</span>
+    <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="n">_resource</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="n">test_name</span><span class="p">:</span>
+    <span class="n">_resource_dict</span><span class="p">[</span><span class="s2">&quot;test_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_name</span>
+
+<span class="n">fixture_store</span><span class="p">[</span><span class="s2">&quot;teardown&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">_resource</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_resource_dict</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The <code>test_name</code> field is used to associate Plan resources with specific test methods, enabling per-test data collection on failure.</p>
+<h2 id="fixture_store-structure">fixture_store Structure</h2>
+<p>The <code>fixture_store</code> is a session-scoped dictionary provided by the <code>pytest-harvest</code> plugin. It is initialized in the <code>pytest_sessionstart</code> hook:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pytest_sessionstart</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">_session_store</span> <span class="o">=</span> <span class="n">get_fixture_store</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="n">_session_store</span><span class="p">[</span><span class="s2">&quot;teardown&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div>
+
+<p>As fixtures and test setup run, the store accumulates metadata:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="s2">&quot;session_uuid&quot;</span><span class="p">:</span> <span class="s2">&quot;auto-x7km&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;base_resource_name&quot;</span><span class="p">:</span> <span class="s2">&quot;auto-x7km-source-vsphere-8-0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;target_namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;auto-x7km-mtv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;source_provider_data&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+    <span class="s2">&quot;teardown&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Namespace&quot;</span><span class="p">:</span>  <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;auto-x7km-mtv&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;Secret&quot;</span><span class="p">:</span>     <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;Provider&quot;</span><span class="p">:</span>   <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;StorageMap&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;NetworkMap&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;Plan&quot;</span><span class="p">:</span>       <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;test_name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;Migration&quot;</span><span class="p">:</span>  <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;VirtualMachine&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;Pod&quot;</span><span class="p">:</span>        <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span> <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;vsphere&quot;</span><span class="p">:</span>    <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloned-vm-1&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;openstack&quot;</span><span class="p">:</span>  <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloned-vm-2&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;ovirt&quot;</span><span class="p">:</span>      <span class="p">[{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloned-vm-3&quot;</span><span class="p">}],</span>
+        <span class="s2">&quot;VolumeSnapshot&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;snap-id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;snap-name&quot;</span><span class="p">}],</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> Provider-specific cloned VMs (keyed by <code>Provider.ProviderType.VSPHERE</code>, etc.) and <code>VolumeSnapshot</code> entries are added directly by provider implementations, not through <code>create_and_store_resource()</code>.</p>
+</blockquote>
+<h3 id="session_uuid-and-base_resource_name">session_uuid and base_resource_name</h3>
+<p>These two fixtures establish the naming foundation for the entire test session:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">session_uuid</span><span class="p">(</span><span class="n">fixture_store</span><span class="p">):</span>
+    <span class="n">_session_uuid</span> <span class="o">=</span> <span class="n">generate_name_with_uuid</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+    <span class="n">fixture_store</span><span class="p">[</span><span class="s2">&quot;session_uuid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_session_uuid</span>
+    <span class="k">return</span> <span class="n">_session_uuid</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">base_resource_name</span><span class="p">(</span><span class="n">fixture_store</span><span class="p">,</span> <span class="n">session_uuid</span><span class="p">,</span> <span class="n">source_provider_data</span><span class="p">):</span>
+    <span class="n">_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session_uuid</span><span class="si">}</span><span class="s2">-source-</span><span class="si">{</span><span class="n">source_provider_data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">source_provider_data</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">if</span> <span class="s2">&quot;copyoffload&quot;</span> <span class="ow">in</span> <span class="n">source_provider_data</span><span class="p">:</span>
+        <span class="n">_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_name</span><span class="si">}</span><span class="s2">-xcopy&quot;</span>
+
+    <span class="n">fixture_store</span><span class="p">[</span><span class="s2">&quot;base_resource_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_name</span>
+</code></pre></div>
+
+<p>The <code>session_uuid</code> uses a 4-character <code>ShortUUID</code> suffix (e.g., <code>auto-x7km</code>), giving each test session a unique identifier that propagates through all resource names.</p>
+<h2 id="get_or_create_namespace">get_or_create_namespace()</h2>
+<p><strong>Location:</strong> <code>utilities/resources.py</code></p>
+<p>A convenience function for namespace management that avoids creating duplicate namespaces:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_or_create_namespace</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">ocp_admin_client</span><span class="p">:</span> <span class="s2">&quot;DynamicClient&quot;</span><span class="p">,</span>
+    <span class="n">namespace_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</code></pre></div>
+
+<h3 id="behavior">Behavior</h3>
+<ol>
+<li><strong>Check existence</strong> — creates a <code>Namespace</code> object with the given name and checks <code>ns.exists</code></li>
+<li><strong>Reuse or create</strong> — if the namespace exists, logs and skips creation. If not, calls <code>create_and_store_resource()</code> with standard security labels</li>
+<li><strong>Wait for ACTIVE</strong> — always waits for the namespace to reach <code>ACTIVE</code> status, whether new or existing</li>
+<li><strong>Returns</strong> — the namespace name as a string (not the Namespace object)</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="n">ns</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">namespace_name</span><span class="p">,</span> <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ns</span><span class="o">.</span><span class="n">exists</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Namespace </span><span class="si">{</span><span class="n">namespace_name</span><span class="si">}</span><span class="s2"> already exists, using it&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating namespace </span><span class="si">{</span><span class="n">namespace_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">create_and_store_resource</span><span class="p">(</span>
+        <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+        <span class="n">resource</span><span class="o">=</span><span class="n">Namespace</span><span class="p">,</span>
+        <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">namespace_name</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;pod-security.kubernetes.io/enforce&quot;</span><span class="p">:</span> <span class="s2">&quot;restricted&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pod-security.kubernetes.io/enforce-version&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mutatevirtualmachines.kubemacpool.io&quot;</span><span class="p">:</span> <span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+<span class="n">ns</span><span class="o">.</span><span class="n">wait_for_status</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">ns</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">ACTIVE</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">namespace_name</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> Only newly created namespaces are added to <code>fixture_store["teardown"]</code>. Pre-existing namespaces are reused without being registered for teardown, preventing accidental deletion of shared namespaces.</p>
+</blockquote>
+<h3 id="usage-examples">Usage Examples</h3>
+<p>Custom Multus namespace for network attachment definitions:</p>
+<div class="highlight"><pre><span></span><code><span class="n">nad_namespace</span> <span class="o">=</span> <span class="n">get_or_create_namespace</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">ocp_admin_client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">namespace_name</span><span class="o">=</span><span class="n">multus_namespace</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Custom target namespace for VM migration:</p>
+<div class="highlight"><pre><span></span><code><span class="n">get_or_create_namespace</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">ocp_admin_client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">namespace_name</span><span class="o">=</span><span class="n">vm_target_namespace</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h2 id="teardown-ordering">Teardown Ordering</h2>
+<p>Resource teardown happens at two levels: class-level (per test class) and session-level (end of test run). The ordering is carefully designed to respect resource dependencies.</p>
+<h3 id="class-level-teardown-cleanup_migrated_vms">Class-Level Teardown: cleanup_migrated_vms</h3>
+<p>The <code>cleanup_migrated_vms</code> fixture runs after each test class completes, cleaning up VMs that were migrated during the tests:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">cleanup_migrated_vms</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">ocp_admin_client</span><span class="p">,</span> <span class="n">target_namespace</span><span class="p">,</span> <span class="n">prepared_plan</span><span class="p">):</span>
+    <span class="k">yield</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;skip_teardown&quot;</span><span class="p">):</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Skipping VM cleanup due to --skip-teardown flag&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">vm_namespace</span> <span class="o">=</span> <span class="n">prepared_plan</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_vm_target_namespace&quot;</span><span class="p">,</span> <span class="n">target_namespace</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">prepared_plan</span><span class="p">[</span><span class="s2">&quot;virtual_machines&quot;</span><span class="p">]:</span>
+        <span class="n">vm_name</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">vm_obj</span> <span class="o">=</span> <span class="n">VirtualMachine</span><span class="p">(</span>
+            <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">vm_name</span><span class="p">,</span>
+            <span class="n">namespace</span><span class="o">=</span><span class="n">vm_namespace</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">vm_obj</span><span class="o">.</span><span class="n">exists</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cleaning up migrated VM: </span><span class="si">{</span><span class="n">vm_name</span><span class="si">}</span><span class="s2"> from namespace: </span><span class="si">{</span><span class="n">vm_namespace</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">vm_obj</span><span class="o">.</span><span class="n">clean_up</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Applied via decorator at the test class level:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">usefixtures</span><span class="p">(</span><span class="s2">&quot;cleanup_migrated_vms&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestVSphereMigration</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<h3 id="session-level-teardown">Session-Level Teardown</h3>
+<p>The <code>pytest_sessionfinish</code> hook triggers the full session teardown, orchestrated by <code>session_teardown()</code> in <code>utilities/pytest_utils.py</code>. Resources are deleted in a specific dependency-aware order:</p>
+<div class="highlight"><pre><span></span><code>Phase 1: Cancel &amp; Archive (graceful shutdown)
+├── Cancel all active Migrations
+└── Archive all Plans
+
+Phase 2: Delete test-created resources
+├── Migrations     (wait for deletion)
+├── Plans          (wait for deletion)
+├── Providers      (wait for deletion)
+├── Hosts          (wait for deletion)
+├── Secrets        (wait for deletion)
+├── NADs           (wait for deletion)
+├── StorageMaps    (wait for deletion)
+└── NetworkMaps    (wait for deletion)
+
+Phase 3: Delete migration-created resources
+├── VirtualMachines  (check exists, then delete)
+├── Pods             (check exists, then delete)
+├── Bulk pod cleanup (parallel, by session_uuid)
+└── DataVolumes / PVCs / PVs verification
+
+Phase 4: Delete namespaces
+└── Namespaces     (deleted last, after all contained resources)
+
+Phase 5: Clean provider-side resources
+├── VMware cloned VMs
+├── OpenStack cloned VMs
+├── RHV cloned VMs
+└── OpenStack volume snapshots
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> The deletion order matters. Migrations must be cancelled before Plans can be archived. All resources within a namespace must be deleted before the namespace itself. Provider-side cloned VMs are cleaned up by connecting back to the source providers.</p>
+</blockquote>
+<h3 id="leftover-detection">Leftover Detection</h3>
+<p>After teardown, any resources that failed to delete are collected into a <code>leftovers</code> dictionary. If leftovers exist, a <code>SessionTeardownError</code> is raised:</p>
+<div class="highlight"><pre><span></span><code><span class="n">leftovers</span> <span class="o">=</span> <span class="n">teardown_resources</span><span class="p">(</span>
+    <span class="n">session_store</span><span class="o">=</span><span class="n">session_store</span><span class="p">,</span>
+    <span class="n">ocp_client</span><span class="o">=</span><span class="n">ocp_client</span><span class="p">,</span>
+    <span class="n">target_namespace</span><span class="o">=</span><span class="n">session_store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;target_namespace&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="k">if</span> <span class="n">leftovers</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">SessionTeardownError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to clean up the following resources: </span><span class="si">{</span><span class="n">leftovers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="parallel-pod-cleanup">Parallel Pod Cleanup</h3>
+<p>Session teardown uses a <code>ThreadPoolExecutor</code> to delete pods in parallel, improving cleanup speed when many migration pods exist:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pods_to_wait</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">_pod</span> <span class="k">for</span> <span class="n">_pod</span> <span class="ow">in</span> <span class="n">Pod</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">ocp_client</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">target_namespace</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">session_uuid</span> <span class="ow">in</span> <span class="n">_pod</span><span class="o">.</span><span class="n">name</span>
+<span class="p">]</span>
+
+<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pods_to_wait</span><span class="p">),</span> <span class="mi">10</span><span class="p">))</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+    <span class="n">future_to_pod</span> <span class="o">=</span> <span class="p">{</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">wait_for_pod_deletion</span><span class="p">,</span> <span class="n">pod</span><span class="p">):</span> <span class="n">pod</span> <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="n">pods_to_wait</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">future_to_pod</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]:</span>
+            <span class="n">leftovers</span> <span class="o">=</span> <span class="n">append_leftovers</span><span class="p">(</span><span class="n">leftovers</span><span class="o">=</span><span class="n">leftovers</span><span class="p">,</span> <span class="n">resource</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;pod&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<h3 id="skip-teardown">Skip Teardown</h3>
+<p>The <code>--skip-teardown</code> CLI flag skips all resource cleanup, useful for debugging failed test runs:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">&quot;skip_teardown&quot;</span><span class="p">):</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;User requested to skip teardown of resources&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Both class-level and session-level teardown respect this flag.</p>
+<h2 id="parallel-execution-safety">Parallel Execution Safety</h2>
+<p>Resource management is designed for parallel test execution with <code>pytest-xdist</code>:</p>
+<ul>
+<li><strong>Unique names per worker</strong>: Each worker gets its own <code>session_uuid</code>, so resource names never collide across workers</li>
+<li><strong>Isolated fixture_store</strong>: Each xdist worker maintains a separate <code>fixture_store</code> instance</li>
+<li><strong>Worker data persistence</strong>: Fixture stores are serialized via <code>pickle</code> for cross-worker data collection</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pytest_harvest_xdist_worker_dump</span><span class="p">(</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">session_items</span><span class="p">,</span> <span class="n">fixture_store</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">RESULTS_PATH</span> <span class="o">/</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">.pkl&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">session_items</span><span class="p">,</span> <span class="n">fixture_store</span><span class="p">),</span> <span class="n">f</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="common-usage-patterns">Common Usage Patterns</h2>
+<h3 id="creating-a-provider-with-kind_dict">Creating a Provider with kind_dict</h3>
+<div class="highlight"><pre><span></span><code><span class="n">kind_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;apiVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;forklift.konveyor.io/v1beta1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session_uuid</span><span class="si">}</span><span class="s2">-local-ocp-provider&quot;</span><span class="p">,</span> <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="n">target_namespace</span><span class="p">},</span>
+    <span class="s2">&quot;spec&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;secret&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;openshift&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="n">provider</span> <span class="o">=</span> <span class="n">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">resource</span><span class="o">=</span><span class="n">Provider</span><span class="p">,</span>
+    <span class="n">kind_dict</span><span class="o">=</span><span class="n">kind_dict</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="creating-a-storagemap">Creating a StorageMap</h3>
+<div class="highlight"><pre><span></span><code><span class="n">storage_map</span> <span class="o">=</span> <span class="n">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">resource</span><span class="o">=</span><span class="n">StorageMap</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">namespace</span><span class="o">=</span><span class="n">target_namespace</span><span class="p">,</span>
+    <span class="n">mapping</span><span class="o">=</span><span class="n">storage_map_list</span><span class="p">,</span>
+    <span class="n">source_provider_name</span><span class="o">=</span><span class="n">source_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">source_provider_namespace</span><span class="o">=</span><span class="n">source_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">namespace</span><span class="p">,</span>
+    <span class="n">destination_provider_name</span><span class="o">=</span><span class="n">destination_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">destination_provider_namespace</span><span class="o">=</span><span class="n">destination_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">namespace</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="creating-a-migration">Creating a Migration</h3>
+<div class="highlight"><pre><span></span><code><span class="n">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">resource</span><span class="o">=</span><span class="n">Migration</span><span class="p">,</span>
+    <span class="n">namespace</span><span class="o">=</span><span class="n">target_namespace</span><span class="p">,</span>
+    <span class="n">plan_name</span><span class="o">=</span><span class="n">plan</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">plan_namespace</span><span class="o">=</span><span class="n">plan</span><span class="o">.</span><span class="n">namespace</span><span class="p">,</span>
+    <span class="n">cut_over</span><span class="o">=</span><span class="n">cut_over</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h3 id="creating-a-target-namespace">Creating a Target Namespace</h3>
+<div class="highlight"><pre><span></span><code><span class="n">namespace</span> <span class="o">=</span> <span class="n">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">resource</span><span class="o">=</span><span class="n">Namespace</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">unique_namespace_name</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;pod-security.kubernetes.io/enforce&quot;</span><span class="p">:</span> <span class="s2">&quot;restricted&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pod-security.kubernetes.io/enforce-version&quot;</span><span class="p">:</span> <span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mutatevirtualmachines.kubemacpool.io&quot;</span><span class="p">:</span> <span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">namespace</span><span class="o">.</span><span class="n">wait_for_status</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">namespace</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">ACTIVE</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="name-sanitization">Name Sanitization</h2>
+<p>For VM names imported from source providers, the <code>sanitize_kubernetes_name()</code> function (in <code>utilities/naming.py</code>) ensures Kubernetes DNS-1123 compliance:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sanitize_kubernetes_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">63</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</code></pre></div>
+
+<p>Rules applied:
+- Converts to lowercase
+- Replaces <code>_</code> and <code>.</code> with <code>-</code>
+- Removes characters that are not alphanumeric or <code>-</code>
+- Strips leading/trailing non-alphanumeric characters
+- Truncates to <code>max_length</code> (default 63)
+- Raises <code>InvalidVMNameError</code> if no valid characters remain</p>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="forklift-inventory.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Forklift Inventory API</span>
+                </a>
+                
+                
+                <a href="naming-conventions.html" class="page-nav-link page-nav-next">
+                    <span class="page-nav-label">Next</span>
+                    <span class="page-nav-title">Naming Conventions</span>
+                </a>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#core-principle">Core Principle</a></li>
+<li><a href="#create_and_store_resource">create_and_store_resource()</a><ul>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#name-resolution">Name Resolution</a></li>
+<li><a href="#63-character-truncation">63-Character Truncation</a></li>
+<li><a href="#conflict-handling">Conflict Handling</a></li>
+<li><a href="#fixture_store-tracking">fixture_store Tracking</a></li>
+</ul>
+</li>
+<li><a href="#fixture_store-structure">fixture_store Structure</a><ul>
+<li><a href="#session_uuid-and-base_resource_name">session_uuid and base_resource_name</a></li>
+</ul>
+</li>
+<li><a href="#get_or_create_namespace">get_or_create_namespace()</a><ul>
+<li><a href="#behavior">Behavior</a></li>
+<li><a href="#usage-examples">Usage Examples</a></li>
+</ul>
+</li>
+<li><a href="#teardown-ordering">Teardown Ordering</a><ul>
+<li><a href="#class-level-teardown-cleanup_migrated_vms">Class-Level Teardown: cleanup_migrated_vms</a></li>
+<li><a href="#session-level-teardown">Session-Level Teardown</a></li>
+<li><a href="#leftover-detection">Leftover Detection</a></li>
+<li><a href="#parallel-pod-cleanup">Parallel Pod Cleanup</a></li>
+<li><a href="#skip-teardown">Skip Teardown</a></li>
+</ul>
+</li>
+<li><a href="#parallel-execution-safety">Parallel Execution Safety</a></li>
+<li><a href="#common-usage-patterns">Common Usage Patterns</a><ul>
+<li><a href="#creating-a-provider-with-kind_dict">Creating a Provider with kind_dict</a></li>
+<li><a href="#creating-a-storagemap">Creating a StorageMap</a></li>
+<li><a href="#creating-a-migration">Creating a Migration</a></li>
+<li><a href="#creating-a-target-namespace">Creating a Target Namespace</a></li>
+</ul>
+</li>
+<li><a href="#name-sanitization">Name Sanitization</a></li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

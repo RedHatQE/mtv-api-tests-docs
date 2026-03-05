@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dependencies - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link active">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="project-dependencies">Project Dependencies</h1>
+<p>This page documents the key third-party dependencies used in the MTV API Tests project, their roles within the test framework, and how they are used in practice.</p>
+<h2 id="dependency-overview">Dependency Overview</h2>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>openshift-python-wrapper</code></td>
+<td>&gt;= 11.0.53</td>
+<td>OpenShift/Kubernetes resource management</td>
+</tr>
+<tr>
+<td><code>pyvmomi</code></td>
+<td>&gt;= 8.0.3.0.1</td>
+<td>VMware vSphere API interaction</td>
+</tr>
+<tr>
+<td><code>ovirt-python-sdk</code></td>
+<td>&gt;= 1.2.0</td>
+<td>Red Hat Virtualization (oVirt) API interaction</td>
+</tr>
+<tr>
+<td><code>openstacksdk</code></td>
+<td>&gt;= 4.0.0</td>
+<td>OpenStack API interaction</td>
+</tr>
+<tr>
+<td><code>pytest-xdist</code></td>
+<td>&gt;= 3.6.1</td>
+<td>Parallel test execution</td>
+</tr>
+<tr>
+<td><code>pytest-testconfig</code></td>
+<td>&gt;= 0.2.0</td>
+<td>Global test configuration management</td>
+</tr>
+<tr>
+<td><code>python-rrmngmnt</code></td>
+<td>&gt;= 0.2.0</td>
+<td>SSH connection management for remote hosts</td>
+</tr>
+<tr>
+<td><code>shortuuid</code></td>
+<td>&gt;= 1.0.13</td>
+<td>Short unique identifier generation</td>
+</tr>
+<tr>
+<td><code>jc</code></td>
+<td>&gt;= 1.25.0</td>
+<td>Structured parsing of CLI command output</td>
+</tr>
+</tbody>
+</table>
+<p>All dependencies are declared in <code>pyproject.toml</code> and managed with <code>uv</code>.</p>
+<hr />
+<h2 id="openshift-python-wrapper">openshift-python-wrapper</h2>
+<p><strong>Package:</strong> <code>openshift-python-wrapper&gt;=11.0.53</code></p>
+<p>The foundational dependency of the project. Provides Pythonic wrappers around OpenShift and Kubernetes resources, enabling the test framework to create, manage, and query cluster resources without using the <code>kubernetes</code> client library directly.</p>
+<blockquote>
+<p><strong>Warning:</strong> Direct use of the <code>kubernetes</code> package at runtime is forbidden. All cluster interactions must go through <code>openshift-python-wrapper</code>. See the <a href="./code-standards.md">Code Standards</a> for details.</p>
+</blockquote>
+<h3 id="resource-classes">Resource Classes</h3>
+<p>The project imports resource classes from the <code>ocp_resources</code> module for every type of OpenShift/Kubernetes object it interacts with:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.forklift_controller</span><span class="w"> </span><span class="kn">import</span> <span class="n">ForkliftController</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.namespace</span><span class="w"> </span><span class="kn">import</span> <span class="n">Namespace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.network_attachment_definition</span><span class="w"> </span><span class="kn">import</span> <span class="n">NetworkAttachmentDefinition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.pod</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.provider</span><span class="w"> </span><span class="kn">import</span> <span class="n">Provider</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.resource</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResourceEditor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.secret</span><span class="w"> </span><span class="kn">import</span> <span class="n">Secret</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.storage_class</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageClass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.storage_profile</span><span class="w"> </span><span class="kn">import</span> <span class="n">StorageProfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.virtual_machine</span><span class="w"> </span><span class="kn">import</span> <span class="n">VirtualMachine</span>
+</code></pre></div>
+
+<h3 id="resource-lifecycle-management">Resource Lifecycle Management</h3>
+<p>All OpenShift resources are created through <code>create_and_store_resource()</code>, which wraps the wrapper's <code>deploy()</code> and <code>wait()</code> methods and tracks resources for teardown:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># utilities/resources.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.namespace</span><span class="w"> </span><span class="kn">import</span> <span class="n">Namespace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_resources.resource</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resource</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">client</span><span class="p">:</span> <span class="s2">&quot;DynamicClient&quot;</span><span class="p">,</span>
+    <span class="n">fixture_store</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">resource</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Resource</span><span class="p">],</span>
+    <span class="n">test_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+    <span class="n">_resource</span> <span class="o">=</span> <span class="n">resource</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_resource</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">ConflictError</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_resource</span><span class="o">.</span><span class="n">kind</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">_resource_name</span><span class="si">}</span><span class="s2"> already exists, reusing it.&quot;</span><span class="p">)</span>
+        <span class="n">_resource</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+    <span class="n">fixture_store</span><span class="p">[</span><span class="s2">&quot;teardown&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">_resource</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_resource_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_resource</span>
+</code></pre></div>
+
+<h3 id="companion-package-openshift-python-utilities">Companion Package: openshift-python-utilities</h3>
+<p>The sibling package <code>openshift-python-utilities&gt;=6.0.7</code> provides additional cluster utilities such as Prometheus monitoring support:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># utilities/worker_node_selection.py (TYPE_CHECKING import)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ocp_utilities.monitoring</span><span class="w"> </span><span class="kn">import</span> <span class="n">Prometheus</span>
+</code></pre></div>
+
+<hr />
+<h2 id="pyvmomi">pyvmomi</h2>
+<p><strong>Package:</strong> <code>pyvmomi&gt;=8.0.3.0.1</code></p>
+<p>The VMware vSphere API Python SDK. Used exclusively within the VMware provider to manage VMs, datastores, networks, and perform clone operations against a vCenter server.</p>
+<h3 id="connection">Connection</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/vmware.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyVim.connect</span><span class="w"> </span><span class="kn">import</span> <span class="n">Disconnect</span><span class="p">,</span> <span class="n">SmartConnect</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyVmomi</span><span class="w"> </span><span class="kn">import</span> <span class="n">vim</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">VMWareProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">SmartConnect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="n">pwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+            <span class="n">port</span><span class="o">=</span><span class="mi">443</span><span class="p">,</span>
+            <span class="n">disableSslCertValidation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Disconnect</span><span class="p">(</span><span class="n">si</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="vm-operations">VM Operations</h3>
+<p>The <code>vim</code> module provides type objects for all vSphere API interactions, including VM lookups, datastore queries, disk management, and task monitoring:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/vmware.py</span>
+<span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vim</span><span class="o">.</span><span class="n">ServiceInstanceContent</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">RetrieveContent</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_vm_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">vim</span><span class="o">.</span><span class="n">VirtualMachine</span><span class="p">:</span>
+    <span class="n">target_vm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_obj</span><span class="p">(</span><span class="n">vimtype</span><span class="o">=</span><span class="p">[</span><span class="n">vim</span><span class="o">.</span><span class="n">VirtualMachine</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">target_vm_name</span><span class="p">)</span>
+    <span class="c1"># ...</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_datastore_name_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datastore_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">datastore</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_obj</span><span class="p">([</span><span class="n">vim</span><span class="o">.</span><span class="n">Datastore</span><span class="p">],</span> <span class="n">datastore_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">datastore</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">VmBadDatastoreError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Datastore with ID &#39;</span><span class="si">{</span><span class="n">datastore_id</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">datastore</span><span class="o">.</span><span class="n">name</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> The VMware provider handles VM cloning, snapshot management, network configuration, and disk attachment operations — all through pyvmomi's <code>vim</code> object hierarchy.</p>
+</blockquote>
+<hr />
+<h2 id="ovirt-python-sdk">ovirt-python-sdk</h2>
+<p><strong>Package:</strong> <code>ovirt-python-sdk&gt;=1.2.0</code></p>
+<p>The oVirt/RHV Engine SDK for Python. Provides API access to Red Hat Virtualization environments for managing VMs, disks, networks, and datacenters.</p>
+<h3 id="connection_1">Connection</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/rhv.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ovirtsdk4</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovirtsdk4</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundError</span><span class="p">,</span> <span class="n">types</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovirtsdk4.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">VmStatus</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">OvirtProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">ovirtsdk4</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span>
+            <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+            <span class="n">ca_file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_file</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">insecure</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">debug</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span>
+            <span class="n">log</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">,</span>
+            <span class="n">insecure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">insecure</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_mtv_datacenter_ok</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OvirtMTVDatacenterStatusError</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
+<h3 id="service-access">Service Access</h3>
+<p>The provider exposes oVirt system services as properties for clean access to VMs, disks, networks, storage, and templates:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/rhv.py</span>
+<span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vms_services</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ovirtsdk4</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">VmsService</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">system_service</span><span class="p">()</span><span class="o">.</span><span class="n">vms_service</span><span class="p">()</span>
+
+<span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">disks_service</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ovirtsdk4</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">DisksService</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">system_service</span><span class="p">()</span><span class="o">.</span><span class="n">disks_service</span><span class="p">()</span>
+
+<span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">network_services</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ovirtsdk4</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">NetworksService</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+
+<hr />
+<h2 id="openstacksdk">openstacksdk</h2>
+<p><strong>Package:</strong> <code>openstacksdk&gt;=4.0.0</code></p>
+<p>The official OpenStack SDK for Python. Used within the OpenStack provider to manage compute instances, volumes, networks, and images.</p>
+<h3 id="connection_2">Connection</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/openstack.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openstack</span><span class="w"> </span><span class="kn">import</span> <span class="n">exceptions</span> <span class="k">as</span> <span class="n">os_exc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openstack.compute.v2.server</span><span class="w"> </span><span class="kn">import</span> <span class="n">Server</span> <span class="k">as</span> <span class="n">OSP_Server</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openstack.connection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Connection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openstack.image.v2.image</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">OSP_Image</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenStackProvider</span><span class="p">(</span><span class="n">BaseProvider</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span>
+            <span class="n">auth_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_url</span><span class="p">,</span>
+            <span class="n">project_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_name</span><span class="p">,</span>
+            <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span>
+            <span class="n">user_domain_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user_domain_name</span><span class="p">,</span>
+            <span class="n">region_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">region_name</span><span class="p">,</span>
+            <span class="n">user_domain_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user_domain_id</span><span class="p">,</span>
+            <span class="n">project_domain_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_domain_id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</code></pre></div>
+
+<h3 id="compute-and-storage-operations">Compute and Storage Operations</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/openstack.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_instance_id_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_filter</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">instance_id</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">compute</span><span class="o">.</span><span class="n">servers</span><span class="p">(</span><span class="n">details</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">server</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name_filter</span><span class="p">:</span>
+            <span class="n">instance_id</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">id</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">instance_id</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> The OpenStack provider accesses <code>compute</code>, <code>block_storage</code>, <code>network</code>, and <code>image</code> services through the unified <code>Connection</code> object.</p>
+</blockquote>
+<hr />
+<h2 id="pytest-xdist">pytest-xdist</h2>
+<p><strong>Package:</strong> <code>pytest-xdist&gt;=3.6.1</code></p>
+<p>Enables parallel test execution across multiple worker processes. This is critical for reducing total test execution time when running large migration test suites.</p>
+<h3 id="worker-coordination">Worker Coordination</h3>
+<p>The project implements custom xdist hooks for safe cross-worker data sharing using pickle serialization and file locking:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py</span>
+<span class="n">RESULTS_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./.xdist_results/&quot;</span><span class="p">)</span>
+<span class="n">RESULTS_PATH</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_harvest_xdist_init</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the recipient folder at the start of a session.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">RESULTS_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">rmtree</span><span class="p">(</span><span class="n">RESULTS_PATH</span><span class="p">)</span>
+    <span class="n">RESULTS_PATH</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_harvest_xdist_worker_dump</span><span class="p">(</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">session_items</span><span class="p">,</span> <span class="n">fixture_store</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Persist each worker&#39;s results to disk.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">RESULTS_PATH</span> <span class="o">/</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">.pkl&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">((</span><span class="n">session_items</span><span class="p">,</span> <span class="n">fixture_store</span><span class="p">),</span> <span class="n">f</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exp</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Error while pickling worker </span><span class="si">{</span><span class="n">worker_id</span><span class="si">}</span><span class="s2">&#39;s harvested results: [</span><span class="si">{</span><span class="n">exp</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">exp</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_harvest_xdist_load</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Restore saved objects from the file system.&quot;&quot;&quot;</span>
+    <span class="n">workers_saved_material</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">pkl_file</span> <span class="ow">in</span> <span class="n">RESULTS_PATH</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pkl&quot;</span><span class="p">):</span>
+        <span class="n">wid</span> <span class="o">=</span> <span class="n">pkl_file</span><span class="o">.</span><span class="n">stem</span>
+        <span class="k">with</span> <span class="n">pkl_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">workers_saved_material</span><span class="p">[</span><span class="n">wid</span><span class="p">]</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">workers_saved_material</span>
+</code></pre></div>
+
+<h3 id="parallel-safety">Parallel Safety</h3>
+<p>Tests are parallel-safe through several mechanisms:</p>
+<ul>
+<li><strong>Unique namespaces</strong> per session via <code>session_uuid</code> (generated with <code>shortuuid</code>)</li>
+<li><strong>Isolated <code>fixture_store</code></strong> per worker process</li>
+<li><strong>File locking</strong> for shared resources like the <code>virtctl</code> binary download:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py — virtctl binary download uses file locking for xdist safety</span>
+<span class="c1"># Uses file locking to handle pytest-xdist parallel execution safely.</span>
+<span class="c1"># The binary is downloaded to a shared directory that all workers can access.</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> Tests within a class marked <code>@pytest.mark.incremental</code> run sequentially on the same worker, while independent test classes are distributed across workers.</p>
+</blockquote>
+<hr />
+<h2 id="pytest-testconfig">pytest-testconfig</h2>
+<p><strong>Package:</strong> <code>pytest-testconfig&gt;=0.2.0</code></p>
+<p>Provides a global configuration object (<code>py_config</code>) that makes test configuration accessible from any module — fixtures, utilities, and test classes alike.</p>
+<h3 id="configuration-access">Configuration Access</h3>
+<p>The <code>py_config</code> dictionary is imported and used throughout the entire codebase:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pytest_testconfig</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">py_config</span>
+
+<span class="c1"># Test parametrization</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;class_plan_config&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">pytest</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;tests_params&quot;</span><span class="p">][</span><span class="s2">&quot;test_warm_migration_comprehensive&quot;</span><span class="p">])],</span>
+    <span class="n">indirect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;warm-migration-comprehensive&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestWarmMigrationComprehensive</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+
+<h3 id="session-startup-validation">Session Startup Validation</h3>
+<p>Required configuration keys are validated at session start to fail fast:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pytest_sessionstart</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">required_config</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;storage_class&quot;</span><span class="p">,</span> <span class="s2">&quot;source_provider&quot;</span><span class="p">)</span>
+
+    <span class="n">missing_configs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_req</span> <span class="ow">in</span> <span class="n">required_config</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">py_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_req</span><span class="p">):</span>
+            <span class="n">missing_configs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_req</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">missing_configs</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+            <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Some required config is missing </span><span class="si">{</span><span class="n">required_config</span><span class="si">=}</span><span class="s2"> - </span><span class="si">{</span><span class="n">missing_configs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">returncode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<h3 id="common-configuration-patterns">Common Configuration Patterns</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Direct key access (required config — fail if missing)</span>
+<span class="n">storage_class</span> <span class="o">=</span> <span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;storage_class&quot;</span><span class="p">]</span>
+<span class="n">mtv_namespace</span> <span class="o">=</span> <span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;mtv_namespace&quot;</span><span class="p">]</span>
+<span class="n">target_prefix</span> <span class="o">=</span> <span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;target_namespace_prefix&quot;</span><span class="p">]</span>
+
+<span class="c1"># Optional feature flags</span>
+<span class="k">if</span> <span class="n">plan</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;warm_migration&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="n">setup_warm_migration</span><span class="p">()</span>
+
+<span class="c1"># Provider-qualified test naming</span>
+<span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">py_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source_provider&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">py_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;storage_class&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> <code>pytest-testconfig</code> supports loading configuration from Python files passed via the <code>--tc-file</code> CLI option at runtime.</p>
+</blockquote>
+<hr />
+<h2 id="python-rrmngmnt">python-rrmngmnt</h2>
+<p><strong>Package:</strong> <code>python-rrmngmnt&gt;=0.2.0</code></p>
+<p>Remote Resource Management library. Provides SSH connectivity and command execution on remote hosts. Used in mtv-api-tests to connect to migrated VMs running on OpenShift/KubeVirt via <code>virtctl port-forward</code>.</p>
+<h3 id="ssh-connection-wrapper">SSH Connection Wrapper</h3>
+<p>The project wraps <code>rrmngmnt</code> in a <code>VMSSHConnection</code> class that combines <code>virtctl port-forward</code> with SSH:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># utilities/ssh_utils.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rrmngmnt</span><span class="w"> </span><span class="kn">import</span> <span class="n">Host</span><span class="p">,</span> <span class="n">RootUser</span><span class="p">,</span> <span class="n">User</span><span class="p">,</span> <span class="n">UserWithPKey</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">VMSSHConnection</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Host</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Establish SSH connection using virtctl port-forward and rrmngmnt.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrmngmnt_host</span> <span class="o">=</span> <span class="n">Host</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Configure user authentication</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_key_path</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">UserWithPKey</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">private_key_path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">==</span> <span class="s2">&quot;root&quot;</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">RootUser</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrmngmnt_host</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="c1"># Test connectivity</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrmngmnt_host</span><span class="o">.</span><span class="n">executor</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">executor</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_port</span>
+        <span class="n">rc</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">run_cmd</span><span class="p">([</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">rc</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connection test failed: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrmngmnt_host</span>
+</code></pre></div>
+
+<h3 id="context-manager-support">Context Manager Support</h3>
+<p>Connections support the context manager protocol for safe cleanup:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Usage pattern</span>
+<span class="k">with</span> <span class="n">VMSSHConnection</span><span class="p">(</span><span class="n">vm</span><span class="o">=</span><span class="n">my_vm</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;pass&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ssh</span><span class="p">:</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">rrmngmnt_host</span><span class="o">.</span><span class="n">executor</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">ssh</span><span class="o">.</span><span class="n">rrmngmnt_user</span><span class="p">)</span>
+    <span class="n">executor</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">local_port</span>
+    <span class="n">rc</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">run_cmd</span><span class="p">([</span><span class="s2">&quot;whoami&quot;</span><span class="p">])</span>
+</code></pre></div>
+
+<h3 id="authentication-methods">Authentication Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>User(username, password)</code></td>
+<td>Standard username/password authentication</td>
+</tr>
+<tr>
+<td><code>RootUser(password)</code></td>
+<td>Root user with password</td>
+</tr>
+<tr>
+<td><code>UserWithPKey(username, key_path)</code></td>
+<td>SSH key-based authentication</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="shortuuid">shortuuid</h2>
+<p><strong>Package:</strong> <code>shortuuid&gt;=1.0.13</code></p>
+<p>Generates compact, URL-safe UUIDs. Used to create unique, DNS-compliant resource names that avoid collisions across parallel test sessions and workers.</p>
+<h3 id="name-generation">Name Generation</h3>
+<p>The primary usage is in <code>utilities/naming.py</code>, which generates Kubernetes-safe names with a random suffix:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># utilities/naming.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shortuuid</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_name_with_uuid</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">shortuuid</span><span class="o">.</span><span class="n">ShortUUID</span><span class="p">()</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">_name</span> <span class="o">=</span> <span class="n">_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">_name</span>
+</code></pre></div>
+
+<h3 id="session-level-isolation">Session-Level Isolation</h3>
+<p>Every test session gets a unique identifier that prefixes all created resources, ensuring no collisions between parallel runs:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">session_uuid</span><span class="p">(</span><span class="n">fixture_store</span><span class="p">):</span>
+    <span class="n">_session_uuid</span> <span class="o">=</span> <span class="n">generate_name_with_uuid</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+    <span class="n">fixture_store</span><span class="p">[</span><span class="s2">&quot;session_uuid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_session_uuid</span>
+    <span class="k">return</span> <span class="n">_session_uuid</span>
+    <span class="c1"># Example output: &quot;auto-k7xm&quot;</span>
+</code></pre></div>
+
+<p>This <code>session_uuid</code> flows into namespace names, resource names, and VM clone names:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># conftest.py — namespace creation</span>
+<span class="n">unique_namespace_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session_uuid</span><span class="si">}{</span><span class="n">_target_namespace</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">[:</span><span class="mi">63</span><span class="p">]</span>
+</code></pre></div>
+
+<h3 id="vm-cloning">VM Cloning</h3>
+<p>The VMware provider also uses <code>shortuuid</code> directly when generating clone names that need to preserve non-standard casing:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># libs/providers/vmware.py</span>
+<span class="n">random_suffix</span> <span class="o">=</span> <span class="n">shortuuid</span><span class="o">.</span><span class="n">ShortUUID</span><span class="p">()</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<span class="n">prefix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session_uuid</span><span class="si">}</span><span class="s2">-&quot;</span>
+<span class="n">suffix</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="n">random_suffix</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<hr />
+<h2 id="jc">jc</h2>
+<p><strong>Package:</strong> <code>jc&gt;=1.25.0</code></p>
+<p>A CLI output parser that converts the text output of common system commands into structured Python data. Used in post-migration validation to parse Windows network configuration.</p>
+<h3 id="windows-network-validation">Windows Network Validation</h3>
+<p>After migrating Windows VMs, the test framework validates that network configuration (IP addresses, subnet masks, MAC addresses, gateways) was preserved. The <code>jc</code> library parses <code>ipconfig /all</code> output into structured dictionaries:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># utilities/post_migration.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jc</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_windows_network_config</span><span class="p">(</span><span class="n">ipconfig_output</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse Windows ipconfig /all output to extract network interface information.</span>
+<span class="sd">    Uses the jc library for robust parsing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ipconfig_output: Output from &#39;ipconfig /all&#39; command</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary mapping interface names to their configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">jc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;ipconfig&quot;</span><span class="p">,</span> <span class="n">ipconfig_output</span><span class="p">)</span>
+
+    <span class="n">interfaces</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">adapter</span> <span class="ow">in</span> <span class="n">parsed</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;adapters&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">interface_name</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+
+        <span class="n">ip_addresses</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">subnet_mask</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">ipv4</span> <span class="ow">in</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ipv4_addresses&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">ip_addresses</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;ip_address&quot;</span><span class="p">:</span> <span class="n">ipv4</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;address&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">ipv4</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">})</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">subnet_mask</span> <span class="ow">and</span> <span class="n">ipv4</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subnet_mask&quot;</span><span class="p">):</span>
+                <span class="n">subnet_mask</span> <span class="o">=</span> <span class="n">ipv4</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subnet_mask&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">interface_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">interface_name</span><span class="p">,</span>
+            <span class="s2">&quot;ip_addresses&quot;</span><span class="p">:</span> <span class="n">ip_addresses</span><span class="p">,</span>
+            <span class="s2">&quot;subnet_mask&quot;</span><span class="p">:</span> <span class="n">subnet_mask</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;physical_address&quot;</span><span class="p">):</span>
+            <span class="n">interface_config</span><span class="p">[</span><span class="s2">&quot;macAddress&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adapter</span><span class="p">[</span><span class="s2">&quot;physical_address&quot;</span><span class="p">]</span>
+
+        <span class="n">gateways</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default_gateways&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="n">gateways</span><span class="p">:</span>
+            <span class="n">interface_config</span><span class="p">[</span><span class="s2">&quot;gateway&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gateways</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> The <code>jc</code> library supports over 300 command parsers. In this project it is used specifically for <code>ipconfig</code> parsing, but could be extended to parse other command outputs during post-migration checks (e.g., <code>ifconfig</code>, <code>route</code>, <code>ss</code>).</p>
+</blockquote>
+<hr />
+<h2 id="installing-dependencies">Installing Dependencies</h2>
+<p>All dependencies are managed with <code>uv</code>. To install:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync
+</code></pre></div>
+
+<p>This installs both runtime and development dependencies as declared in <code>pyproject.toml</code>.</p>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="pre-commit-hooks.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Pre-Commit and Linting</span>
+                </a>
+                
+                
+                <div></div>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#dependency-overview">Dependency Overview</a></li>
+<li><a href="#openshift-python-wrapper">openshift-python-wrapper</a><ul>
+<li><a href="#resource-classes">Resource Classes</a></li>
+<li><a href="#resource-lifecycle-management">Resource Lifecycle Management</a></li>
+<li><a href="#companion-package-openshift-python-utilities">Companion Package: openshift-python-utilities</a></li>
+</ul>
+</li>
+<li><a href="#pyvmomi">pyvmomi</a><ul>
+<li><a href="#connection">Connection</a></li>
+<li><a href="#vm-operations">VM Operations</a></li>
+</ul>
+</li>
+<li><a href="#ovirt-python-sdk">ovirt-python-sdk</a><ul>
+<li><a href="#connection_1">Connection</a></li>
+<li><a href="#service-access">Service Access</a></li>
+</ul>
+</li>
+<li><a href="#openstacksdk">openstacksdk</a><ul>
+<li><a href="#connection_2">Connection</a></li>
+<li><a href="#compute-and-storage-operations">Compute and Storage Operations</a></li>
+</ul>
+</li>
+<li><a href="#pytest-xdist">pytest-xdist</a><ul>
+<li><a href="#worker-coordination">Worker Coordination</a></li>
+<li><a href="#parallel-safety">Parallel Safety</a></li>
+</ul>
+</li>
+<li><a href="#pytest-testconfig">pytest-testconfig</a><ul>
+<li><a href="#configuration-access">Configuration Access</a></li>
+<li><a href="#session-startup-validation">Session Startup Validation</a></li>
+<li><a href="#common-configuration-patterns">Common Configuration Patterns</a></li>
+</ul>
+</li>
+<li><a href="#python-rrmngmnt">python-rrmngmnt</a><ul>
+<li><a href="#ssh-connection-wrapper">SSH Connection Wrapper</a></li>
+<li><a href="#context-manager-support">Context Manager Support</a></li>
+<li><a href="#authentication-methods">Authentication Methods</a></li>
+</ul>
+</li>
+<li><a href="#shortuuid">shortuuid</a><ul>
+<li><a href="#name-generation">Name Generation</a></li>
+<li><a href="#session-level-isolation">Session-Level Isolation</a></li>
+<li><a href="#vm-cloning">VM Cloning</a></li>
+</ul>
+</li>
+<li><a href="#jc">jc</a><ul>
+<li><a href="#windows-network-validation">Windows Network Validation</a></li>
+</ul>
+</li>
+<li><a href="#installing-dependencies">Installing Dependencies</a></li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

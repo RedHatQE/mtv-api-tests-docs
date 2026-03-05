@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forklift Inventory API - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link active">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="forklift-inventory-api">Forklift Inventory API</h1>
+<p>The Forklift Inventory API layer provides a unified interface for querying the MTV (Migration Toolkit for Virtualization) inventory service. It abstracts provider-specific differences behind a common base class, allowing tests to discover VMs, resolve storage mappings, and build network mappings regardless of the source provider type.</p>
+<p><strong>Source:</strong> <code>libs/forklift_inventory.py</code></p>
+<h2 id="architecture-overview">Architecture Overview</h2>
+<div class="highlight"><pre><span></span><code>ForkliftInventory (abstract base)
+├── OvirtForkliftInventory        (RHV / oVirt)
+├── OpenstackForliftinventory     (OpenStack)
+├── VsphereForkliftInventory      (VMware vSphere)
+├── OvaForkliftInventory          (OVA files)
+└── OpenshiftForkliftInventory    (OpenShift virtualization)
+</code></pre></div>
+
+<p>Each subclass connects to the same Forklift inventory REST API exposed via an OpenShift Route (<code>forklift-inventory</code>), but queries provider-specific endpoints (datastores vs. storage domains vs. volume types) and interprets the response structures unique to each virtualization platform.</p>
+<h2 id="base-class-forkliftinventory">Base Class: <code>ForkliftInventory</code></h2>
+<p>The abstract base class handles provider discovery, HTTP communication, VM lookup, and synchronization waiting. All provider-specific subclasses inherit these capabilities.</p>
+<h3 id="constructor">Constructor</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ForkliftInventory</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span>
+        <span class="n">provider_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">mtv_namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">provider_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client</code></td>
+<td><code>DynamicClient</code></td>
+<td>Kubernetes dynamic client for API communication</td>
+</tr>
+<tr>
+<td><code>provider_name</code></td>
+<td><code>str</code></td>
+<td>Name of the MTV Provider CR in the namespace</td>
+</tr>
+<tr>
+<td><code>mtv_namespace</code></td>
+<td><code>str</code></td>
+<td>Namespace where MTV operator is deployed</td>
+</tr>
+<tr>
+<td><code>provider_type</code></td>
+<td><code>str</code></td>
+<td>Provider type constant from <code>Provider.ProviderType</code></td>
+</tr>
+</tbody>
+</table>
+<p>During initialization, the constructor:</p>
+<ol>
+<li>Creates a <code>Route</code> object pointing to the <code>forklift-inventory</code> service</li>
+<li>Resolves the Forklift-assigned provider ID by polling the inventory API (up to 180 seconds)</li>
+<li>Builds internal URL path templates for subsequent queries</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="bp">self</span><span class="o">.</span><span class="n">route</span> <span class="o">=</span> <span class="n">Route</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;forklift-inventory&quot;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">mtv_namespace</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">provider_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_provider_id</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">provider_url_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_id</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">vms_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_url_path</span><span class="si">}</span><span class="s2">/vms&quot;</span>
+</code></pre></div>
+
+<h3 id="core-methods">Core Methods</h3>
+<h4 id="_requesturl_path"><code>_request(url_path)</code></h4>
+<p>Executes HTTP GET requests against the Forklift inventory API.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="o">.</span><span class="n">api_request</span><span class="p">(</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+        <span class="n">url</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;providers</span><span class="si">{</span><span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">url_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">url_path</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p>All public methods and properties build on <code>_request()</code> by passing the appropriate URL path segment.</p>
+<h4 id="get_data"><code>get_data()</code></h4>
+<p>Returns the complete provider metadata from the inventory.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">url_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_url_path</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="get_vmname"><code>get_vm(name)</code></h4>
+<p>Retrieves detailed information for a specific VM by name. Iterates through the provider's VM list, matches by name, then fetches the full VM object by ID.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">_vm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vms</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">_vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">url_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vms_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">_vm</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VM </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> not found. Available VMs: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vms_names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> The error message includes all available VM names to aid debugging when a VM is not found.</p>
+</blockquote>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Return Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vms</code></td>
+<td><code>list[dict[str, Any]]</code></td>
+<td>All VMs for the provider (summary records)</td>
+</tr>
+<tr>
+<td><code>vms_names</code></td>
+<td><code>list[str]</code></td>
+<td>Just the VM names (convenience accessor)</td>
+</tr>
+<tr>
+<td><code>networks</code></td>
+<td><code>list[dict[str, Any]]</code></td>
+<td>All networks for the provider</td>
+</tr>
+<tr>
+<td><code>storages</code></td>
+<td><code>list[dict[str, Any]]</code></td>
+<td>Storage resources (abstract, subclass-defined)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="abstract-methods">Abstract Methods</h3>
+<p>Every subclass must implement these two methods:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vms_storages_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return storage source entries for the given VM names.&quot;&quot;&quot;</span>
+
+<span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">vms_networks_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return network source entries for the given VM names.&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<p>These methods produce the <code>source</code> entries used when constructing <code>StorageMap</code> and <code>NetworkMap</code> custom resources for migration plans.</p>
+<h2 id="provider-discovery">Provider Discovery</h2>
+<p>The <code>_provider_id</code> property polls the inventory API until the provider appears. This handles the delay between creating a Provider CR and Forklift completing its initial sync.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">TimeoutSampler</span><span class="p">(</span>
+            <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+            <span class="n">sleep</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">_provider</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">_provider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">url_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_provider</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider_name</span>
+            <span class="p">],</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="n">TimeoutExpiredError</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timed out waiting for provider </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_name</span><span class="si">}</span><span class="s2"> to appear in inventory.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> If the provider is not found within 180 seconds, a <code>TimeoutExpiredError</code> is raised. This usually indicates the Provider CR was not created successfully or the inventory service is unreachable.</p>
+</blockquote>
+<h2 id="waiting-for-provider-sync">Waiting for Provider Sync</h2>
+<h3 id="wait_for_vm"><code>wait_for_vm()</code></h3>
+<p>After cloning a VM, the Forklift inventory must sync before the new VM is visible. The <code>wait_for_vm()</code> method polls the inventory until the VM appears and all dependent resources are ready.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">wait_for_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">sleep</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>—</td>
+<td>VM name to wait for</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td><code>int</code></td>
+<td>300</td>
+<td>Maximum wait time in seconds</td>
+</tr>
+<tr>
+<td><code>sleep</code></td>
+<td><code>int</code></td>
+<td>10</td>
+<td>Interval between polling attempts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Basic behavior:</strong> Polls <code>get_vm(name)</code> until the VM is found, returning the full VM dictionary.</p>
+<p><strong>OpenStack-specific behavior:</strong> For OpenStack providers, <code>wait_for_vm()</code> additionally waits for:
+- Attached volumes to be synced and queryable
+- VM network addresses to appear in the inventory</p>
+<p>This extra synchronization is required because OpenStack volume and network data is synced separately from VM metadata.</p>
+<p><strong>Usage in the test framework</strong> (from <code>conftest.py</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wait for cloned VM to appear in Forklift inventory before proceeding</span>
+<span class="c1"># OVA is excluded because it doesn&#39;t clone VMs (uses pre-existing files)</span>
+<span class="k">if</span> <span class="n">source_provider</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OVA</span><span class="p">:</span>
+    <span class="n">source_provider_inventory</span><span class="o">.</span><span class="n">wait_for_vm</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Error messages</strong> provide context for debugging:</p>
+<ul>
+<li>VM not found: <code>"VM '{name}' did not appear in Forklift inventory after {timeout}s. Available VMs: {vms_names}"</code></li>
+<li>VM found but resources missing (OpenStack): <code>"VM '{name}' found in Forklift inventory but attached volumes or networks did not sync after {timeout}s."</code></li>
+</ul>
+<h3 id="openstack-volume-synchronization">OpenStack Volume Synchronization</h3>
+<p>The <code>_check_openstack_volumes_synced()</code> method verifies that every attached volume listed on an OpenStack VM is individually queryable through the inventory API.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_check_openstack_volumes_synced</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">vm_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">attached_volumes</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attachedVolumes&quot;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">attached_volumes</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">attached_volume</span> <span class="ow">in</span> <span class="n">attached_volumes</span><span class="p">:</span>
+        <span class="n">volume_id</span> <span class="o">=</span> <span class="n">attached_volume</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">volume_id</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VM &#39;</span><span class="si">{</span><span class="n">vm_name</span><span class="si">}</span><span class="s2">&#39; has attached volume without ID - incomplete sync&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">url_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_url_path</span><span class="si">}</span><span class="s2">/volumes/</span><span class="si">{</span><span class="n">volume_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;VM &#39;</span><span class="si">{</span><span class="n">vm_name</span><span class="si">}</span><span class="s2">&#39; found but volume &#39;</span><span class="si">{</span><span class="n">volume_id</span><span class="si">}</span><span class="s2">&#39; not yet queryable in inventory: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> Volume sync issues are typically transient. If <code>wait_for_vm()</code> times out on volumes, increase the timeout or check that the OpenStack provider credentials have read access to the Cinder volume API.</p>
+</blockquote>
+<h3 id="openstack-network-synchronization">OpenStack Network Synchronization</h3>
+<p>The <code>_check_openstack_networks_synced()</code> method ensures all networks referenced in the VM's <code>addresses</code> field are present in the Forklift inventory's network list.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_check_openstack_networks_synced</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vm</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">vm_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">vm_addresses</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;addresses&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">vm_addresses</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">vm_network_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">vm_addresses</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">inventory_network_names</span> <span class="o">=</span> <span class="p">{</span><span class="n">net</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">net</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">networks</span><span class="p">}</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">ConnectionError</span><span class="p">,</span> <span class="ne">TimeoutError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;VM &#39;</span><span class="si">{</span><span class="n">vm_name</span><span class="si">}</span><span class="s2">&#39; found but networks not yet queryable in inventory: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="n">missing_networks</span> <span class="o">=</span> <span class="n">vm_network_names</span> <span class="o">-</span> <span class="n">inventory_network_names</span>
+    <span class="k">if</span> <span class="n">missing_networks</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;VM &#39;</span><span class="si">{</span><span class="n">vm_name</span><span class="si">}</span><span class="s2">&#39; found but networks </span><span class="si">{</span><span class="n">missing_networks</span><span class="si">}</span><span class="s2"> not yet in inventory. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Available networks: </span><span class="si">{</span><span class="n">inventory_network_names</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+
+<h2 id="provider-specific-implementations">Provider-Specific Implementations</h2>
+<h3 id="vmware-vsphere-vsphereforkliftinventory">VMware vSphere — <code>VsphereForkliftInventory</code></h3>
+<p>Queries vSphere-specific inventory endpoints: datastores for storage, network objects for networking.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">VsphereForkliftInventory</span><span class="p">(</span><span class="n">ForkliftInventory</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">VSPHERE</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">provider_name</span><span class="o">=</span><span class="n">provider_name</span><span class="p">,</span>
+            <span class="n">mtv_namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Endpoint</th>
+<th>Mapping Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storages</td>
+<td><code>{provider}/datastores</code></td>
+<td><code>{"name": "&lt;datastore_name&gt;"}</code></td>
+</tr>
+<tr>
+<td>Networks</td>
+<td><code>{provider}/networks</code></td>
+<td><code>{"name": "&lt;network_name&gt;"}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Storage mapping logic:</strong> Extracts the datastore ID from each VM disk's <code>datastore.id</code> field, resolves it against the datastores list to produce the datastore name.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">_disk</span> <span class="ow">in</span> <span class="n">_vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;disks&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+    <span class="k">if</span> <span class="n">_storage_id</span> <span class="o">:=</span> <span class="n">_disk</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;datastore&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">_storage_name_match</span> <span class="o">:=</span> <span class="p">[</span><span class="n">_stg</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">_stg</span> <span class="ow">in</span> <span class="n">_storages</span> <span class="k">if</span> <span class="n">_storage_id</span> <span class="o">==</span> <span class="n">_stg</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]]:</span>
+            <span class="n">_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_storage_name_match</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+</code></pre></div>
+
+<p><strong>Network mapping logic:</strong> Resolves network IDs from the VM's <code>networks</code> list against the inventory networks list.</p>
+<h3 id="rhv-ovirt-ovirtforkliftinventory">RHV / oVirt — <code>OvirtForkliftInventory</code></h3>
+<p>Queries oVirt-specific endpoints: storage domains for storage, NIC profiles for networking.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OvirtForkliftInventory</span><span class="p">(</span><span class="n">ForkliftInventory</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">RHV</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">provider_name</span><span class="o">=</span><span class="n">provider_name</span><span class="p">,</span>
+            <span class="n">mtv_namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Endpoint</th>
+<th>Mapping Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storages</td>
+<td><code>{provider}/storagedomains</code></td>
+<td><code>{"name": "&lt;storage_domain_name&gt;"}</code></td>
+</tr>
+<tr>
+<td>Networks</td>
+<td><code>{provider}/nicprofiles</code>, <code>{provider}/networks</code></td>
+<td><code>{"name": "&lt;network_path&gt;"}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Storage mapping logic:</strong> Follows a multi-step lookup:
+1. Get disk attachment IDs from the VM
+2. Query each disk to find its <code>storageDomain</code> reference
+3. Resolve the storage domain ID to a name</p>
+<p><strong>Network mapping logic:</strong> Follows NIC profile references:
+1. Get NIC profile IDs from the VM's NICs
+2. Query the NIC profile to find its network reference
+3. Resolve the network ID to a network <code>path</code> (not <code>name</code>)</p>
+<blockquote>
+<p><strong>Note:</strong> RHV network mappings use the network <code>path</code> field rather than <code>name</code>, which includes the data center hierarchy path.</p>
+</blockquote>
+<h3 id="openstack-openstackforliftinventory">OpenStack — <code>OpenstackForliftinventory</code></h3>
+<p>Queries OpenStack-specific endpoints: volumes for storage, networks with address-based resolution for networking.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OpenstackForliftinventory</span><span class="p">(</span><span class="n">ForkliftInventory</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OPENSTACK</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">provider_name</span><span class="o">=</span><span class="n">provider_name</span><span class="p">,</span>
+            <span class="n">mtv_namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Endpoint</th>
+<th>Mapping Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storages</td>
+<td><code>{provider}/volumes</code></td>
+<td><code>{"name": "&lt;volume_type&gt;"}</code></td>
+</tr>
+<tr>
+<td>Networks</td>
+<td><code>{provider}/networks</code></td>
+<td><code>{"id": "&lt;network_id&gt;", "name": "&lt;network_name&gt;"}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Storage mapping logic:</strong> Queries attached volumes, retrieves each volume's details, and extracts the <code>volumeType</code> field. Duplicates are filtered.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">attached_volume</span> <span class="ow">in</span> <span class="n">_vm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attachedVolumes&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+    <span class="n">volume_id</span> <span class="o">=</span> <span class="n">attached_volume</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ID&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">volume_id</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">volume_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">url_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_url_path</span><span class="si">}</span><span class="s2">/volumes/</span><span class="si">{</span><span class="n">volume_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">volume_type</span> <span class="o">=</span> <span class="n">volume_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;volumeType&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">volume_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">volume_type</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">_mappings</span><span class="p">):</span>
+        <span class="n">_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">volume_type</span><span class="p">})</span>
+</code></pre></div>
+
+<p><strong>Network mapping logic:</strong> Uses the VM's <code>addresses</code> dictionary keys (network names) and resolves them against the inventory networks list to get both <code>id</code> and <code>name</code>.</p>
+<blockquote>
+<p><strong>Note:</strong> OpenStack network mappings include both <code>id</code> and <code>name</code> fields, unlike other providers that use only <code>name</code>. This is because OpenStack network mappings require the network ID for the <code>NetworkMap</code> source entry.</p>
+</blockquote>
+<h3 id="ova-ovaforkliftinventory">OVA — <code>OvaForkliftInventory</code></h3>
+<p>Queries OVA-specific endpoints with a unique storage matching strategy.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OvaForkliftInventory</span><span class="p">(</span><span class="n">ForkliftInventory</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OVA</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">provider_name</span><span class="o">=</span><span class="n">provider_name</span><span class="p">,</span>
+            <span class="n">mtv_namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Endpoint</th>
+<th>Mapping Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storages</td>
+<td><code>{provider}/storages</code></td>
+<td><code>{"id": "&lt;storage_id&gt;"}</code></td>
+</tr>
+<tr>
+<td>Networks</td>
+<td><code>{provider}/networks</code></td>
+<td><code>{"name": "&lt;network_name&gt;"}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Storage mapping logic:</strong> Uses substring matching — if a VM name appears within a storage entry's name, that storage is included. This is unique to OVA where storage names embed the VM name.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">_storage</span> <span class="ow">in</span> <span class="n">_storages</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">[</span><span class="n">vm</span> <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span> <span class="k">if</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">_storage</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]:</span>
+        <span class="n">_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">_storage</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]})</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> OVA storage mappings use <code>id</code> rather than <code>name</code> as the mapping key. OVA network mappings use uppercase <code>"ID"</code> for network IDs from the VM object (<code>_network.get("ID")</code>), reflecting the OVA inventory API response format.</p>
+</blockquote>
+<h3 id="openshift-openshiftforkliftinventory">OpenShift — <code>OpenshiftForkliftInventory</code></h3>
+<p>Queries OpenShift-native resources: storage classes and VM spec networks (pod/multus).</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">OpenshiftForkliftInventory</span><span class="p">(</span><span class="n">ForkliftInventory</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span> <span class="o">=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OPENSHIFT</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">provider_name</span><span class="o">=</span><span class="n">provider_name</span><span class="p">,</span>
+            <span class="n">mtv_namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">,</span> <span class="n">provider_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Endpoint</th>
+<th>Mapping Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Storages</td>
+<td><code>{provider}/storageclasses</code></td>
+<td><code>{"name": "&lt;storage_class_name&gt;"}</code></td>
+</tr>
+<tr>
+<td>Networks</td>
+<td>Derived from VM spec</td>
+<td><code>{"name": "&lt;multus_network&gt;"}</code> or <code>{"type": "pod"}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Storage mapping logic:</strong> Reads the VM's <code>spec.template.spec.volumes</code>, finds <code>dataVolume</code> entries, queries the corresponding <code>PersistentVolumeClaim</code>, and extracts the <code>storageClassName</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">_volume</span> <span class="ow">in</span> <span class="n">_vm</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">][</span><span class="s2">&quot;spec&quot;</span><span class="p">][</span><span class="s2">&quot;template&quot;</span><span class="p">][</span><span class="s2">&quot;spec&quot;</span><span class="p">][</span><span class="s2">&quot;volumes&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">data_volume</span> <span class="o">:=</span> <span class="n">_volume</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dataVolume&quot;</span><span class="p">):</span>
+        <span class="n">_pvc</span> <span class="o">=</span> <span class="n">PersistentVolumeClaim</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">data_volume</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">namespace</span><span class="o">=</span><span class="n">_namespace</span><span class="p">,</span>
+            <span class="n">client</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="p">,</span> <span class="n">ensure_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">_storage_class</span> <span class="o">=</span> <span class="n">_pvc</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">storageClassName</span>
+        <span class="n">_mappings</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_storage_class</span><span class="p">})</span>
+</code></pre></div>
+
+<p><strong>Network mapping logic:</strong> Inspects the VM's <code>spec.template.spec.networks</code> list and produces either multus or pod network mappings:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">_network</span> <span class="ow">in</span> <span class="n">_vm</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">][</span><span class="s2">&quot;spec&quot;</span><span class="p">][</span><span class="s2">&quot;template&quot;</span><span class="p">][</span><span class="s2">&quot;spec&quot;</span><span class="p">][</span><span class="s2">&quot;networks&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">_multus</span> <span class="o">:=</span> <span class="n">_network</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;multus&quot;</span><span class="p">):</span>
+        <span class="n">_network_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_multus</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;networkName&quot;</span><span class="p">)}</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_network</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pod&quot;</span><span class="p">),</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">_network_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pod&quot;</span><span class="p">}</span>
+</code></pre></div>
+
+<h2 id="mapping-output-formats-summary">Mapping Output Formats Summary</h2>
+<p>Each provider returns mappings in a specific format that becomes the <code>source</code> entry in <code>StorageMap</code> and <code>NetworkMap</code> custom resources:</p>
+<h3 id="storage-mappings">Storage Mappings</h3>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vSphere</td>
+<td><code>{"name": "&lt;datastore&gt;"}</code></td>
+<td><code>{"name": "vsanDatastore"}</code></td>
+</tr>
+<tr>
+<td>RHV</td>
+<td><code>{"name": "&lt;storage_domain&gt;"}</code></td>
+<td><code>{"name": "hosted_storage"}</code></td>
+</tr>
+<tr>
+<td>OpenStack</td>
+<td><code>{"name": "&lt;volume_type&gt;"}</code></td>
+<td><code>{"name": "__DEFAULT__"}</code></td>
+</tr>
+<tr>
+<td>OVA</td>
+<td><code>{"id": "&lt;storage_id&gt;"}</code></td>
+<td><code>{"id": "ova-storage-001"}</code></td>
+</tr>
+<tr>
+<td>OpenShift</td>
+<td><code>{"name": "&lt;storage_class&gt;"}</code></td>
+<td><code>{"name": "ocs-storagecluster-ceph"}</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-mappings">Network Mappings</h3>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vSphere</td>
+<td><code>{"name": "&lt;network&gt;"}</code></td>
+<td><code>{"name": "VM Network"}</code></td>
+</tr>
+<tr>
+<td>RHV</td>
+<td><code>{"name": "&lt;network_path&gt;"}</code></td>
+<td><code>{"name": "/DC/cluster/network"}</code></td>
+</tr>
+<tr>
+<td>OpenStack</td>
+<td><code>{"id": "&lt;id&gt;", "name": "&lt;network&gt;"}</code></td>
+<td><code>{"id": "abc-123", "name": "provider-net"}</code></td>
+</tr>
+<tr>
+<td>OVA</td>
+<td><code>{"name": "&lt;network&gt;"}</code></td>
+<td><code>{"name": "nat"}</code></td>
+</tr>
+<tr>
+<td>OpenShift</td>
+<td><code>{"name": "&lt;multus&gt;"}</code> or <code>{"type": "pod"}</code></td>
+<td><code>{"type": "pod"}</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="fixture-integration">Fixture Integration</h2>
+<p>The <code>source_provider_inventory</code> session-scoped fixture in <code>conftest.py</code> automatically instantiates the correct subclass based on the source provider type:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;session&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">source_provider_inventory</span><span class="p">(</span>
+    <span class="n">ocp_admin_client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">,</span> <span class="n">mtv_namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_provider</span><span class="p">:</span> <span class="n">BaseProvider</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ForkliftInventory</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">source_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source_provider.ocp_resource is not set&quot;</span><span class="p">)</span>
+
+    <span class="n">providers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OVA</span><span class="p">:</span> <span class="n">OvaForkliftInventory</span><span class="p">,</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">RHV</span><span class="p">:</span> <span class="n">OvirtForkliftInventory</span><span class="p">,</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">VSPHERE</span><span class="p">:</span> <span class="n">VsphereForkliftInventory</span><span class="p">,</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OPENSHIFT</span><span class="p">:</span> <span class="n">OpenshiftForkliftInventory</span><span class="p">,</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OPENSTACK</span><span class="p">:</span> <span class="n">OpenstackForliftinventory</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">provider_instance</span> <span class="o">=</span> <span class="n">providers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">source_provider</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">provider_instance</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Provider </span><span class="si">{</span><span class="n">source_provider</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2"> not implemented&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">provider_instance</span><span class="p">(</span>
+        <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+        <span class="n">namespace</span><span class="o">=</span><span class="n">mtv_namespace</span><span class="p">,</span>
+        <span class="n">provider_name</span><span class="o">=</span><span class="n">source_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> Since this is a session-scoped fixture, the provider ID resolution and initial API connection happen once per test session. All test classes within the session share the same inventory instance.</p>
+</blockquote>
+<h2 id="usage-in-migration-workflows">Usage in Migration Workflows</h2>
+<h3 id="creating-a-storagemap">Creating a StorageMap</h3>
+<p>The <code>get_storage_migration_map()</code> function in <code>utilities/mtv_migration.py</code> uses the inventory to build storage mappings:</p>
+<div class="highlight"><pre><span></span><code><span class="n">storage_migration_map</span> <span class="o">=</span> <span class="n">source_provider_inventory</span><span class="o">.</span><span class="n">vms_storages_mappings</span><span class="p">(</span><span class="n">vms</span><span class="o">=</span><span class="n">vms</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">storage</span> <span class="ow">in</span> <span class="n">storage_migration_map</span><span class="p">:</span>
+    <span class="n">storage_map_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;storageClass&quot;</span><span class="p">:</span> <span class="n">target_storage_class</span><span class="p">},</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">storage</span><span class="p">,</span>
+    <span class="p">})</span>
+</code></pre></div>
+
+<h3 id="creating-a-networkmap">Creating a NetworkMap</h3>
+<p>The <code>gen_network_map_list()</code> function in <code>utilities/utils.py</code> maps source networks to destination pod or multus networks:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">gen_network_map_list</span><span class="p">(</span>
+    <span class="n">source_provider_inventory</span><span class="p">:</span> <span class="n">ForkliftInventory</span><span class="p">,</span>
+    <span class="n">target_namespace</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">vms</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">multus_network_name</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="n">pod_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]:</span>
+    <span class="n">network_map_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_destination_pod</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pod&quot;</span><span class="p">}</span>
+    <span class="n">multus_counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">network</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">source_provider_inventory</span><span class="o">.</span><span class="n">vms_networks_mappings</span><span class="p">(</span><span class="n">vms</span><span class="o">=</span><span class="n">vms</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">pod_only</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">_destination</span> <span class="o">=</span> <span class="n">_destination_pod</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">multus_network_name_str</span> <span class="o">=</span> <span class="n">multus_network_name</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+            <span class="n">multus_namespace</span> <span class="o">=</span> <span class="n">multus_network_name</span><span class="p">[</span><span class="s2">&quot;namespace&quot;</span><span class="p">]</span>
+            <span class="n">nad_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">multus_network_name_str</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">multus_counter</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">_destination</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">nad_name</span><span class="p">,</span>
+                <span class="s2">&quot;namespace&quot;</span><span class="p">:</span> <span class="n">multus_namespace</span><span class="p">,</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;multus&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">multus_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">network_map_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;destination&quot;</span><span class="p">:</span> <span class="n">_destination</span><span class="p">,</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">network</span><span class="p">,</span>
+        <span class="p">})</span>
+    <span class="k">return</span> <span class="n">network_map_list</span>
+</code></pre></div>
+
+<p>The first source network is always mapped to a pod network. Additional networks are mapped to multus <code>NetworkAttachmentDefinition</code> resources with auto-generated names.</p>
+<h3 id="populating-vm-ids-in-plans">Populating VM IDs in Plans</h3>
+<p>The <code>populate_vm_ids()</code> function in <code>utilities/utils.py</code> resolves VM names to Forklift inventory IDs, which are required when creating Plan CRs:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">populate_vm_ids</span><span class="p">(</span><span class="n">plan</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">inventory</span><span class="p">:</span> <span class="n">ForkliftInventory</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plan</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;virtual_machines&quot;</span><span class="p">),</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;plan must contain &#39;virtual_machines&#39; list&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;virtual_machines&quot;</span><span class="p">]:</span>
+        <span class="n">vm_name</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">vm_data</span> <span class="o">=</span> <span class="n">inventory</span><span class="o">.</span><span class="n">get_vm</span><span class="p">(</span><span class="n">vm_name</span><span class="p">)</span>
+        <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm_data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>This is called during <code>test_create_plan</code> before constructing the Plan CR:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">test_create_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prepared_plan</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">source_provider_inventory</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create MTV Plan CR resource.&quot;&quot;&quot;</span>
+    <span class="n">populate_vm_ids</span><span class="p">(</span><span class="n">prepared_plan</span><span class="p">,</span> <span class="n">source_provider_inventory</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">plan_resource</span> <span class="o">=</span> <span class="n">create_plan_resource</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="error-handling">Error Handling</h2>
+<p>The inventory API raises specific exceptions at each layer:</p>
+<table>
+<thead>
+<tr>
+<th>Exception</th>
+<th>When</th>
+<th>Source Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TimeoutExpiredError</code></td>
+<td>Provider not found in inventory after 180s</td>
+<td><code>_provider_id</code></td>
+</tr>
+<tr>
+<td><code>TimeoutExpiredError</code></td>
+<td>VM not found or resources not synced after timeout</td>
+<td><code>wait_for_vm()</code></td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>VM not found by name</td>
+<td><code>get_vm()</code></td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>No storage mappings found for given VMs</td>
+<td><code>vms_storages_mappings()</code></td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>No network mappings found for given VMs</td>
+<td><code>vms_networks_mappings()</code></td>
+</tr>
+<tr>
+<td><code>ValueError</code></td>
+<td>Provider type not implemented</td>
+<td><code>source_provider_inventory</code> fixture</td>
+</tr>
+</tbody>
+</table>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="provider-abstraction.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Provider Abstraction Layer</span>
+                </a>
+                
+                
+                <a href="resource-management.html" class="page-nav-link page-nav-next">
+                    <span class="page-nav-label">Next</span>
+                    <span class="page-nav-title">Resource Management</span>
+                </a>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#architecture-overview">Architecture Overview</a></li>
+<li><a href="#base-class-forkliftinventory">Base Class: ForkliftInventory</a><ul>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#core-methods">Core Methods</a></li>
+<li><a href="#properties">Properties</a></li>
+<li><a href="#abstract-methods">Abstract Methods</a></li>
+</ul>
+</li>
+<li><a href="#provider-discovery">Provider Discovery</a></li>
+<li><a href="#waiting-for-provider-sync">Waiting for Provider Sync</a><ul>
+<li><a href="#wait_for_vm">wait_for_vm()</a></li>
+<li><a href="#openstack-volume-synchronization">OpenStack Volume Synchronization</a></li>
+<li><a href="#openstack-network-synchronization">OpenStack Network Synchronization</a></li>
+</ul>
+</li>
+<li><a href="#provider-specific-implementations">Provider-Specific Implementations</a><ul>
+<li><a href="#vmware-vsphere-vsphereforkliftinventory">VMware vSphere — VsphereForkliftInventory</a></li>
+<li><a href="#rhv-ovirt-ovirtforkliftinventory">RHV / oVirt — OvirtForkliftInventory</a></li>
+<li><a href="#openstack-openstackforliftinventory">OpenStack — OpenstackForliftinventory</a></li>
+<li><a href="#ova-ovaforkliftinventory">OVA — OvaForkliftInventory</a></li>
+<li><a href="#openshift-openshiftforkliftinventory">OpenShift — OpenshiftForkliftInventory</a></li>
+</ul>
+</li>
+<li><a href="#mapping-output-formats-summary">Mapping Output Formats Summary</a><ul>
+<li><a href="#storage-mappings">Storage Mappings</a></li>
+<li><a href="#network-mappings">Network Mappings</a></li>
+</ul>
+</li>
+<li><a href="#fixture-integration">Fixture Integration</a></li>
+<li><a href="#usage-in-migration-workflows">Usage in Migration Workflows</a><ul>
+<li><a href="#creating-a-storagemap">Creating a StorageMap</a></li>
+<li><a href="#creating-a-networkmap">Creating a NetworkMap</a></li>
+<li><a href="#populating-vm-ids-in-plans">Populating VM IDs in Plans</a></li>
+</ul>
+</li>
+<li><a href="#error-handling">Error Handling</a></li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

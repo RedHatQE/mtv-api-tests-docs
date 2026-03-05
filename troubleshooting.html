@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link active">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="troubleshooting">Troubleshooting</h1>
+<p>This page covers common issues encountered when running or developing mtv-api-tests, along with their causes and solutions.</p>
+<hr />
+<h2 id="provider-connection-failures">Provider Connection Failures</h2>
+<h3 id="missing-providersjson-file">Missing <code>.providers.json</code> File</h3>
+<p><strong>Symptom:</strong> Test session exits immediately with <code>MissingProvidersFileError</code>.</p>
+<div class="highlight"><pre><span></span><code>MissingProvidersFileError: &#39;.providers.json&#39; file is missing or empty
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>.providers.json</code> file is either missing from the project root or contains no data. The file is loaded by <code>utilities/utils.py:load_source_providers()</code> and validated by the <code>source_provider_data</code> fixture.</p>
+<p><strong>Solution:</strong> Create <code>.providers.json</code> in the project root using the example file as a template:</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>.providers.json.example<span class="w"> </span>.providers.json
+<span class="c1"># Edit with your provider credentials</span>
+</code></pre></div>
+
+<p>Each provider entry requires at minimum:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;vsphere&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vsphere&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;fqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vcenter.example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vcenter.example.com/sdk&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin@vsphere.local&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-password&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> Never commit <code>.providers.json</code> to version control. It contains sensitive credentials.</p>
+</blockquote>
+<h3 id="provider-not-found-in-configuration">Provider Not Found in Configuration</h3>
+<p><strong>Symptom:</strong> <code>ValueError</code> during fixture setup referencing the <code>source_provider</code> config key.</p>
+<div class="highlight"><pre><span></span><code>ValueError: Source provider &#39;my-vsphere&#39; not found in &#39;.providers.json&#39;.
+Available providers: [&#39;ovirt&#39;, &#39;vsphere&#39;]
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>source_provider</code> value in <code>tests/tests_config/config.py</code> does not match any key in <code>.providers.json</code>. The <code>source_provider_data</code> fixture in <code>conftest.py</code> performs this validation:</p>
+<div class="highlight"><pre><span></span><code><span class="n">requested_provider</span> <span class="o">=</span> <span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;source_provider&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">requested_provider</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">source_providers</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Source provider &#39;</span><span class="si">{</span><span class="n">requested_provider</span><span class="si">}</span><span class="s2">&#39; not found in &#39;.providers.json&#39;. &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Available providers: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">source_providers</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong> Ensure the <code>source_provider</code> value in <code>tests/tests_config/config.py</code> exactly matches a key in your <code>.providers.json</code> file.</p>
+<h3 id="remote-cluster-name-mismatch">Remote Cluster Name Mismatch</h3>
+<p><strong>Symptom:</strong> <code>RemoteClusterAndLocalCluterNamesError</code> during <code>ocp_admin_client</code> fixture setup.</p>
+<div class="highlight"><pre><span></span><code>RemoteClusterAndLocalCluterNamesError: Remote cluster must be the same as local cluster.
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>remote_ocp_cluster</code> config value does not match the cluster your kubeconfig points to. The <code>ocp_admin_client</code> fixture validates this:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="n">remote_cluster_name</span> <span class="o">:=</span> <span class="n">get_value_from_py_config</span><span class="p">(</span><span class="s2">&quot;remote_ocp_cluster&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">remote_cluster_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_client</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">host</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">RemoteClusterAndLocalCluterNamesError</span><span class="p">(</span>
+            <span class="s2">&quot;Remote cluster must be the same as local cluster.&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong> Verify your kubeconfig context matches the configured <code>remote_ocp_cluster</code>:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>whoami<span class="w"> </span>--show-server
+</code></pre></div>
+
+<h3 id="certificate-download-failures">Certificate Download Failures</h3>
+<p><strong>Symptom:</strong> <code>ValueError</code> when the framework cannot retrieve a valid TLS certificate from the provider.</p>
+<div class="highlight"><pre><span></span><code>ValueError: Failed to download valid certificate from vcenter.example.com
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>generate_ca_cert_file()</code> function in <code>utilities/utils.py</code> uses <code>openssl s_client</code> to download the provider's certificate. If the provider is unreachable or returns an invalid certificate, this validation fails:</p>
+<div class="highlight"><pre><span></span><code><span class="n">cert</span> <span class="o">=</span> <span class="n">check_output</span><span class="p">([</span>
+    <span class="s2">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&quot;openssl s_client -connect </span><span class="si">{</span><span class="n">provider_fqdn</span><span class="si">}</span><span class="s2">:443 -showcerts &lt; /dev/null&quot;</span><span class="p">,</span>
+<span class="p">],</span> <span class="n">stderr</span><span class="o">=</span><span class="n">STDOUT</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="sa">b</span><span class="s2">&quot;BEGIN CERTIFICATE&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cert</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to download valid certificate from </span><span class="si">{</span><span class="n">provider_fqdn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify the provider FQDN is reachable: <code>openssl s_client -connect &lt;fqdn&gt;:443</code></li>
+<li>Check DNS resolution and network connectivity</li>
+<li>If using insecure connections, set <code>source_provider_insecure_skip_verify</code> to <code>"true"</code> in your test config</li>
+</ol>
+<hr />
+<h2 id="forklift-pod-state-errors">Forklift Pod State Errors</h2>
+<h3 id="forklift-controller-pod-not-found">Forklift Controller Pod Not Found</h3>
+<p><strong>Symptom:</strong> <code>ForkliftPodsNotRunningError</code> during session startup.</p>
+<div class="highlight"><pre><span></span><code>ForkliftPodsNotRunningError: Forklift controller pod not found
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>forklift_pods_state</code> fixture checks that all Forklift pods are healthy in the MTV namespace before tests run. This is an autouse session fixture, so it runs before any test. The check polls for 5 minutes with 1-second intervals:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_not_running_pods</span><span class="p">(</span><span class="n">_admin_client</span><span class="p">:</span> <span class="n">DynamicClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">controller_pod</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">not_running_pods</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="n">Pod</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">_admin_client</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">py_config</span><span class="p">[</span><span class="s2">&quot;mtv_namespace&quot;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">pod</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;forklift-&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pod</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;forklift-controller&quot;</span><span class="p">):</span>
+                <span class="n">controller_pod</span> <span class="o">=</span> <span class="n">pod</span>
+            <span class="k">if</span> <span class="n">pod</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pod</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">,</span> <span class="n">pod</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">SUCCEEDED</span><span class="p">):</span>
+                <span class="n">not_running_pods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pod</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">controller_pod</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ForkliftPodsNotRunningError</span><span class="p">(</span><span class="s2">&quot;Forklift controller pod not found&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">not_running_pods</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ForkliftPodsNotRunningError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Some of the forklift pods are not running: </span><span class="si">{</span><span class="n">not_running_pods</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify the MTV operator is installed:
+   <code>bash
+   oc get pods -n openshift-mtv | grep forklift</code></li>
+<li>Check that <code>mtv_namespace</code> in <code>tests/tests_config/config.py</code> matches your installation (default: <code>openshift-mtv</code>)</li>
+<li>Wait for pods to become ready or investigate pod events:
+   <code>bash
+   oc describe pod -n openshift-mtv -l app=forklift-controller</code></li>
+</ol>
+<h3 id="forklift-pods-not-running">Forklift Pods Not Running</h3>
+<p><strong>Symptom:</strong> <code>ForkliftPodsNotRunningError</code> listing specific pods.</p>
+<div class="highlight"><pre><span></span><code>ForkliftPodsNotRunningError: Some of the forklift pods are not running:
+[&#39;forklift-validation-xyz-abc&#39;, &#39;forklift-api-xyz-def&#39;]
+</code></pre></div>
+
+<p><strong>Cause:</strong> One or more <code>forklift-*</code> pods in the MTV namespace are not in <code>RUNNING</code> or <code>SUCCEEDED</code> status. The fixture retries for 5 minutes, tolerating both <code>ForkliftPodsNotRunningError</code> and <code>NotFoundError</code> during polling:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">TimeoutSampler</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">_get_not_running_pods</span><span class="p">,</span>
+    <span class="n">_admin_client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">sleep</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="n">exceptions_dict</span><span class="o">=</span><span class="p">{</span><span class="n">ForkliftPodsNotRunningError</span><span class="p">:</span> <span class="p">[],</span> <span class="n">NotFoundError</span><span class="p">:</span> <span class="p">[]},</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="n">sample</span><span class="p">:</span>
+        <span class="k">return</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check pod logs for errors:
+   <code>bash
+   oc logs -n openshift-mtv &lt;pod-name&gt;</code></li>
+<li>Look for resource constraints (OOM, CPU limits):
+   <code>bash
+   oc describe pod -n openshift-mtv &lt;pod-name&gt; | grep -A5 "State:"</code></li>
+<li>If pods are in <code>CrashLoopBackOff</code>, check the ForkliftController CR status:
+   <code>bash
+   oc get forkliftcontroller -n openshift-mtv -o yaml</code></li>
+</ol>
+<h3 id="forkliftcontroller-not-ready">ForkliftController Not Ready</h3>
+<p><strong>Symptom:</strong> <code>TimeoutExpiredError</code> when the <code>precopy_interval_forkliftcontroller</code> fixture waits for the ForkliftController condition.</p>
+<p><strong>Cause:</strong> The fixture patches the ForkliftController with a custom <code>controller_precopy_interval</code> and waits for it to reach <code>SUCCESSFUL</code> status:</p>
+<div class="highlight"><pre><span></span><code><span class="n">forklift_controller</span><span class="o">.</span><span class="n">wait_for_condition</span><span class="p">(</span>
+    <span class="n">status</span><span class="o">=</span><span class="n">forklift_controller</span><span class="o">.</span><span class="n">Condition</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">TRUE</span><span class="p">,</span>
+    <span class="n">condition</span><span class="o">=</span><span class="n">forklift_controller</span><span class="o">.</span><span class="n">Condition</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">SUCCESSFUL</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check the ForkliftController status:
+   <code>bash
+   oc get forkliftcontroller forklift-controller -n openshift-mtv -o yaml</code></li>
+<li>Verify the controller pod is restarting after the configuration change</li>
+</ol>
+<hr />
+<h2 id="vm-clone-failures">VM Clone Failures</h2>
+<h3 id="generic-clone-error">Generic Clone Error</h3>
+<p><strong>Symptom:</strong> <code>VmCloneError</code> during the <code>prepared_plan</code> fixture setup.</p>
+<p><strong>Cause:</strong> VM cloning occurs during test preparation when <code>"clone": True</code> is set in the VM config. Multiple conditions can trigger clone failures depending on the provider.</p>
+<h3 id="vmware-specific-clone-failures">VMware-Specific Clone Failures</h3>
+<p><strong>SCSI controller not available:</strong></p>
+<div class="highlight"><pre><span></span><code>VmCloneError: No SCSI controller found on VM &#39;vm-name&#39;
+</code></pre></div>
+
+<p><strong>No available unit on controller:</strong></p>
+<div class="highlight"><pre><span></span><code>VmCloneError: No available unit number on SCSI controller for VM &#39;vm-name&#39;
+</code></pre></div>
+
+<p><strong>Datastore not found or misconfigured:</strong></p>
+<div class="highlight"><pre><span></span><code>VmCloneError: Datastore &#39;datastore-12345&#39; not found in vSphere inventory
+</code></pre></div>
+
+<p><strong>SSH key secret missing (copy-offload):</strong></p>
+<div class="highlight"><pre><span></span><code>VmCloneError: SSH public key secret not found for ESXi cloning
+</code></pre></div>
+
+<p><strong>Solution:</strong>
+1. Verify the source VM exists and is accessible in vSphere
+2. Check that the target datastore has sufficient space
+3. Confirm vSphere credentials have clone permissions
+4. For copy-offload cloning, verify ESXi SSH configuration in <code>.providers.json</code>:
+   <code>json
+   "copyoffload": {
+     "esxi_clone_method": "ssh",
+     "esxi_host": "your-esxi-host.example.com",
+     "esxi_user": "root",
+     "esxi_password": "your-password"
+   }</code></p>
+<h3 id="rhvovirt-clone-failures">RHV/oVirt Clone Failures</h3>
+<p><strong>Datacenter not found:</strong></p>
+<div class="highlight"><pre><span></span><code>OvirtMTVDatacenterNotFoundError: Datacenter not found for RHV provider
+</code></pre></div>
+
+<p><strong>Datacenter status error:</strong></p>
+<div class="highlight"><pre><span></span><code>OvirtMTVDatacenterStatusError: Datacenter status is not UP
+</code></pre></div>
+
+<p><strong>Solution:</strong> Verify the RHV datacenter is accessible and in <code>UP</code> status via the oVirt admin portal.</p>
+<h3 id="invalid-vm-name-after-clone">Invalid VM Name After Clone</h3>
+<p><strong>Symptom:</strong> <code>InvalidVMNameError</code> during VM name sanitization.</p>
+<div class="highlight"><pre><span></span><code>InvalidVMNameError: VM name &#39;!!!invalid!!!&#39; cannot be sanitized to a valid DNS-1123 name.
+The name must contain at least one alphanumeric character.
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>sanitize_kubernetes_name()</code> function in <code>utilities/naming.py</code> converts VM names to DNS-1123 compliant names. If the source VM name contains no alphanumeric characters, sanitization fails:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">sanitize_kubernetes_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">63</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">sanitized</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">sanitized</span> <span class="o">=</span> <span class="n">_INVALID_CHARS_PATTERN</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">sanitized</span><span class="p">)</span>
+    <span class="n">sanitized</span> <span class="o">=</span> <span class="n">_LEADING_TRAILING_PATTERN</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sanitized</span><span class="p">)</span>
+    <span class="n">sanitized</span> <span class="o">=</span> <span class="n">sanitized</span><span class="p">[:</span><span class="n">max_length</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sanitized</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidVMNameError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;VM name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; cannot be sanitized to a valid DNS-1123 name. &quot;</span>
+            <span class="s2">&quot;The name must contain at least one alphanumeric character.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sanitized</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong> Ensure source VM names contain at least one alphanumeric character. Valid examples: <code>rhel9-template</code>, <code>win2022-server</code>. Invalid examples: <code>---</code>, <code>___</code>.</p>
+<h3 id="vm-not-found-in-source-provider">VM Not Found in Source Provider</h3>
+<p><strong>Symptom:</strong> <code>VmNotFoundError</code> when the provider cannot locate the VM.</p>
+<p><strong>Cause:</strong> The VM specified in <code>tests/tests_config/config.py</code> does not exist in the source provider.</p>
+<p><strong>Solution:</strong> Verify the VM name matches exactly in the source provider (vSphere, RHV, or OpenStack admin console).</p>
+<hr />
+<h2 id="inventory-sync-timeouts">Inventory Sync Timeouts</h2>
+<h3 id="provider-not-appearing-in-inventory">Provider Not Appearing in Inventory</h3>
+<p><strong>Symptom:</strong> <code>TimeoutExpiredError</code> when the Forklift inventory cannot find the provider.</p>
+<div class="highlight"><pre><span></span><code>TimeoutExpiredError: Timed out waiting for provider &lt;name&gt; to appear in inventory.
+</code></pre></div>
+
+<p><strong>Cause:</strong> After a Provider CR is created, the Forklift inventory service needs to sync. The <code>_provider_id</code> property polls the inventory API for 180 seconds:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_provider_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">TimeoutSampler</span><span class="p">(</span>
+            <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+            <span class="n">sleep</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">_provider</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">_provider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">url_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_provider</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider_name</span>
+            <span class="p">],</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">sample</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="n">TimeoutExpiredError</span><span class="p">:</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Timed out waiting for provider </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provider_name</span><span class="si">}</span><span class="s2"> to appear in inventory.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check that the Provider CR is in <code>Ready</code> status:
+   <code>bash
+   oc get providers -n &lt;target-namespace&gt; -o wide</code></li>
+<li>Check the Forklift inventory route is accessible:
+   <code>bash
+   oc get route forklift-inventory -n openshift-mtv</code></li>
+<li>Verify provider credentials and connectivity from the cluster</li>
+</ol>
+<h3 id="vm-not-appearing-in-inventory-after-clone">VM Not Appearing in Inventory After Clone</h3>
+<p><strong>Symptom:</strong> <code>TimeoutExpiredError</code> after VM is cloned but doesn't appear in inventory.</p>
+<div class="highlight"><pre><span></span><code>TimeoutExpiredError: VM &#39;auto-abcd-rhel9-template-efgh&#39; did not appear in
+Forklift inventory after 300s. Available VMs: [&#39;vm1&#39;, &#39;vm2&#39;, ...]
+</code></pre></div>
+
+<p><strong>Cause:</strong> After cloning, the <code>prepared_plan</code> fixture calls <code>wait_for_vm()</code> which polls for 300 seconds. The Forklift inventory may not have synced the newly cloned VM:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># From prepared_plan fixture</span>
+<span class="k">if</span> <span class="n">source_provider</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OVA</span><span class="p">:</span>
+    <span class="n">source_provider_inventory</span><span class="o">.</span><span class="n">wait_for_vm</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">vm</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify the VM was actually cloned in the source provider</li>
+<li>Check the Forklift inventory sync frequency — the controller may need time to detect new VMs</li>
+<li>Verify the provider connection is healthy:
+   <code>bash
+   oc get providers -n &lt;namespace&gt; -o jsonpath='{.items[*].status.conditions}'</code></li>
+</ol>
+<h3 id="openstack-volumenetwork-sync-timeout">OpenStack Volume/Network Sync Timeout</h3>
+<p><strong>Symptom:</strong> <code>TimeoutExpiredError</code> indicating volumes or networks are not synced.</p>
+<div class="highlight"><pre><span></span><code>TimeoutExpiredError: VM &#39;my-vm&#39; found in Forklift inventory but attached volumes
+or networks did not sync after 300s. Attached volumes: [...], VM addresses: {...}
+</code></pre></div>
+
+<p><strong>Cause:</strong> OpenStack VMs have additional sync requirements beyond basic VM presence. Volumes and networks are synced separately. The <code>wait_for_vm()</code> method performs extra checks for OpenStack providers:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For OpenStack, verify volumes and networks are synced</span>
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider_type</span> <span class="o">==</span> <span class="n">Provider</span><span class="o">.</span><span class="n">ProviderType</span><span class="o">.</span><span class="n">OPENSTACK</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_openstack_volumes_synced</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_openstack_networks_synced</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify volumes are properly attached to the VM in OpenStack</li>
+<li>Check that networks exist and are active in the OpenStack project</li>
+<li>Look for sync-related warnings in logs:
+   <code>VM 'my-vm' found but volume '&lt;id&gt;' not yet queryable in inventory
+   VM 'my-vm' found but networks {'net1'} not yet in inventory</code></li>
+<li>Increase the timeout if working with large environments</li>
+</ol>
+<h3 id="storagenetwork-mappings-not-found">Storage/Network Mappings Not Found</h3>
+<p><strong>Symptom:</strong> <code>ValueError</code> when the inventory cannot resolve storage or network mappings.</p>
+<div class="highlight"><pre><span></span><code>ValueError: Storages not found for VMs [&#39;vm1&#39;] on provider vsphere
+ValueError: Networks not found for vms [&#39;vm1&#39;] on provider ovirt
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>vms_storages_mappings()</code> or <code>vms_networks_mappings()</code> methods on provider-specific inventory classes could not find the corresponding resources.</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify the VM has disks/network interfaces configured in the source provider</li>
+<li>Check that the source provider datastores/networks are visible in the Forklift inventory</li>
+<li>For RHV: verify NIC profiles and storage domains exist</li>
+<li>For VMware: verify datastores are mounted and accessible</li>
+<li>For OpenStack: verify volume types and networks exist in the project</li>
+</ol>
+<hr />
+<h2 id="resource-name-conflicts">Resource Name Conflicts</h2>
+<h3 id="kubernetes-name-length-limit">Kubernetes Name Length Limit</h3>
+<p><strong>Symptom:</strong> Warning in logs about name truncation.</p>
+<div class="highlight"><pre><span></span><code>WARNING: &#39;_resource_name=auto-abcd-source-vsphere-8-0-efgh-cold&#39; is too long
+(67 &gt; 63). Truncating.
+</code></pre></div>
+
+<p><strong>Cause:</strong> Kubernetes limits resource names to 63 characters (DNS-1123 standard). The <code>create_and_store_resource()</code> function in <code>utilities/resources.py</code> auto-truncates names, keeping the last 63 characters to preserve the UUID suffix:</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_resource_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">63</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">_resource_name</span><span class="si">=}</span><span class="s2">&#39; is too long (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">_resource_name</span><span class="p">)</span><span class="si">}</span><span class="s2"> &gt; 63). Truncating.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">_resource_name</span> <span class="o">=</span> <span class="n">_resource_name</span><span class="p">[</span><span class="o">-</span><span class="mi">63</span><span class="p">:]</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> This is a warning, not an error. The truncation is handled automatically. However, truncated names may be less readable in debugging output.</p>
+</blockquote>
+<h3 id="resource-already-exists-conflicterror">Resource Already Exists (ConflictError)</h3>
+<p><strong>Symptom:</strong> Warning in logs about a resource being reused.</p>
+<div class="highlight"><pre><span></span><code>WARNING: Plan auto-abcd-plan-cold already exists, reusing it.
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>create_and_store_resource()</code> function handles <code>ConflictError</code> gracefully by reusing existing resources:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">_resource</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">ConflictError</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">_resource</span><span class="o">.</span><span class="n">kind</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">_resource_name</span><span class="si">}</span><span class="s2"> already exists, reusing it.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">_resource</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</code></pre></div>
+
+<p>This can happen when:
+- A previous test run did not clean up properly (use <code>--skip-teardown</code> carefully)
+- Parallel test workers (<code>pytest-xdist</code>) generate overlapping names
+- A test is re-run without proper teardown</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Ensure previous test resources are cleaned up:
+   <code>bash
+   oc get all -n &lt;target-namespace&gt; | grep auto-</code></li>
+<li>Manually delete leftover resources if needed:
+   <code>bash
+   oc delete plan,storagemap,networkmap,migration -n &lt;namespace&gt; --all</code></li>
+<li>If intentional, the reuse behavior is safe — the framework will wait for the existing resource to be ready</li>
+</ol>
+<h3 id="session-teardown-leftovers">Session Teardown Leftovers</h3>
+<p><strong>Symptom:</strong> <code>SessionTeardownError</code> at the end of a test session.</p>
+<div class="highlight"><pre><span></span><code>SessionTeardownError: Failed to clean up the following resources:
+{&#39;Plan&#39;: [{&#39;name&#39;: &#39;auto-abcd-plan&#39;, &#39;namespace&#39;: &#39;auto-abcd-ns&#39;}]}
+</code></pre></div>
+
+<p><strong>Cause:</strong> The session teardown in <code>utilities/pytest_utils.py</code> follows a strict cleanup order (Migrations → Plans → all other resources → Namespaces) and raises <code>SessionTeardownError</code> if any resources remain:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">session_teardown</span><span class="p">(</span><span class="n">session_store</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+    <span class="n">leftovers</span> <span class="o">=</span> <span class="n">teardown_resources</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">leftovers</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">SessionTeardownError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to clean up the following resources: </span><span class="si">{</span><span class="n">leftovers</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check if resources are stuck in a finalizer loop:
+   <code>bash
+   oc get plan &lt;name&gt; -n &lt;namespace&gt; -o jsonpath='{.metadata.finalizers}'</code></li>
+<li>For stuck migrations, try manual cancellation:
+   <code>bash
+   oc patch migration &lt;name&gt; -n &lt;namespace&gt; --type merge -p '{"spec":{"cancel":[]}}'</code></li>
+<li>Use <code>--skip-teardown</code> to preserve resources for debugging, then clean up manually</li>
+</ol>
+<h3 id="resourcenamenotstartedwithsessionuuiderror">ResourceNameNotStartedWithSessionUUIDError</h3>
+<p><strong>Symptom:</strong> Error indicating a resource name does not follow the session UUID naming convention.</p>
+<p><strong>Cause:</strong> All resources created by the test framework should include the session UUID prefix (e.g., <code>auto-abcd-</code>). This prevents name collisions between parallel test runs.</p>
+<p><strong>Solution:</strong> Always use <code>create_and_store_resource()</code> for resource creation, never create resources directly:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Correct - uses create_and_store_resource</span>
+<span class="n">namespace</span> <span class="o">=</span> <span class="n">create_and_store_resource</span><span class="p">(</span>
+    <span class="n">fixture_store</span><span class="o">=</span><span class="n">fixture_store</span><span class="p">,</span>
+    <span class="n">resource</span><span class="o">=</span><span class="n">Namespace</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-namespace&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Wrong - bypasses naming and tracking</span>
+<span class="n">namespace</span> <span class="o">=</span> <span class="n">Namespace</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my-namespace&quot;</span><span class="p">)</span>
+<span class="n">namespace</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+</code></pre></div>
+
+<hr />
+<h2 id="migration-execution-failures">Migration Execution Failures</h2>
+<h3 id="plan-not-reaching-ready-status">Plan Not Reaching Ready Status</h3>
+<p><strong>Symptom:</strong> <code>TimeoutExpiredError</code> when the Plan CR does not become ready.</p>
+<div class="highlight"><pre><span></span><code>Plan auto-abcd-plan-cold failed to reach status True
+</code></pre></div>
+
+<p><strong>Cause:</strong> After creating a Plan CR, the framework waits 360 seconds for it to reach the <code>Ready</code> condition. The error output includes the full Plan and Provider instances for debugging:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">plan</span><span class="o">.</span><span class="n">wait_for_condition</span><span class="p">(</span>
+        <span class="n">condition</span><span class="o">=</span><span class="n">Plan</span><span class="o">.</span><span class="n">Condition</span><span class="o">.</span><span class="n">READY</span><span class="p">,</span>
+        <span class="n">status</span><span class="o">=</span><span class="n">Plan</span><span class="o">.</span><span class="n">Condition</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">TRUE</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="k">except</span> <span class="n">TimeoutExpiredError</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plan </span><span class="si">{</span><span class="n">plan</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> failed to reach status </span><span class="si">{</span><span class="n">Plan</span><span class="o">.</span><span class="n">Condition</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">TRUE</span><span class="si">}</span><span class="se">\n\t</span><span class="si">{</span><span class="n">plan</span><span class="o">.</span><span class="n">instance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Source provider: </span><span class="si">{</span><span class="n">source_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">instance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Destination provider: </span><span class="si">{</span><span class="n">destination_provider</span><span class="o">.</span><span class="n">ocp_resource</span><span class="o">.</span><span class="n">instance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">raise</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check the Plan status conditions:
+   <code>bash
+   oc get plan &lt;name&gt; -n &lt;namespace&gt; -o yaml</code></li>
+<li>Verify StorageMap and NetworkMap are valid</li>
+<li>Verify both source and destination providers are in <code>Ready</code> status</li>
+<li>Check for VM validation errors in the Plan status</li>
+</ol>
+<h3 id="migration-failed-or-timed-out">Migration Failed or Timed Out</h3>
+<p><strong>Symptom:</strong> <code>MigrationPlanExecError</code> with the Plan status dump.</p>
+<div class="highlight"><pre><span></span><code>MigrationPlanExecError: Plan auto-abcd-plan-cold failed to reach the expected
+condition. status: ...
+</code></pre></div>
+
+<p><strong>Cause:</strong> The migration either explicitly failed or exceeded the configured timeout (default 600 seconds, configurable via <code>plan_wait_timeout</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">TimeoutSampler</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">get_plan_migration_status</span><span class="p">,</span>
+    <span class="n">sleep</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">wait_timeout</span><span class="o">=</span><span class="n">py_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;plan_wait_timeout&quot;</span><span class="p">,</span> <span class="mi">600</span><span class="p">),</span>
+    <span class="n">plan</span><span class="o">=</span><span class="n">plan</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="n">sample</span> <span class="o">==</span> <span class="n">Plan</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">SUCCEEDED</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">elif</span> <span class="n">sample</span> <span class="o">==</span> <span class="n">Plan</span><span class="o">.</span><span class="n">Status</span><span class="o">.</span><span class="n">FAILED</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">MigrationPlanExecError</span><span class="p">()</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check the Migration CR status for specific VM pipeline failures:
+   <code>bash
+   oc get migration -n &lt;namespace&gt; -o yaml</code></li>
+<li>Increase <code>plan_wait_timeout</code> in <code>tests/tests_config/config.py</code> for large VMs</li>
+<li>Examine the Forklift controller logs:
+   <code>bash
+   oc logs -n openshift-mtv deployment/forklift-controller</code></li>
+</ol>
+<h3 id="migration-cr-not-found">Migration CR Not Found</h3>
+<p><strong>Symptom:</strong> <code>MigrationNotFoundError</code> when the framework cannot find the Migration CR for a Plan.</p>
+<div class="highlight"><pre><span></span><code>MigrationNotFoundError: Migration CR not found for Plan &#39;auto-abcd-plan-cold&#39;
+in namespace &#39;auto-abcd-ns&#39;
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>_find_migration_for_plan()</code> function in <code>utilities/mtv_migration.py</code> searches for a Migration CR with an ownerReference pointing to the Plan. If no such Migration exists, this error is raised.</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Verify the Migration CR was created:
+   <code>bash
+   oc get migration -n &lt;namespace&gt;</code></li>
+<li>Check if the Plan's ownerReferences are set correctly</li>
+</ol>
+<h3 id="vm-pipeline-failure">VM Pipeline Failure</h3>
+<p><strong>Symptom:</strong> <code>VmPipelineError</code> when a specific VM's migration pipeline is missing or has no identifiable failed step.</p>
+<div class="highlight"><pre><span></span><code>VmPipelineError: VM &#39;my-vm&#39; pipeline is missing or has no failed step
+</code></pre></div>
+
+<p><strong>Cause:</strong> The <code>_get_failed_migration_step()</code> function examines the Migration status to identify which pipeline step failed (e.g., <code>PreHook</code>, <code>DiskTransfer</code>, <code>PostHook</code>). This error occurs when the pipeline data is incomplete.</p>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Inspect the Migration CR's <code>.status.vms</code> section for the affected VM</li>
+<li>Check the virt-v2v pod logs for disk transfer issues:
+   <code>bash
+   oc logs -n &lt;namespace&gt; &lt;virt-v2v-pod&gt;</code></li>
+</ol>
+<h3 id="vms-failing-at-different-steps">VMs Failing at Different Steps</h3>
+<p><strong>Symptom:</strong> <code>VmMigrationStepMismatchError</code> when multiple VMs in the same plan fail at different pipeline steps.</p>
+<div class="highlight"><pre><span></span><code>VmMigrationStepMismatchError: VMs in plan &#39;auto-abcd-plan-cold&#39; failed at
+different steps: {&#39;vm1&#39;: &#39;PreHook&#39;, &#39;vm2&#39;: &#39;DiskTransfer&#39;}
+</code></pre></div>
+
+<p><strong>Cause:</strong> In hook testing scenarios, all VMs in a plan are expected to fail at the same step. The <code>validate_all_vms_same_step()</code> function in <code>utilities/hooks.py</code> enforces this consistency.</p>
+<p><strong>Solution:</strong> This usually indicates a hook configuration issue. Review the hook playbook and ensure it applies consistently to all VMs.</p>
+<hr />
+<h2 id="copy-offload-configuration-issues">Copy-Offload Configuration Issues</h2>
+<h3 id="missing-copy-offload-configuration">Missing Copy-Offload Configuration</h3>
+<p><strong>Symptom:</strong> Test failure with a message about missing copy-offload parameters.</p>
+<div class="highlight"><pre><span></span><code>Copy-offload configuration not found in source provider data.
+Add &#39;copyoffload&#39; section to your provider in .providers.json
+</code></pre></div>
+
+<p><strong>Solution:</strong> Add the <code>copyoffload</code> section to your vSphere provider in <code>.providers.json</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;vsphere-copy-offload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vsphere&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;fqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vcenter.example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;api_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vcenter.example.com/sdk&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin@vsphere.local&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;copyoffload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;storage_vendor_product&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ontap&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;datastore_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;datastore-12345&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;storage_hostname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;storage.example.com&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;storage_username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;storage_password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;password&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="missing-storage-credentials">Missing Storage Credentials</h3>
+<p><strong>Symptom:</strong> Test failure listing missing credentials.</p>
+<div class="highlight"><pre><span></span><code>Required storage credentials not found: [&#39;storage_hostname&#39;, &#39;storage_password&#39;].
+Add them to .providers.json copyoffload section or set environment variables:
+COPYOFFLOAD_STORAGE_HOSTNAME, COPYOFFLOAD_STORAGE_PASSWORD
+</code></pre></div>
+
+<p><strong>Cause:</strong> Copy-offload credentials can be provided via environment variables or <code>.providers.json</code>. Environment variables take precedence. The <code>get_copyoffload_credential()</code> function in <code>utilities/copyoffload_migration.py</code> checks both:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_copyoffload_credential</span><span class="p">(</span>
+    <span class="n">credential_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">copyoffload_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">env_var_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;COPYOFFLOAD_</span><span class="si">{</span><span class="n">credential_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="n">env_var_name</span><span class="p">)</span> <span class="ow">or</span> <span class="n">copyoffload_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">credential_name</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong> Provide credentials either way:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Via environment variables</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">COPYOFFLOAD_STORAGE_HOSTNAME</span><span class="o">=</span>storage.example.com
+<span class="nb">export</span><span class="w"> </span><span class="nv">COPYOFFLOAD_STORAGE_USERNAME</span><span class="o">=</span>admin
+<span class="nb">export</span><span class="w"> </span><span class="nv">COPYOFFLOAD_STORAGE_PASSWORD</span><span class="o">=</span>secret
+</code></pre></div>
+
+<p>Or in <code>.providers.json</code> under the <code>copyoffload</code> section.</p>
+<h3 id="plan-specific-secret-timeout">Plan-Specific Secret Timeout</h3>
+<p><strong>Symptom:</strong> Warning about plan secret not being created.</p>
+<div class="highlight"><pre><span></span><code>WARNING: Timeout waiting for plan secret &#39;auto-abcd-plan-cold-*&#39; - continuing anyway
+</code></pre></div>
+
+<p><strong>Cause:</strong> After a copy-offload Plan is created, ForkliftController creates a plan-specific secret containing storage credentials. The <code>wait_for_plan_secret()</code> function polls for 60 seconds but continues regardless:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">TimeoutSampler</span><span class="p">(</span>
+        <span class="n">wait_timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">sleep</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">func</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">plan_name</span><span class="si">}</span><span class="s2">-&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">Secret</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">):</span>
+        <span class="k">break</span>
+<span class="k">except</span> <span class="n">TimeoutExpiredError</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Timeout waiting for plan secret &#39;</span><span class="si">{</span><span class="n">plan_name</span><span class="si">}</span><span class="s2">-*&#39; - continuing anyway&quot;</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note:</strong> This warning does not immediately fail the test. If the secret is truly missing, the migration itself will fail with a clearer error.</p>
+</blockquote>
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check that ForkliftController is running and responding</li>
+<li>Verify the Plan has copy-offload configured correctly</li>
+<li>Check for errors in the ForkliftController logs</li>
+</ol>
+<hr />
+<h2 id="must-gather-collection">Must-Gather Collection</h2>
+<h3 id="automatic-must-gather-triggers">Automatic Must-Gather Triggers</h3>
+<p>Must-gather collection runs automatically in two scenarios:</p>
+<ol>
+<li>
+<p><strong>On test failure</strong> — via the <code>pytest_exception_interact</code> hook, scoped to the failing plan:
+   <code>python
+   def pytest_exception_interact(node, call, report):
+       # ...
+       run_must_gather(data_collector_path=_data_collector_path, plan=plan)</code></p>
+</li>
+<li>
+<p><strong>On session teardown failure</strong> — when resource cleanup fails and <code>SessionTeardownError</code> is raised:
+   <code>python
+   try:
+       session_teardown(session_store=_session_store)
+   except Exception as exp:
+       LOGGER.error(f"the following resources was left after tests are finished: {exp}")
+       if not session.config.getoption("skip_data_collector"):
+           run_must_gather(data_collector_path=_data_collector_path)</code></p>
+</li>
+</ol>
+<h3 id="must-gather-image-resolution-failures">Must-Gather Image Resolution Failures</h3>
+<p><strong>Symptom:</strong> Exception logged but test run continues.</p>
+<div class="highlight"><pre><span></span><code>Failed to run must-gather. ValueError: No MUST_GATHER_IMAGE found in MTV
+ClusterServiceVersion &#39;mtv-operator.v2.11.0&#39;
+</code></pre></div>
+
+<p><strong>Cause:</strong> The must-gather image is resolved through a multi-step process in <code>utilities/must_gather.py</code>:</p>
+<ol>
+<li>Find the MTV Subscription → extract <code>installedCSV</code></li>
+<li>Find the CSV → extract <code>MUST_GATHER_IMAGE</code> from container env</li>
+<li>Extract Subscription channel → derive IDMS name</li>
+<li>Look up IDMS → get mirror URL</li>
+<li>Combine mirror URL with image SHA</li>
+</ol>
+<p>Failure at any step logs the error but does not fail the test run:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># ... resolution and execution logic</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to run must-gather. </span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Common causes and solutions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Cause</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>No MUST_GATHER_IMAGE found</code></td>
+<td>CSV has no <code>MUST_GATHER_IMAGE</code> env var</td>
+<td>Verify MTV operator version</td>
+</tr>
+<tr>
+<td><code>Subscription channel is empty</code></td>
+<td>MTV Subscription has no channel set</td>
+<td>Check Subscription CR</td>
+</tr>
+<tr>
+<td><code>No must-gather entry found in IDMS</code></td>
+<td>IDMS missing must-gather mirror</td>
+<td>Verify ImageDigestMirrorSet exists</td>
+</tr>
+<tr>
+<td><code>CSV image does not contain a digest separator '@'</code></td>
+<td>Image reference uses tag instead of SHA</td>
+<td>Expected in some development builds</td>
+</tr>
+</tbody>
+</table>
+<h3 id="skipping-data-collection">Skipping Data Collection</h3>
+<p>Use <code>--skip-data-collector</code> to disable must-gather collection entirely:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--skip-data-collector
+</code></pre></div>
+
+<h3 id="manual-must-gather">Manual Must-Gather</h3>
+<p>If automatic collection fails, run must-gather manually:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>must-gather<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--image<span class="o">=</span>&lt;must-gather-image&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dest-dir<span class="o">=</span>./must-gather-output<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--<span class="w"> </span><span class="nv">NS</span><span class="o">=</span>&lt;namespace&gt;<span class="w"> </span><span class="nv">PLAN</span><span class="o">=</span>&lt;plan-name&gt;<span class="w"> </span>/usr/bin/targeted
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> For a full namespace capture without plan scoping, omit the <code>PLAN</code> parameter:
+<code>bash
+oc adm must-gather \
+  --image=&lt;must-gather-image&gt; \
+  --dest-dir=./must-gather-output \
+  -- -- NS=openshift-mtv</code></p>
+</blockquote>
+<hr />
+<h2 id="missing-required-configuration">Missing Required Configuration</h2>
+<h3 id="required-config-keys">Required Config Keys</h3>
+<p>The session startup validates that critical configuration is present:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">pytest_sessionstart</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">required_config</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;storage_class&quot;</span><span class="p">,</span> <span class="s2">&quot;source_provider&quot;</span><span class="p">)</span>
+    <span class="c1"># ...</span>
+    <span class="k">if</span> <span class="n">missing_configs</span><span class="p">:</span>
+        <span class="n">pytest</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span>
+            <span class="n">reason</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Some required config is missing </span><span class="si">{</span><span class="n">required_config</span><span class="si">=}</span><span class="s2"> - </span><span class="si">{</span><span class="n">missing_configs</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">returncode</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong> Ensure <code>storage_class</code> and <code>source_provider</code> are set in <code>tests/tests_config/config.py</code>.</p>
+<h3 id="api-key-not-found">API Key Not Found</h3>
+<p><strong>Symptom:</strong> <code>ValueError</code> from the <code>destination_ocp_secret</code> fixture.</p>
+<div class="highlight"><pre><span></span><code>ValueError: API key not found in configuration
+</code></pre></div>
+
+<p><strong>Cause:</strong> The OCP client does not have a valid API key (Bearer token). The fixture extracts it from:</p>
+<div class="highlight"><pre><span></span><code><span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">ocp_admin_client</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">api_key</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;authorization&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;API key not found in configuration&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong> Ensure you are logged in to the cluster:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>login<span class="w"> </span>&lt;cluster-url&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;password&gt;
+<span class="c1"># or</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/path/to/kubeconfig
+</code></pre></div>
+
+<hr />
+<h2 id="parallel-execution-issues-pytest-xdist">Parallel Execution Issues (pytest-xdist)</h2>
+<h3 id="virtctl-lock-timeout">Virtctl Lock Timeout</h3>
+<p><strong>Symptom:</strong> <code>TimeoutError</code> waiting for the virtctl file lock.</p>
+<div class="highlight"><pre><span></span><code>TimeoutError: Timeout (600s) waiting for virtctl lock at
+/tmp/pytest-shared-virtctl/4-17-0/virtctl.lock. Another process may be stuck.
+</code></pre></div>
+
+<p><strong>Cause:</strong> When running with <code>pytest-xdist</code> (<code>-n auto</code>), multiple workers share a single virtctl binary. File locking prevents concurrent downloads:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">filelock</span><span class="o">.</span><span class="n">FileLock</span><span class="p">(</span><span class="n">lock_file</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">virtctl_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">virtctl_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">):</span>
+            <span class="n">download_virtctl_from_cluster</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">ocp_admin_client</span><span class="p">,</span> <span class="n">download_dir</span><span class="o">=</span><span class="n">shared_dir</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">filelock</span><span class="o">.</span><span class="n">Timeout</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Timeout (600s) waiting for virtctl lock at </span><span class="si">{</span><span class="n">lock_file</span><span class="si">}</span><span class="s2">. &quot;</span>
+        <span class="s2">&quot;Another process may be stuck.&quot;</span>
+    <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
+</code></pre></div>
+
+<p><strong>Solution:</strong></p>
+<ol>
+<li>Check for stale lock files and remove them:
+   <code>bash
+   rm -f /tmp/pytest-shared-virtctl/*/virtctl.lock</code></li>
+<li>Check if another test session is still running</li>
+<li>Verify network connectivity for virtctl download</li>
+</ol>
+<h3 id="empty-session-store-in-parallel-mode">Empty Session Store in Parallel Mode</h3>
+<p><strong>Symptom:</strong> Teardown issues when running with <code>-n auto</code>.</p>
+<p><strong>Cause:</strong> When running in parallel, each xdist worker gets its own <code>fixture_store</code>. The <code>session_teardown</code> function handles this:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># When running in parallel (-n auto) `session_store` can be empty.</span>
+<span class="k">if</span> <span class="n">session_teardown_resources</span> <span class="o">:=</span> <span class="n">session_store</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;teardown&quot;</span><span class="p">):</span>
+    <span class="c1"># ... cleanup logic</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Tip:</strong> Tests are parallel-safe by design because unique namespaces (via <code>session_uuid</code>) and unique resource names prevent collisions between workers.</p>
+</blockquote>
+<hr />
+<h2 id="debugging-tips">Debugging Tips</h2>
+<h3 id="enable-debug-logging">Enable Debug Logging</h3>
+<p>Use the <code>--openshift-python-wrapper-log-debug</code> flag to enable verbose API logging:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--openshift-python-wrapper-log-debug
+</code></pre></div>
+
+<h3 id="preserve-resources-for-investigation">Preserve Resources for Investigation</h3>
+<p>Use <code>--skip-teardown</code> to keep test resources after completion:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--skip-teardown
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> Always clean up manually after using <code>--skip-teardown</code> to avoid resource leaks on the cluster.</p>
+</blockquote>
+<h3 id="check-data-collector-output">Check Data Collector Output</h3>
+<p>Failed test data is stored in the data collector path (default: <code>.data-collector/</code>):</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>.data-collector/&lt;test-name&gt;/
+</code></pre></div>
+
+<p>This includes must-gather output and resource dumps. Configure a custom path with:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--data-collector-path<span class="o">=</span>/path/to/output
+</code></pre></div>
+
+<h3 id="ai-powered-failure-analysis">AI-Powered Failure Analysis</h3>
+<p>Enable AI analysis of test failures by passing <code>--analyze-with-ai</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">JJI_SERVER_URL</span><span class="o">=</span>&lt;your-jji-server&gt;
+uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--analyze-with-ai<span class="w"> </span>--junitxml<span class="o">=</span>results.xml
+</code></pre></div>
+
+<p>This enriches the JUnit XML with AI-generated failure analysis. Requires <code>JJI_SERVER_URL</code> to be set.</p>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="cluster-cleanup.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Cluster Cleanup</span>
+                </a>
+                
+                
+                <a href="code-standards.html" class="page-nav-link page-nav-next">
+                    <span class="page-nav-label">Next</span>
+                    <span class="page-nav-title">Code Standards</span>
+                </a>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#provider-connection-failures">Provider Connection Failures</a><ul>
+<li><a href="#missing-providersjson-file">Missing .providers.json File</a></li>
+<li><a href="#provider-not-found-in-configuration">Provider Not Found in Configuration</a></li>
+<li><a href="#remote-cluster-name-mismatch">Remote Cluster Name Mismatch</a></li>
+<li><a href="#certificate-download-failures">Certificate Download Failures</a></li>
+</ul>
+</li>
+<li><a href="#forklift-pod-state-errors">Forklift Pod State Errors</a><ul>
+<li><a href="#forklift-controller-pod-not-found">Forklift Controller Pod Not Found</a></li>
+<li><a href="#forklift-pods-not-running">Forklift Pods Not Running</a></li>
+<li><a href="#forkliftcontroller-not-ready">ForkliftController Not Ready</a></li>
+</ul>
+</li>
+<li><a href="#vm-clone-failures">VM Clone Failures</a><ul>
+<li><a href="#generic-clone-error">Generic Clone Error</a></li>
+<li><a href="#vmware-specific-clone-failures">VMware-Specific Clone Failures</a></li>
+<li><a href="#rhvovirt-clone-failures">RHV/oVirt Clone Failures</a></li>
+<li><a href="#invalid-vm-name-after-clone">Invalid VM Name After Clone</a></li>
+<li><a href="#vm-not-found-in-source-provider">VM Not Found in Source Provider</a></li>
+</ul>
+</li>
+<li><a href="#inventory-sync-timeouts">Inventory Sync Timeouts</a><ul>
+<li><a href="#provider-not-appearing-in-inventory">Provider Not Appearing in Inventory</a></li>
+<li><a href="#vm-not-appearing-in-inventory-after-clone">VM Not Appearing in Inventory After Clone</a></li>
+<li><a href="#openstack-volumenetwork-sync-timeout">OpenStack Volume/Network Sync Timeout</a></li>
+<li><a href="#storagenetwork-mappings-not-found">Storage/Network Mappings Not Found</a></li>
+</ul>
+</li>
+<li><a href="#resource-name-conflicts">Resource Name Conflicts</a><ul>
+<li><a href="#kubernetes-name-length-limit">Kubernetes Name Length Limit</a></li>
+<li><a href="#resource-already-exists-conflicterror">Resource Already Exists (ConflictError)</a></li>
+<li><a href="#session-teardown-leftovers">Session Teardown Leftovers</a></li>
+<li><a href="#resourcenamenotstartedwithsessionuuiderror">ResourceNameNotStartedWithSessionUUIDError</a></li>
+</ul>
+</li>
+<li><a href="#migration-execution-failures">Migration Execution Failures</a><ul>
+<li><a href="#plan-not-reaching-ready-status">Plan Not Reaching Ready Status</a></li>
+<li><a href="#migration-failed-or-timed-out">Migration Failed or Timed Out</a></li>
+<li><a href="#migration-cr-not-found">Migration CR Not Found</a></li>
+<li><a href="#vm-pipeline-failure">VM Pipeline Failure</a></li>
+<li><a href="#vms-failing-at-different-steps">VMs Failing at Different Steps</a></li>
+</ul>
+</li>
+<li><a href="#copy-offload-configuration-issues">Copy-Offload Configuration Issues</a><ul>
+<li><a href="#missing-copy-offload-configuration">Missing Copy-Offload Configuration</a></li>
+<li><a href="#missing-storage-credentials">Missing Storage Credentials</a></li>
+<li><a href="#plan-specific-secret-timeout">Plan-Specific Secret Timeout</a></li>
+</ul>
+</li>
+<li><a href="#must-gather-collection">Must-Gather Collection</a><ul>
+<li><a href="#automatic-must-gather-triggers">Automatic Must-Gather Triggers</a></li>
+<li><a href="#must-gather-image-resolution-failures">Must-Gather Image Resolution Failures</a></li>
+<li><a href="#skipping-data-collection">Skipping Data Collection</a></li>
+<li><a href="#manual-must-gather">Manual Must-Gather</a></li>
+</ul>
+</li>
+<li><a href="#missing-required-configuration">Missing Required Configuration</a><ul>
+<li><a href="#required-config-keys">Required Config Keys</a></li>
+<li><a href="#api-key-not-found">API Key Not Found</a></li>
+</ul>
+</li>
+<li><a href="#parallel-execution-issues-pytest-xdist">Parallel Execution Issues (pytest-xdist)</a><ul>
+<li><a href="#virtctl-lock-timeout">Virtctl Lock Timeout</a></li>
+<li><a href="#empty-session-store-in-parallel-mode">Empty Session Store in Parallel Mode</a></li>
+</ul>
+</li>
+<li><a href="#debugging-tips">Debugging Tips</a><ul>
+<li><a href="#enable-debug-logging">Enable Debug Logging</a></li>
+<li><a href="#preserve-resources-for-investigation">Preserve Resources for Investigation</a></li>
+<li><a href="#check-data-collector-output">Check Data Collector Output</a></li>
+<li><a href="#ai-powered-failure-analysis">AI-Powered Failure Analysis</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

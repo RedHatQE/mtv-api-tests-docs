@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Commit and Linting - mtv-api-tests</title>
+    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
+    <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
+            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+        </div>
+
+        <div class="sidebar-search">
+            <input type="text" id="search-input" placeholder="Search... (⌘K)" autocomplete="off" readonly>
+            <div id="search-results" class="search-results"></div>
+        </div>
+
+        <nav class="sidebar-nav">
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="introduction.html"
+                           class="nav-link">
+                            Introduction
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation.html"
+                           class="nav-link">
+                            Installation
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart.html"
+                           class="nav-link">
+                            Quick Start
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Configuration</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-configuration.html"
+                           class="nav-link">
+                            Provider Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-configuration.html"
+                           class="nav-link">
+                            Cluster Configuration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-parameters.html"
+                           class="nav-link">
+                            Test Parameters
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="environment-variables.html"
+                           class="nav-link">
+                            Environment Variables
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Running Tests</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="execution-modes.html"
+                           class="nav-link">
+                            Execution Modes
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-markers.html"
+                           class="nav-link">
+                            Test Markers and Selection
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="parallel-execution.html"
+                           class="nav-link">
+                            Parallel Execution
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="test-output.html"
+                           class="nav-link">
+                            Test Output and Reporting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Test Patterns</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="test-structure.html"
+                           class="nav-link">
+                            Test Class Structure
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="writing-new-tests.html"
+                           class="nav-link">
+                            Writing New Tests
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="fixture-patterns.html"
+                           class="nav-link">
+                            Fixture Patterns
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-validation.html"
+                           class="nav-link">
+                            Post-Migration Validation
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Migration Types</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="cold-migration.html"
+                           class="nav-link">
+                            Cold Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="warm-migration.html"
+                           class="nav-link">
+                            Warm Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-migration.html"
+                           class="nav-link">
+                            Copy-Offload Migration
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-scenarios.html"
+                           class="nav-link">
+                            Copy-Offload Test Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Architecture</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="provider-abstraction.html"
+                           class="nav-link">
+                            Provider Abstraction Layer
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="forklift-inventory.html"
+                           class="nav-link">
+                            Forklift Inventory API
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="resource-management.html"
+                           class="nav-link">
+                            Resource Management
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="naming-conventions.html"
+                           class="nav-link">
+                            Naming Conventions
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-system.html"
+                           class="nav-link">
+                            Pre/Post Migration Hooks
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Utilities Reference</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="migration-utilities.html"
+                           class="nav-link">
+                            Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="post-migration-utilities.html"
+                           class="nav-link">
+                            Post-Migration Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="general-utilities.html"
+                           class="nav-link">
+                            General Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="copy-offload-utilities.html"
+                           class="nav-link">
+                            Copy-Offload Utilities
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="custom-exceptions.html"
+                           class="nav-link">
+                            Custom Exceptions
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Operations</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="container-build.html"
+                           class="nav-link">
+                            Container Build and Registry
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="cluster-cleanup.html"
+                           class="nav-link">
+                            Cluster Cleanup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting.html"
+                           class="nav-link">
+                            Troubleshooting
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Development</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="code-standards.html"
+                           class="nav-link">
+                            Code Standards
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="pre-commit-hooks.html"
+                           class="nav-link active">
+                            Pre-Commit and Linting
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="project-dependencies.html"
+                           class="nav-link">
+                            Project Dependencies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <a href="index.html" class="top-bar-title">mtv-api-tests</a>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-right">
+                <button class="top-bar-search-btn" id="search-trigger" aria-label="Search">
+                    <kbd>&#8984;K</kbd> Search
+                </button>
+                <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
+                    ⚡ docsfy
+                </a>
+                
+                <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span class="github-stars" id="github-stars"></span>
+                </a>
+                
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="content">
+            <article class="article">
+                <div class="article-body">
+                    <!-- content is pre-rendered from markdown by the server, not user input -->
+                    <h1 id="pre-commit-and-linting">Pre-Commit and Linting</h1>
+<p>This project enforces code quality through a comprehensive suite of pre-commit hooks. Every commit is automatically checked for formatting, linting, type errors, security issues, and markdown consistency. Pre-commit must pass before any commit — bypassing hooks with <code>--no-verify</code> is forbidden.</p>
+<h2 id="setup">Setup</h2>
+<p>Install the pre-commit framework and register the Git hooks:</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+pre-commit<span class="w"> </span>install
+</code></pre></div>
+
+<p>The project pins Python 3.13 as the default language version for all hooks:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">default_language_version</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">python</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3.13</span>
+</code></pre></div>
+
+<h2 id="running-pre-commit">Running Pre-Commit</h2>
+<p>To run all hooks against every file in the repository:</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</code></pre></div>
+
+<p>To run hooks only against staged files (this happens automatically on <code>git commit</code>):</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>run
+</code></pre></div>
+
+<p>To run a specific hook in isolation:</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>--all-files
+pre-commit<span class="w"> </span>run<span class="w"> </span>mypy<span class="w"> </span>--all-files
+pre-commit<span class="w"> </span>run<span class="w"> </span>flake8<span class="w"> </span>--all-files
+pre-commit<span class="w"> </span>run<span class="w"> </span>gitleaks<span class="w"> </span>--all-files
+pre-commit<span class="w"> </span>run<span class="w"> </span>markdownlint-cli2<span class="w"> </span>--all-files
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> Never use <code>git commit --no-verify</code> to skip pre-commit hooks. This is explicitly prohibited by the project's coding standards.</p>
+</blockquote>
+<h2 id="hook-overview">Hook Overview</h2>
+<p>The <code>.pre-commit-config.yaml</code> configures seven hook repositories, executed in order:</p>
+<table>
+<thead>
+<tr>
+<th>Hook Repository</th>
+<th>Version</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pre-commit-hooks</code></td>
+<td>v6.0.0</td>
+<td>General file hygiene checks</td>
+</tr>
+<tr>
+<td><code>flake8</code></td>
+<td>7.3.0</td>
+<td>Mutable default argument detection</td>
+</tr>
+<tr>
+<td><code>detect-secrets</code></td>
+<td>v1.5.0</td>
+<td>Secret/credential scanning</td>
+</tr>
+<tr>
+<td><code>ruff-pre-commit</code></td>
+<td>v0.15.4</td>
+<td>Python linting and formatting</td>
+</tr>
+<tr>
+<td><code>gitleaks</code></td>
+<td>v8.30.0</td>
+<td>Git history secret scanning</td>
+</tr>
+<tr>
+<td><code>mirrors-mypy</code></td>
+<td>v1.19.1</td>
+<td>Static type checking</td>
+</tr>
+<tr>
+<td><code>markdownlint-cli2</code></td>
+<td>v0.21.0</td>
+<td>Markdown file linting</td>
+</tr>
+</tbody>
+</table>
+<h2 id="general-file-hygiene-pre-commit-hooks">General File Hygiene (pre-commit-hooks)</h2>
+<p>The first set of hooks performs basic file quality checks:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/pre-commit/pre-commit-hooks</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v6.0.0</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-added-large-files</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-docstring-first</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-executables-have-shebangs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-merge-conflict</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-symlinks</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">detect-private-key</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mixed-line-ending</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">debug-statements</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trailing-whitespace</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">--markdown-linebreak-ext=md</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">end-of-file-fixer</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-ast</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-builtin-literals</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check-toml</span>
+</code></pre></div>
+
+<p>These hooks catch common issues:</p>
+<ul>
+<li><strong>check-added-large-files</strong> — Prevents accidentally committing large binary files</li>
+<li><strong>check-docstring-first</strong> — Ensures docstrings appear before code in modules</li>
+<li><strong>check-executables-have-shebangs</strong> — Validates executable scripts have proper shebang lines</li>
+<li><strong>check-merge-conflict</strong> — Detects leftover merge conflict markers (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>)</li>
+<li><strong>check-symlinks</strong> — Flags broken symlinks</li>
+<li><strong>detect-private-key</strong> — Scans for accidentally committed private keys</li>
+<li><strong>mixed-line-ending</strong> — Enforces consistent line endings (no mixed CRLF/LF)</li>
+<li><strong>debug-statements</strong> — Catches leftover <code>breakpoint()</code>, <code>pdb.set_trace()</code>, and similar debug calls</li>
+<li><strong>trailing-whitespace</strong> — Removes trailing whitespace (Markdown files excluded via <code>--markdown-linebreak-ext=md</code>)</li>
+<li><strong>end-of-file-fixer</strong> — Ensures files end with a single newline</li>
+<li><strong>check-ast</strong> — Validates Python files parse correctly</li>
+<li><strong>check-builtin-literals</strong> — Flags <code>dict()</code> and <code>list()</code> calls that should use <code>{}</code> and <code>[]</code> literals</li>
+<li><strong>check-toml</strong> — Validates TOML file syntax</li>
+</ul>
+<h2 id="ruff-formatting-and-linting">Ruff — Formatting and Linting</h2>
+<p><a href="https://docs.astral.sh/ruff/">Ruff</a> handles both Python formatting and linting via two separate hooks:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/astral-sh/ruff-pre-commit</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.15.4</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ruff-format</span>
+</code></pre></div>
+
+<h3 id="ruff-configuration">Ruff Configuration</h3>
+<p>Ruff is configured in <code>pyproject.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[tool.ruff]</span>
+<span class="n">preview</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span>
+<span class="n">fix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">output-format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;grouped&quot;</span>
+
+<span class="k">[tool.ruff.format]</span>
+<span class="n">exclude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;.git&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.venv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.mypy_cache&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.tox&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;__pycache__&quot;</span><span class="p">]</span>
+
+<span class="k">[tool.ruff.lint]</span>
+<span class="n">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;PLC0415&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>preview</code></td>
+<td><code>true</code></td>
+<td>Enables preview/unstable rules for early adoption</td>
+</tr>
+<tr>
+<td><code>line-length</code></td>
+<td><code>120</code></td>
+<td>Maximum line length (characters)</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td><code>true</code></td>
+<td>Automatically fix violations where possible</td>
+</tr>
+<tr>
+<td><code>output-format</code></td>
+<td><code>"grouped"</code></td>
+<td>Groups lint results by file for readability</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lint-rules">Lint Rules</h3>
+<p>The <code>select = ["PLC0415"]</code> setting enables a specific Pylint convention rule:</p>
+<ul>
+<li><strong>PLC0415</strong> (<code>import-outside-top-level</code>) — Flags <code>import</code> statements that appear outside the top level of a module (e.g., inside functions or conditionals)</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Ruff's <code>fix = true</code> means many formatting and linting issues are auto-corrected when you run pre-commit. If a hook "fails" but the files have been modified, simply <code>git add</code> the changed files and commit again.</p>
+</blockquote>
+<h3 id="excluded-directories">Excluded Directories</h3>
+<p>The formatter skips these directories:</p>
+<ul>
+<li><code>.git</code> — Git internals</li>
+<li><code>.venv</code> — Virtual environment</li>
+<li><code>.mypy_cache</code> — Mypy cache</li>
+<li><code>.tox</code> — Tox environments</li>
+<li><code>__pycache__</code> — Python bytecode cache</li>
+</ul>
+<h2 id="flake8-mutable-default-detection">Flake8 — Mutable Default Detection</h2>
+<p>Flake8 is configured with a narrow scope: it only checks for mutable default arguments using the <code>flake8-mutable</code> plugin.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/PyCQA/flake8</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7.3.0</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flake8</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">--config=.flake8</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">additional_dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">flake8-mutable</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<h3 id="flake8-configuration">Flake8 Configuration</h3>
+<p>The <code>.flake8</code> configuration file limits checks to a single rule:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[flake8]</span>
+<span class="na">select</span><span class="o">=</span><span class="s">M511</span>
+
+<span class="na">exclude</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="na">doc,</span>
+<span class="w">    </span><span class="na">.tox,</span>
+<span class="w">    </span><span class="na">.git,</span>
+<span class="w">    </span><span class="na">.yml,</span>
+<span class="w">    </span><span class="na">Pipfile.*,</span>
+<span class="w">    </span><span class="na">docs/*,</span>
+<span class="w">    </span><span class="na">.cache/*</span>
+</code></pre></div>
+
+<p><strong>M511</strong> — Flags mutable default argument values in function definitions. This catches a common Python pitfall:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Wrong — mutable default is shared across calls</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_vms</span><span class="p">(</span><span class="n">vm_list</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]):</span>
+    <span class="n">vm_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;new_vm&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vm_list</span>
+
+<span class="c1"># Correct — use None and create a new list</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_vms</span><span class="p">(</span><span class="n">vm_list</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">vm_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">vm_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">vm_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;new_vm&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vm_list</span>
+</code></pre></div>
+
+<h2 id="mypy-static-type-checking">Mypy — Static Type Checking</h2>
+<p>Mypy performs static type analysis to catch type errors before runtime:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/pre-commit/mirrors-mypy</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.19.1</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mypy</span>
+<span class="w">      </span><span class="nt">additional_dependencies</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">[</span>
+<span class="w">          </span><span class="s">&quot;types-pyvmomi&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">          </span><span class="s">&quot;types-requests&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">          </span><span class="s">&quot;types-six&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">          </span><span class="s">&quot;types-pytz&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">          </span><span class="s">&quot;types-PyYAML&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">          </span><span class="s">&quot;types-paramiko&quot;</span><span class="p p-Indicator">,</span>
+<span class="w">        </span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<h3 id="type-stub-dependencies">Type Stub Dependencies</h3>
+<p>Mypy requires type stubs for third-party libraries that don't ship their own type annotations. The following stub packages are installed as additional dependencies:</p>
+<table>
+<thead>
+<tr>
+<th>Stub Package</th>
+<th>Provides Types For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>types-pyvmomi</code></td>
+<td>VMware vSphere SDK</td>
+</tr>
+<tr>
+<td><code>types-requests</code></td>
+<td>HTTP requests library</td>
+</tr>
+<tr>
+<td><code>types-six</code></td>
+<td>Python 2/3 compatibility</td>
+</tr>
+<tr>
+<td><code>types-pytz</code></td>
+<td>Timezone handling</td>
+</tr>
+<tr>
+<td><code>types-PyYAML</code></td>
+<td>YAML parsing</td>
+</tr>
+<tr>
+<td><code>types-paramiko</code></td>
+<td>SSH connections</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mypy-configuration">Mypy Configuration</h3>
+<p>Mypy is configured in <code>pyproject.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[tool.mypy]</span>
+<span class="n">disallow_any_generics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">disallow_incomplete_defs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">no_implicit_optional</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">show_error_codes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">warn_unused_ignores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+
+<span class="k">[[tool.mypy.overrides]]</span>
+<span class="n">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;paramiko&quot;</span>
+<span class="n">ignore_missing_imports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>disallow_any_generics</code></td>
+<td><code>false</code></td>
+<td>Allows <code>list</code> without type parameters (e.g., <code>list</code> instead of <code>list[str]</code>)</td>
+</tr>
+<tr>
+<td><code>disallow_incomplete_defs</code></td>
+<td><code>true</code></td>
+<td>Requires all function parameters and return types to be annotated if any are</td>
+</tr>
+<tr>
+<td><code>no_implicit_optional</code></td>
+<td><code>true</code></td>
+<td>Requires explicit <code>Optional</code> or <code>X \| None</code> — <code>def f(x: str = None)</code> is an error</td>
+</tr>
+<tr>
+<td><code>show_error_codes</code></td>
+<td><code>true</code></td>
+<td>Displays error codes like <code>[assignment]</code> for easier suppression</td>
+</tr>
+<tr>
+<td><code>warn_unused_ignores</code></td>
+<td><code>true</code></td>
+<td>Flags <code># type: ignore</code> comments that are no longer needed</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>paramiko</code> module override suppresses import errors since paramiko's type stubs may not cover all submodules.</p>
+<blockquote>
+<p><strong>Tip:</strong> When adding a <code># type: ignore</code> comment, always include the specific error code: <code># type: ignore[assignment]</code> rather than a bare <code># type: ignore</code>. The <code>warn_unused_ignores</code> setting will flag stale suppressions during pre-commit.</p>
+</blockquote>
+<h2 id="secret-scanning">Secret Scanning</h2>
+<p>Two complementary tools scan for accidentally committed secrets and credentials:</p>
+<h3 id="gitleaks">Gitleaks</h3>
+<p><a href="https://github.com/gitleaks/gitleaks">Gitleaks</a> scans the Git history and staged changes for secrets such as API keys, tokens, and passwords:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/gitleaks/gitleaks</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v8.30.0</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gitleaks</span>
+</code></pre></div>
+
+<p>Gitleaks uses its built-in rules to detect patterns matching common secret formats (AWS keys, GitHub tokens, generic passwords, etc.). No custom <code>.gitleaks.toml</code> configuration is present — the default ruleset is used.</p>
+<h3 id="detect-secrets">Detect-Secrets</h3>
+<p><a href="https://github.com/Yelp/detect-secrets">Detect-secrets</a> from Yelp provides an additional layer of secret detection using a different set of heuristics:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/Yelp/detect-secrets</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.5.0</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">detect-secrets</span>
+</code></pre></div>
+
+<blockquote>
+<p><strong>Warning:</strong> If either secret scanner flags a false positive, do not simply remove the hook. Instead, configure an appropriate allowlist or baseline file for the specific tool.</p>
+</blockquote>
+<h2 id="markdownlint-markdown-linting">Markdownlint — Markdown Linting</h2>
+<p>All Markdown files (<code>.md</code>) are linted using <code>markdownlint-cli2</code>, configured to auto-fix issues:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/DavidAnson/markdownlint-cli2</span>
+<span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.21.0</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">markdownlint-cli2</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;--fix&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<h3 id="markdownlint-configuration">Markdownlint Configuration</h3>
+<p>The <code>.markdownlint.yaml</code> file customizes the default rules:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Default state for all rules</span>
+<span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># MD013/line-length - Line length</span>
+<span class="nt">MD013</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">line_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">180</span>
+
+<span class="c1"># MD033/no-inline-html - Allow inline HTML for collapsible sections</span>
+<span class="nt">MD033</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">allowed_elements</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">details</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">summary</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">strong</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>default</code></td>
+<td><code>true</code></td>
+<td>All markdownlint rules are enabled by default</td>
+</tr>
+<tr>
+<td><code>MD013</code></td>
+<td><code>line_length: 180</code></td>
+<td>Maximum line length for Markdown set to 180 characters</td>
+</tr>
+<tr>
+<td><code>MD033</code></td>
+<td>Allows <code>details</code>, <code>summary</code>, <code>strong</code></td>
+<td>Permits specific inline HTML elements used for collapsible sections</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> The <code>--fix</code> argument means markdownlint will auto-correct fixable issues (trailing spaces, blank lines, heading formatting). Like ruff, you may need to <code>git add</code> modified files and re-commit after auto-fixes are applied.</p>
+</blockquote>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="pre-commit-fails-after-auto-fixing-files">Pre-commit fails after auto-fixing files</h3>
+<p>Several hooks (ruff, ruff-format, markdownlint-cli2, trailing-whitespace, end-of-file-fixer) automatically modify files. When this happens:</p>
+<ol>
+<li>The hook reports a failure because files were changed</li>
+<li>Review the changes with <code>git diff</code></li>
+<li>Stage the fixed files with <code>git add</code></li>
+<li>Commit again</li>
+</ol>
+<h3 id="mypy-reports-missing-imports">Mypy reports missing imports</h3>
+<p>If mypy fails with <code>Cannot find implementation or library stub</code>, the library likely needs a type stub. Check if a <code>types-*</code> package exists on PyPI and add it to the <code>additional_dependencies</code> list in <code>.pre-commit-config.yaml</code>.</p>
+<h3 id="updating-hook-versions">Updating hook versions</h3>
+<p>To update all hooks to their latest versions:</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>autoupdate
+</code></pre></div>
+
+<p>To update a specific hook:</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>autoupdate<span class="w"> </span>--repo<span class="w"> </span>https://github.com/astral-sh/ruff-pre-commit
+</code></pre></div>
+
+<h3 id="clearing-the-pre-commit-cache">Clearing the pre-commit cache</h3>
+<p>If hooks behave unexpectedly after version changes:</p>
+<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>clean
+pre-commit<span class="w"> </span>install
+</code></pre></div>
+                </div>
+            </article>
+            <nav class="page-nav">
+                
+                <a href="code-standards.html" class="page-nav-link page-nav-prev">
+                    <span class="page-nav-label">Previous</span>
+                    <span class="page-nav-title">Code Standards</span>
+                </a>
+                
+                
+                <a href="project-dependencies.html" class="page-nav-link page-nav-next">
+                    <span class="page-nav-label">Next</span>
+                    <span class="page-nav-title">Project Dependencies</span>
+                </a>
+                
+            </nav>
+            
+            <aside class="toc-sidebar">
+                <div class="toc-container">
+                    <h3>On this page</h3>
+                    <div class="toc">
+<ul>
+<li><a href="#setup">Setup</a></li>
+<li><a href="#running-pre-commit">Running Pre-Commit</a></li>
+<li><a href="#hook-overview">Hook Overview</a></li>
+<li><a href="#general-file-hygiene-pre-commit-hooks">General File Hygiene (pre-commit-hooks)</a></li>
+<li><a href="#ruff-formatting-and-linting">Ruff — Formatting and Linting</a><ul>
+<li><a href="#ruff-configuration">Ruff Configuration</a></li>
+<li><a href="#lint-rules">Lint Rules</a></li>
+<li><a href="#excluded-directories">Excluded Directories</a></li>
+</ul>
+</li>
+<li><a href="#flake8-mutable-default-detection">Flake8 — Mutable Default Detection</a><ul>
+<li><a href="#flake8-configuration">Flake8 Configuration</a></li>
+</ul>
+</li>
+<li><a href="#mypy-static-type-checking">Mypy — Static Type Checking</a><ul>
+<li><a href="#type-stub-dependencies">Type Stub Dependencies</a></li>
+<li><a href="#mypy-configuration">Mypy Configuration</a></li>
+</ul>
+</li>
+<li><a href="#secret-scanning">Secret Scanning</a><ul>
+<li><a href="#gitleaks">Gitleaks</a></li>
+<li><a href="#detect-secrets">Detect-Secrets</a></li>
+</ul>
+</li>
+<li><a href="#markdownlint-markdown-linting">Markdownlint — Markdown Linting</a><ul>
+<li><a href="#markdownlint-configuration">Markdownlint Configuration</a></li>
+</ul>
+</li>
+<li><a href="#troubleshooting">Troubleshooting</a><ul>
+<li><a href="#pre-commit-fails-after-auto-fixing-files">Pre-commit fails after auto-fixing files</a></li>
+<li><a href="#mypy-reports-missing-imports">Mypy reports missing imports</a></li>
+<li><a href="#updating-hook-versions">Updating hook versions</a></li>
+<li><a href="#clearing-the-pre-commit-cache">Clearing the pre-commit cache</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+                </div>
+            </aside>
+            
+        </main>
+
+        <footer class="page-footer">
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            <span class="footer-sep">·</span>
+            <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
+        </footer>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="assets/theme.js"></script>
+    <script src="assets/search.js"></script>
+    <script src="assets/copy.js"></script>
+    <script src="assets/callouts.js"></script>
+    <script src="assets/scrollspy.js"></script>
+    <script src="assets/codelabels.js"></script>
+    <script src="assets/github.js"></script>
+    <script>
+    (function() {
+        var toggle = document.getElementById('sidebar-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebar-overlay');
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                if (overlay) overlay.classList.toggle('open');
+                var expanded = sidebar.classList.contains('open');
+                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+    })();
+    </script>
+    <script>
+    (function() {
+        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+        if (!sidebar) return;
+
+        // Restore scroll position
+        var saved = sessionStorage.getItem('sidebar-scroll');
+        if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+        // Save scroll position before navigating
+        sidebar.addEventListener('scroll', function() {
+            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+        });
+
+        // Also scroll active link into view if no saved position
+        if (!saved) {
+            var active = sidebar.querySelector('.nav-link.active');
+            if (active) {
+                active.scrollIntoView({ block: 'center', behavior: 'instant' });
+            }
+        }
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+# mtv-api-tests
+
+> Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization
+
+## Getting Started
+
+- [Introduction](introduction.md): Overview of MTV API Tests: what it is, what it tests, supported source providers (VMware vSphere, RHV, OpenStack, OVA, OpenShift), migration types (cold, warm, copy-offload), and the 5-step test pattern
+- [Installation](installation.md): Prerequisites (Python 3.12+, uv, podman), cloning the repository, installing dependencies with uv sync, and verifying the setup
+- [Quick Start](quickstart.md): Running your first test collection with podman, understanding the container-based execution model, and interpreting output
+
+## Configuration
+
+- [Provider Configuration](provider-configuration.md): Setting up .providers.json with credentials and connection details for each source provider type: VMware vSphere, RHV/oVirt, OpenStack, OVA, and OpenShift
+- [Cluster Configuration](cluster-configuration.md): Configuring the target OpenShift cluster: cluster host, admin credentials, storage classes, and namespace settings via --tc CLI flags
+- [Test Parameters](test-parameters.md): Understanding tests_config/config.py: defining test_params entries, VM configuration options (name, power state, guest agent, clone, disk type, snapshots, add_disks), and feature flags (warm_migration, copyoffload)
+- [Environment Variables](environment-variables.md): Reference for all environment variables: CLUSTER_PASSWORD, KUBECONFIG, copy-offload credentials (COPYOFFLOAD_*), AI analysis settings (JJI_*), and data collector options
+
+## Running Tests
+
+- [Execution Modes](execution-modes.md): Running tests locally with uv run pytest, in a container with podman/docker, and as an OpenShift Job for CI/CD pipelines
+- [Test Markers and Selection](test-markers.md): Using pytest markers to select tests: tier0 (smoke), warm, copyoffload, remote, incremental, and min_mtv_version. Combining markers with -m expressions
+- [Parallel Execution](parallel-execution.md): Running tests in parallel with pytest-xdist: --dist=loadscope configuration, worker isolation via session_uuid, unique namespaces, and fixture_store per worker
+- [Test Output and Reporting](test-output.md): Understanding JUnit XML reports, must-gather collection on failures, data-collector resource tracking, and optional AI-powered failure analysis with Jenkins Job Insight
+
+## Test Patterns
+
+- [Test Class Structure](test-structure.md): The 5-step test pattern: test_create_storagemap, test_create_networkmap, test_create_plan, test_migrate_vms, test_check_vms. Class-level parametrization with indirect=True and shared state via self.__class__
+- [Writing New Tests](writing-new-tests.md): Step-by-step guide to adding a new migration test: adding config to tests_params, creating the test file, applying markers, implementing the 5 test methods, and using prepared_plan
+- [Fixture Patterns](fixture-patterns.md): Session-scoped vs class-scoped vs function-scoped fixtures, autouse fixtures, fixture_store for resource tracking, cleanup_migrated_vms teardown, and the class_plan_config/prepared_plan relationship
+- [Post-Migration Validation](post-migration-validation.md): What check_vms validates: SSH connectivity, static IP preservation, PVC name templates (Go template syntax), power state, network configuration, and disk count verification
+
+## Migration Types
+
+- [Cold Migration](cold-migration.md): Standard cold migration workflow: VM powered off during transfer, basic and comprehensive test scenarios, and remote cluster cold migration
+- [Warm Migration](warm-migration.md): Warm migration with minimal downtime: incremental data sync, cutover scheduling, warm migration comprehensive tests (static IPs, custom namespaces, PVC templates, node selectors, labels, affinity)
+- [Copy-Offload Migration](copy-offload-migration.md): XCOPY-accelerated migrations: supported storage vendors (NetApp ONTAP, Hitachi, Pure Storage, Dell, HPE, Infinidat, IBM), datastore configuration, offload plugin setup, and the vsphere-xcopy-volume-populator
+- [Copy-Offload Test Scenarios](copy-offload-scenarios.md): Detailed copy-offload test coverage: thin/thick provisioning, multi-disk, multi-datastore, RDM virtual disks, snapshots, warm+copy-offload, scale testing, fallback to non-XCOPY, and large VM migrations
+
+## Architecture
+
+- [Provider Abstraction Layer](provider-abstraction.md): BaseProvider abstract class, provider implementations (VMWareProvider, OvirtProvider, OpenstackProvider, OCPProvider, OvaProvider), context manager lifecycle, unified VM dict template, and clone operations
+- [Forklift Inventory API](forklift-inventory.md): ForkliftInventory base class and provider-specific implementations: querying VMs, storage mappings, network mappings, waiting for provider sync, and OpenStack volume/network synchronization
+- [Resource Management](resource-management.md): create_and_store_resource() function: auto-naming with UUID, 63-char truncation, conflict handling, fixture_store tracking, teardown ordering, and get_or_create_namespace()
+- [Naming Conventions](naming-conventions.md): Resource naming strategy: session_uuid prefixing, generate_name_with_uuid(), sanitize_kubernetes_name() for DNS-1123 compliance, class-unique NAD naming with SHA-256 hashing
+- [Pre/Post Migration Hooks](hooks-system.md): Hook CR creation, base64-encoded Ansible playbooks, predefined success/failure hooks, hook failure validation, and the test_post_hook_retain_failed_vm test pattern
+
+## Utilities Reference
+
+- [Migration Utilities](migration-utilities.md): API reference for utilities/mtv_migration.py: create_plan_resource(), execute_migration(), get_storage_migration_map(), get_network_migration_map(), and migration status functions
+- [Post-Migration Utilities](post-migration-utilities.md): API reference for utilities/post_migration.py: check_vms(), SSH connectivity checks, static IP validation, PVC name verification, and power state validation
+- [General Utilities](general-utilities.md): API reference for utilities/utils.py: create_source_provider(), load_source_providers(), gen_network_map_list(), get_cluster_client(), get_cluster_version(), populate_vm_ids(), and VirtualMachineFromInstanceType
+- [Copy-Offload Utilities](copy-offload-utilities.md): API reference for utilities/copyoffload_migration.py and copyoffload_constants.py: get_copyoffload_credential(), wait_for_plan_secret(), supported storage vendor constants
+- [Custom Exceptions](custom-exceptions.md): All exception classes in exceptions/exceptions.py: migration errors (MigrationPlanExecError, MigrationNotFoundError), VM errors (VmCloneError, VmNotFoundError), provider errors, and infrastructure errors
+
+## Operations
+
+- [Container Build and Registry](container-build.md): Building the test container with podman/docker, Dockerfile internals (Fedora 41, uv, system dependencies), and pushing to ghcr.io/redhatqe/mtv-api-tests
+- [Cluster Cleanup](cluster-cleanup.md): Using tools/clean_cluster.py with data-collector output, automated teardown via session_teardown(), parallel pod cleanup, and DV/PVC/PV verification
+- [Troubleshooting](troubleshooting.md): Common issues and solutions: provider connection failures, Forklift pod state errors, VM clone failures, inventory sync timeouts, resource name conflicts, and must-gather collection
+
+## Development
+
+- [Code Standards](code-standards.md): Coding conventions: type annotations, docstring format, fail-fast validation, pass objects over values, no unnecessary variables, deterministic tests, and OpenShift resource interaction rules
+- [Pre-Commit and Linting](pre-commit-hooks.md): Pre-commit hook configuration: ruff formatting/linting, mypy type checking, flake8, gitleaks secret scanning, and markdownlint. Running pre-commit run --all-files
+- [Project Dependencies](project-dependencies.md): Key dependencies and their roles: openshift-python-wrapper, pyvmomi, ovirt-python-sdk, openstacksdk, pytest-xdist, pytest-testconfig, python-rrmngmnt, shortuuid, and jc

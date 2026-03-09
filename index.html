@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mtv-api-tests</title>
-    <meta name="description" content="Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization">
+    <meta name="description" content="Pytest-based integration suite for validating Migration Toolkit for Virtualization migrations into OpenShift Virtualization.">
     <link rel="stylesheet" href="assets/style.css">
     <link rel="alternate" type="text/plain" title="LLM Documentation Index" href="llms.txt">
     <link rel="alternate" type="text/plain" title="LLM Full Documentation" href="llms-full.txt">
@@ -13,7 +13,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <a href="index.html" class="sidebar-logo">mtv-api-tests</a>
-            <p class="sidebar-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+            <p class="sidebar-tagline">Pytest-based integration suite for validating Migration Toolkit for Virtualization migrations into OpenShift Virtualization.</p>
         </div>
 
         <div class="sidebar-search">
@@ -24,7 +24,7 @@
         <nav class="sidebar-nav">
             
             <div class="nav-group">
-                <h3 class="nav-group-title">Getting Started</h3>
+                <h3 class="nav-group-title">Overview</h3>
                 <ul class="nav-group-pages">
                     
                     <li>
@@ -34,14 +34,51 @@
                     </li>
                     
                     <li>
-                        <a href="installation.html" class="nav-link">
-                            Installation
+                        <a href="project-structure.html" class="nav-link">
+                            Project Structure
                         </a>
                     </li>
                     
                     <li>
-                        <a href="quickstart.html" class="nav-link">
-                            Quick Start
+                        <a href="architecture-and-workflow.html" class="nav-link">
+                            Architecture And Workflow
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="supported-providers-and-scenarios.html" class="nav-link">
+                            Supported Providers And Scenarios
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+            <div class="nav-group">
+                <h3 class="nav-group-title">Getting Started</h3>
+                <ul class="nav-group-pages">
+                    
+                    <li>
+                        <a href="prerequisites.html" class="nav-link">
+                            Prerequisites
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="installation-and-local-setup.html" class="nav-link">
+                            Installation And Local Setup
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="quickstart-first-run.html" class="nav-link">
+                            Quickstart First Run
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="container-and-openshift-job-execution.html" class="nav-link">
+                            Container And OpenShift Job Execution
                         </a>
                     </li>
                     
@@ -53,57 +90,26 @@
                 <ul class="nav-group-pages">
                     
                     <li>
-                        <a href="provider-configuration.html" class="nav-link">
-                            Provider Configuration
+                        <a href="runtime-configuration.html" class="nav-link">
+                            Runtime Configuration
                         </a>
                     </li>
                     
                     <li>
-                        <a href="cluster-configuration.html" class="nav-link">
-                            Cluster Configuration
+                        <a href="provider-config-file.html" class="nav-link">
+                            Provider Config File
                         </a>
                     </li>
                     
                     <li>
-                        <a href="test-parameters.html" class="nav-link">
-                            Test Parameters
+                        <a href="test-plan-configuration.html" class="nav-link">
+                            Test Plan Configuration
                         </a>
                     </li>
                     
                     <li>
-                        <a href="environment-variables.html" class="nav-link">
-                            Environment Variables
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="nav-group">
-                <h3 class="nav-group-title">Running Tests</h3>
-                <ul class="nav-group-pages">
-                    
-                    <li>
-                        <a href="execution-modes.html" class="nav-link">
-                            Execution Modes
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="test-markers.html" class="nav-link">
-                            Test Markers and Selection
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="parallel-execution.html" class="nav-link">
-                            Parallel Execution
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="test-output.html" class="nav-link">
-                            Test Output and Reporting
+                        <a href="optional-integrations-and-secrets.html" class="nav-link">
+                            Optional Integrations And Secrets
                         </a>
                     </li>
                     
@@ -111,30 +117,42 @@
             </div>
             
             <div class="nav-group">
-                <h3 class="nav-group-title">Test Patterns</h3>
+                <h3 class="nav-group-title">Guides</h3>
                 <ul class="nav-group-pages">
                     
                     <li>
-                        <a href="test-structure.html" class="nav-link">
-                            Test Class Structure
+                        <a href="cold-migrations.html" class="nav-link">
+                            Cold Migrations
                         </a>
                     </li>
                     
                     <li>
-                        <a href="writing-new-tests.html" class="nav-link">
-                            Writing New Tests
+                        <a href="warm-migrations.html" class="nav-link">
+                            Warm Migrations
                         </a>
                     </li>
                     
                     <li>
-                        <a href="fixture-patterns.html" class="nav-link">
-                            Fixture Patterns
+                        <a href="copy-offload-migrations.html" class="nav-link">
+                            Copy-Offload Migrations
                         </a>
                     </li>
                     
                     <li>
-                        <a href="post-migration-validation.html" class="nav-link">
-                            Post-Migration Validation
+                        <a href="remote-openshift-migrations.html" class="nav-link">
+                            Remote OpenShift Migrations
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="hooks-and-expected-failures.html" class="nav-link">
+                            Hooks And Expected Failures
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="advanced-plan-features.html" class="nav-link">
+                            Advanced Plan Features
                         </a>
                     </li>
                     
@@ -142,30 +160,36 @@
             </div>
             
             <div class="nav-group">
-                <h3 class="nav-group-title">Migration Types</h3>
+                <h3 class="nav-group-title">Reference</h3>
                 <ul class="nav-group-pages">
                     
                     <li>
-                        <a href="cold-migration.html" class="nav-link">
-                            Cold Migration
+                        <a href="pytest-options-and-markers.html" class="nav-link">
+                            Pytest Options And Markers
                         </a>
                     </li>
                     
                     <li>
-                        <a href="warm-migration.html" class="nav-link">
-                            Warm Migration
+                        <a href="plan-and-resource-reference.html" class="nav-link">
+                            Plan And Resource Reference
                         </a>
                     </li>
                     
                     <li>
-                        <a href="copy-offload-migration.html" class="nav-link">
-                            Copy-Offload Migration
+                        <a href="provider-and-inventory-reference.html" class="nav-link">
+                            Provider And Inventory Reference
                         </a>
                     </li>
                     
                     <li>
-                        <a href="copy-offload-scenarios.html" class="nav-link">
-                            Copy-Offload Test Scenarios
+                        <a href="python-module-reference.html" class="nav-link">
+                            Python Module Reference
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="troubleshooting-and-diagnostics.html" class="nav-link">
+                            Troubleshooting And Diagnostics
                         </a>
                     </li>
                     
@@ -173,123 +197,30 @@
             </div>
             
             <div class="nav-group">
-                <h3 class="nav-group-title">Architecture</h3>
+                <h3 class="nav-group-title">Maintenance</h3>
                 <ul class="nav-group-pages">
                     
                     <li>
-                        <a href="provider-abstraction.html" class="nav-link">
-                            Provider Abstraction Layer
+                        <a href="cleanup-and-teardown.html" class="nav-link">
+                            Cleanup And Teardown
                         </a>
                     </li>
                     
                     <li>
-                        <a href="forklift-inventory.html" class="nav-link">
-                            Forklift Inventory API
+                        <a href="extending-the-suite.html" class="nav-link">
+                            Extending The Suite
                         </a>
                     </li>
                     
                     <li>
-                        <a href="resource-management.html" class="nav-link">
-                            Resource Management
+                        <a href="development-workflow.html" class="nav-link">
+                            Development Workflow
                         </a>
                     </li>
                     
                     <li>
-                        <a href="naming-conventions.html" class="nav-link">
-                            Naming Conventions
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="hooks-system.html" class="nav-link">
-                            Pre/Post Migration Hooks
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="nav-group">
-                <h3 class="nav-group-title">Utilities Reference</h3>
-                <ul class="nav-group-pages">
-                    
-                    <li>
-                        <a href="migration-utilities.html" class="nav-link">
-                            Migration Utilities
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="post-migration-utilities.html" class="nav-link">
-                            Post-Migration Utilities
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="general-utilities.html" class="nav-link">
-                            General Utilities
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="copy-offload-utilities.html" class="nav-link">
-                            Copy-Offload Utilities
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="custom-exceptions.html" class="nav-link">
-                            Custom Exceptions
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="nav-group">
-                <h3 class="nav-group-title">Operations</h3>
-                <ul class="nav-group-pages">
-                    
-                    <li>
-                        <a href="container-build.html" class="nav-link">
-                            Container Build and Registry
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="cluster-cleanup.html" class="nav-link">
-                            Cluster Cleanup
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="troubleshooting.html" class="nav-link">
-                            Troubleshooting
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
-            
-            <div class="nav-group">
-                <h3 class="nav-group-title">Development</h3>
-                <ul class="nav-group-pages">
-                    
-                    <li>
-                        <a href="code-standards.html" class="nav-link">
-                            Code Standards
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="pre-commit-hooks.html" class="nav-link">
-                            Pre-Commit and Linting
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="project-dependencies.html" class="nav-link">
-                            Project Dependencies
+                        <a href="automation-and-release.html" class="nav-link">
+                            Automation And Release
                         </a>
                     </li>
                     
@@ -315,7 +246,7 @@
                     <kbd>&#8984;K</kbd> Search
                 </button>
                 <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener" class="docsfy-badge" title="Generated with docsfy">
-                    ⚡ docsfy
+                    ⚡ docs<span class="brand-accent">fy</span>
                 </a>
                 
                 <a href="https://github.com/RedHatQE/mtv-api-tests" target="_blank" rel="noopener noreferrer" class="top-bar-github" id="github-link" data-repo-url="https://github.com/RedHatQE/mtv-api-tests">
@@ -337,7 +268,7 @@
         <main class="content">
             <section class="hero">
                 <h1 class="hero-title">mtv-api-tests</h1>
-                <p class="hero-tagline">Automated API test suite for Migration Toolkit for Virtualization (MTV) — validating VM migrations from VMware, RHV, OpenStack, OVA, and OpenShift to OpenShift Virtualization</p>
+                <p class="hero-tagline">Pytest-based integration suite for validating Migration Toolkit for Virtualization migrations into OpenShift Virtualization.</p>
                 
                 <a href="introduction.html" class="hero-cta">Get Started</a>
                 
@@ -359,27 +290,34 @@
             <section class="card-grid">
                 
                 <div class="card">
-                    <h3 class="card-title">Getting Started</h3>
+                    <h3 class="card-title">Overview</h3>
                     <ul class="card-pages">
                         
                         <li>
                             <a href="introduction.html">Introduction</a>
                             
-                            <p class="card-page-desc">Overview of MTV API Tests: what it is, what it tests, supported source providers (VMware vSphere, RHV, OpenStack, OVA, OpenShift), migration types (cold, warm, copy-offload), and the 5-step test pattern</p>
+                            <p class="card-page-desc">Explain what mtv-api-tests is, who it is for, and how it validates MTV migrations across real providers and OpenShift environments.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="installation.html">Installation</a>
+                            <a href="project-structure.html">Project Structure</a>
                             
-                            <p class="card-page-desc">Prerequisites (Python 3.12+, uv, podman), cloning the repository, installing dependencies with uv sync, and verifying the setup</p>
+                            <p class="card-page-desc">Map the repository layout, including test suites, provider adapters, shared utilities, exceptions, tooling, and automation/configuration files.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="quickstart.html">Quick Start</a>
+                            <a href="architecture-and-workflow.html">Architecture And Workflow</a>
                             
-                            <p class="card-page-desc">Running your first test collection with podman, understanding the container-based execution model, and interpreting output</p>
+                            <p class="card-page-desc">Describe the end-to-end flow from provider setup and Forklift inventory discovery to StorageMap, NetworkMap, Plan, Migration, validation, and teardown.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="supported-providers-and-scenarios.html">Supported Providers And Scenarios</a>
+                            
+                            <p class="card-page-desc">Summarize supported source providers, migration modes, pytest markers, and major scenarios such as tier0, warm, remote, comprehensive, and copy-offload tests.</p>
                             
                         </li>
                         
@@ -390,306 +328,213 @@
                 </div>
                 
                 <div class="card">
+                    <h3 class="card-title">Getting Started</h3>
+                    <ul class="card-pages">
+                        
+                        <li>
+                            <a href="prerequisites.html">Prerequisites</a>
+                            
+                            <p class="card-page-desc">Document the required OpenShift, MTV, OpenShift Virtualization, storage, network, provider, and permission prerequisites for running the suite safely.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="installation-and-local-setup.html">Installation And Local Setup</a>
+                            
+                            <p class="card-page-desc">Cover Python and uv requirements, dependency installation, local environment preparation, and how virtctl is discovered or downloaded from the cluster.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="quickstart-first-run.html">Quickstart First Run</a>
+                            
+                            <p class="card-page-desc">Show how to create provider config, pass runtime settings with pytest-testconfig, start with collect-only or setup-plan, and launch a first targeted test run.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="container-and-openshift-job-execution.html">Container And OpenShift Job Execution</a>
+                            
+                            <p class="card-page-desc">Explain how to run the suite from the project container image or inside an OpenShift Job, including mounted config, credentials, and result collection.</p>
+                            
+                        </li>
+                        
+                    </ul>
+                    
+                    <a href="prerequisites.html" class="card-link">Explore &rarr;</a>
+                    
+                </div>
+                
+                <div class="card">
                     <h3 class="card-title">Configuration</h3>
                     <ul class="card-pages">
                         
                         <li>
-                            <a href="provider-configuration.html">Provider Configuration</a>
+                            <a href="runtime-configuration.html">Runtime Configuration</a>
                             
-                            <p class="card-page-desc">Setting up .providers.json with credentials and connection details for each source provider type: VMware vSphere, RHV/oVirt, OpenStack, OVA, and OpenShift</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="cluster-configuration.html">Cluster Configuration</a>
-                            
-                            <p class="card-page-desc">Configuring the target OpenShift cluster: cluster host, admin credentials, storage classes, and namespace settings via --tc CLI flags</p>
+                            <p class="card-page-desc">Document global pytest-testconfig values, command-line overrides, and custom pytest options such as data collection, teardown control, debug logging, and AI analysis.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="test-parameters.html">Test Parameters</a>
+                            <a href="provider-config-file.html">Provider Config File</a>
                             
-                            <p class="card-page-desc">Understanding tests_config/config.py: defining test_params entries, VM configuration options (name, power state, guest agent, clone, disk type, snapshots, add_disks), and feature flags (warm_migration, copyoffload)</p>
+                            <p class="card-page-desc">Reference the .providers.json schema for vSphere, RHV, OpenStack, OpenShift, and OVA sources, including guest credentials, SSL behavior, and provider-specific fields.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="environment-variables.html">Environment Variables</a>
+                            <a href="test-plan-configuration.html">Test Plan Configuration</a>
                             
-                            <p class="card-page-desc">Reference for all environment variables: CLUSTER_PASSWORD, KUBECONFIG, copy-offload credentials (COPYOFFLOAD_*), AI analysis settings (JJI_*), and data collector options</p>
+                            <p class="card-page-desc">Explain the tests_params structure, per-VM settings, cloning and disk options, plan-level flags, and how prepared plans are derived from raw config.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="optional-integrations-and-secrets.html">Optional Integrations And Secrets</a>
+                            
+                            <p class="card-page-desc">Cover JIRA integration, AI failure-analysis environment variables, copy-offload credential overrides, and practical guidance for handling sensitive values.</p>
                             
                         </li>
                         
                     </ul>
                     
-                    <a href="provider-configuration.html" class="card-link">Explore &rarr;</a>
+                    <a href="runtime-configuration.html" class="card-link">Explore &rarr;</a>
                     
                 </div>
                 
                 <div class="card">
-                    <h3 class="card-title">Running Tests</h3>
+                    <h3 class="card-title">Guides</h3>
                     <ul class="card-pages">
                         
                         <li>
-                            <a href="execution-modes.html">Execution Modes</a>
+                            <a href="cold-migrations.html">Cold Migrations</a>
                             
-                            <p class="card-page-desc">Running tests locally with uv run pytest, in a container with podman/docker, and as an OpenShift Job for CI/CD pipelines</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="test-markers.html">Test Markers and Selection</a>
-                            
-                            <p class="card-page-desc">Using pytest markers to select tests: tier0 (smoke), warm, copyoffload, remote, incremental, and min_mtv_version. Combining markers with -m expressions</p>
+                            <p class="card-page-desc">Walk through the standard cold migration test pattern, from map creation to execution and post-migration validation.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="parallel-execution.html">Parallel Execution</a>
+                            <a href="warm-migrations.html">Warm Migrations</a>
                             
-                            <p class="card-page-desc">Running tests in parallel with pytest-xdist: --dist=loadscope configuration, worker isolation via session_uuid, unique namespaces, and fixture_store per worker</p>
+                            <p class="card-page-desc">Explain warm migration behavior, precopy interval tuning, cutover timing, supported providers, and the extra validation path for warm tests.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="test-output.html">Test Output and Reporting</a>
+                            <a href="copy-offload-migrations.html">Copy-Offload Migrations</a>
                             
-                            <p class="card-page-desc">Understanding JUnit XML reports, must-gather collection on failures, data-collector resource tracking, and optional AI-powered failure analysis with Jenkins Job Insight</p>
+                            <p class="card-page-desc">Document VMware copy-offload prerequisites, storage secrets, offload plugin settings, supported vendors, SSH or VIB clone methods, fallback modes, and advanced copy-offload scenarios.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="remote-openshift-migrations.html">Remote OpenShift Migrations</a>
+                            
+                            <p class="card-page-desc">Describe the remote migration path, destination provider handling, remote-specific config, and how remote scenarios differ from the default local destination flow.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="hooks-and-expected-failures.html">Hooks And Expected Failures</a>
+                            
+                            <p class="card-page-desc">Show how pre and post hooks are configured, how predefined and custom playbooks work, and how expected-failure tests are validated.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="advanced-plan-features.html">Advanced Plan Features</a>
+                            
+                            <p class="card-page-desc">Cover advanced plan options such as target power state, static IP preservation, PVC naming templates, custom VM namespaces, node selectors, labels, affinity, and Multus setup.</p>
                             
                         </li>
                         
                     </ul>
                     
-                    <a href="execution-modes.html" class="card-link">Explore &rarr;</a>
+                    <a href="cold-migrations.html" class="card-link">Explore &rarr;</a>
                     
                 </div>
                 
                 <div class="card">
-                    <h3 class="card-title">Test Patterns</h3>
+                    <h3 class="card-title">Reference</h3>
                     <ul class="card-pages">
                         
                         <li>
-                            <a href="test-structure.html">Test Class Structure</a>
+                            <a href="pytest-options-and-markers.html">Pytest Options And Markers</a>
                             
-                            <p class="card-page-desc">The 5-step test pattern: test_create_storagemap, test_create_networkmap, test_create_plan, test_migrate_vms, test_check_vms. Class-level parametrization with indirect=True and shared state via self.__class__</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="writing-new-tests.html">Writing New Tests</a>
-                            
-                            <p class="card-page-desc">Step-by-step guide to adding a new migration test: adding config to tests_params, creating the test file, applying markers, implementing the 5 test methods, and using prepared_plan</p>
+                            <p class="card-page-desc">Reference the suite&#39;s markers, default pytest settings, xdist behavior, incremental semantics, and supported selection and dry-run modes.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="fixture-patterns.html">Fixture Patterns</a>
+                            <a href="plan-and-resource-reference.html">Plan And Resource Reference</a>
                             
-                            <p class="card-page-desc">Session-scoped vs class-scoped vs function-scoped fixtures, autouse fixtures, fixture_store for resource tracking, cleanup_migrated_vms teardown, and the class_plan_config/prepared_plan relationship</p>
+                            <p class="card-page-desc">Explain the custom resources and mappings the suite creates, including Provider, StorageMap, NetworkMap, Plan, Migration, Hook, and related naming and readiness rules.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="post-migration-validation.html">Post-Migration Validation</a>
+                            <a href="provider-and-inventory-reference.html">Provider And Inventory Reference</a>
                             
-                            <p class="card-page-desc">What check_vms validates: SSH connectivity, static IP preservation, PVC name templates (Go template syntax), power state, network configuration, and disk count verification</p>
+                            <p class="card-page-desc">Document the BaseProvider abstraction, provider-specific behaviors, Forklift inventory adapters, and how source network and storage mappings are resolved.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="python-module-reference.html">Python Module Reference</a>
+                            
+                            <p class="card-page-desc">Provide a module-level reference for shared utilities such as SSH access, virtctl management, resource creation, teardown, diagnostics, and post-migration checks.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="troubleshooting-and-diagnostics.html">Troubleshooting And Diagnostics</a>
+                            
+                            <p class="card-page-desc">Describe common failure points, JUnit output, collected resource artifacts, must-gather support, AI enrichment, and the best places to inspect when migrations fail.</p>
                             
                         </li>
                         
                     </ul>
                     
-                    <a href="test-structure.html" class="card-link">Explore &rarr;</a>
+                    <a href="pytest-options-and-markers.html" class="card-link">Explore &rarr;</a>
                     
                 </div>
                 
                 <div class="card">
-                    <h3 class="card-title">Migration Types</h3>
+                    <h3 class="card-title">Maintenance</h3>
                     <ul class="card-pages">
                         
                         <li>
-                            <a href="cold-migration.html">Cold Migration</a>
+                            <a href="cleanup-and-teardown.html">Cleanup And Teardown</a>
                             
-                            <p class="card-page-desc">Standard cold migration workflow: VM powered off during transfer, basic and comprehensive test scenarios, and remote cluster cold migration</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="warm-migration.html">Warm Migration</a>
-                            
-                            <p class="card-page-desc">Warm migration with minimal downtime: incremental data sync, cutover scheduling, warm migration comprehensive tests (static IPs, custom namespaces, PVC templates, node selectors, labels, affinity)</p>
+                            <p class="card-page-desc">Explain automatic cleanup, session teardown behavior, leftover detection, the skip-teardown workflow for debugging, and manual cleanup helpers.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="copy-offload-migration.html">Copy-Offload Migration</a>
+                            <a href="extending-the-suite.html">Extending The Suite</a>
                             
-                            <p class="card-page-desc">XCOPY-accelerated migrations: supported storage vendors (NetApp ONTAP, Hitachi, Pure Storage, Dell, HPE, Infinidat, IBM), datastore configuration, offload plugin setup, and the vsphere-xcopy-volume-populator</p>
+                            <p class="card-page-desc">Show how to add new test configs, follow the repository&#39;s five-step class pattern, reuse fixtures, and extend provider or validation coverage.</p>
                             
                         </li>
                         
                         <li>
-                            <a href="copy-offload-scenarios.html">Copy-Offload Test Scenarios</a>
+                            <a href="development-workflow.html">Development Workflow</a>
                             
-                            <p class="card-page-desc">Detailed copy-offload test coverage: thin/thick provisioning, multi-disk, multi-datastore, RDM virtual disks, snapshots, warm+copy-offload, scale testing, fallback to non-XCOPY, and large VM migrations</p>
+                            <p class="card-page-desc">Document the local developer workflow, including dependency sync, linting, typing, pre-commit checks, tox targets, and container builds.</p>
+                            
+                        </li>
+                        
+                        <li>
+                            <a href="automation-and-release.html">Automation And Release</a>
+                            
+                            <p class="card-page-desc">Explain the repository&#39;s automation surface, including pre-commit, release-it, Renovate, container image build inputs, AI review bots, and the fact that CI orchestration is external to this repo.</p>
                             
                         </li>
                         
                     </ul>
                     
-                    <a href="cold-migration.html" class="card-link">Explore &rarr;</a>
-                    
-                </div>
-                
-                <div class="card">
-                    <h3 class="card-title">Architecture</h3>
-                    <ul class="card-pages">
-                        
-                        <li>
-                            <a href="provider-abstraction.html">Provider Abstraction Layer</a>
-                            
-                            <p class="card-page-desc">BaseProvider abstract class, provider implementations (VMWareProvider, OvirtProvider, OpenstackProvider, OCPProvider, OvaProvider), context manager lifecycle, unified VM dict template, and clone operations</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="forklift-inventory.html">Forklift Inventory API</a>
-                            
-                            <p class="card-page-desc">ForkliftInventory base class and provider-specific implementations: querying VMs, storage mappings, network mappings, waiting for provider sync, and OpenStack volume/network synchronization</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="resource-management.html">Resource Management</a>
-                            
-                            <p class="card-page-desc">create_and_store_resource() function: auto-naming with UUID, 63-char truncation, conflict handling, fixture_store tracking, teardown ordering, and get_or_create_namespace()</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="naming-conventions.html">Naming Conventions</a>
-                            
-                            <p class="card-page-desc">Resource naming strategy: session_uuid prefixing, generate_name_with_uuid(), sanitize_kubernetes_name() for DNS-1123 compliance, class-unique NAD naming with SHA-256 hashing</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="hooks-system.html">Pre/Post Migration Hooks</a>
-                            
-                            <p class="card-page-desc">Hook CR creation, base64-encoded Ansible playbooks, predefined success/failure hooks, hook failure validation, and the test_post_hook_retain_failed_vm test pattern</p>
-                            
-                        </li>
-                        
-                    </ul>
-                    
-                    <a href="provider-abstraction.html" class="card-link">Explore &rarr;</a>
-                    
-                </div>
-                
-                <div class="card">
-                    <h3 class="card-title">Utilities Reference</h3>
-                    <ul class="card-pages">
-                        
-                        <li>
-                            <a href="migration-utilities.html">Migration Utilities</a>
-                            
-                            <p class="card-page-desc">API reference for utilities/mtv_migration.py: create_plan_resource(), execute_migration(), get_storage_migration_map(), get_network_migration_map(), and migration status functions</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="post-migration-utilities.html">Post-Migration Utilities</a>
-                            
-                            <p class="card-page-desc">API reference for utilities/post_migration.py: check_vms(), SSH connectivity checks, static IP validation, PVC name verification, and power state validation</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="general-utilities.html">General Utilities</a>
-                            
-                            <p class="card-page-desc">API reference for utilities/utils.py: create_source_provider(), load_source_providers(), gen_network_map_list(), get_cluster_client(), get_cluster_version(), populate_vm_ids(), and VirtualMachineFromInstanceType</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="copy-offload-utilities.html">Copy-Offload Utilities</a>
-                            
-                            <p class="card-page-desc">API reference for utilities/copyoffload_migration.py and copyoffload_constants.py: get_copyoffload_credential(), wait_for_plan_secret(), supported storage vendor constants</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="custom-exceptions.html">Custom Exceptions</a>
-                            
-                            <p class="card-page-desc">All exception classes in exceptions/exceptions.py: migration errors (MigrationPlanExecError, MigrationNotFoundError), VM errors (VmCloneError, VmNotFoundError), provider errors, and infrastructure errors</p>
-                            
-                        </li>
-                        
-                    </ul>
-                    
-                    <a href="migration-utilities.html" class="card-link">Explore &rarr;</a>
-                    
-                </div>
-                
-                <div class="card">
-                    <h3 class="card-title">Operations</h3>
-                    <ul class="card-pages">
-                        
-                        <li>
-                            <a href="container-build.html">Container Build and Registry</a>
-                            
-                            <p class="card-page-desc">Building the test container with podman/docker, Dockerfile internals (Fedora 41, uv, system dependencies), and pushing to ghcr.io/redhatqe/mtv-api-tests</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="cluster-cleanup.html">Cluster Cleanup</a>
-                            
-                            <p class="card-page-desc">Using tools/clean_cluster.py with data-collector output, automated teardown via session_teardown(), parallel pod cleanup, and DV/PVC/PV verification</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="troubleshooting.html">Troubleshooting</a>
-                            
-                            <p class="card-page-desc">Common issues and solutions: provider connection failures, Forklift pod state errors, VM clone failures, inventory sync timeouts, resource name conflicts, and must-gather collection</p>
-                            
-                        </li>
-                        
-                    </ul>
-                    
-                    <a href="container-build.html" class="card-link">Explore &rarr;</a>
-                    
-                </div>
-                
-                <div class="card">
-                    <h3 class="card-title">Development</h3>
-                    <ul class="card-pages">
-                        
-                        <li>
-                            <a href="code-standards.html">Code Standards</a>
-                            
-                            <p class="card-page-desc">Coding conventions: type annotations, docstring format, fail-fast validation, pass objects over values, no unnecessary variables, deterministic tests, and OpenShift resource interaction rules</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="pre-commit-hooks.html">Pre-Commit and Linting</a>
-                            
-                            <p class="card-page-desc">Pre-commit hook configuration: ruff formatting/linting, mypy type checking, flake8, gitleaks secret scanning, and markdownlint. Running pre-commit run --all-files</p>
-                            
-                        </li>
-                        
-                        <li>
-                            <a href="project-dependencies.html">Project Dependencies</a>
-                            
-                            <p class="card-page-desc">Key dependencies and their roles: openshift-python-wrapper, pyvmomi, ovirt-python-sdk, openstacksdk, pytest-xdist, pytest-testconfig, python-rrmngmnt, shortuuid, and jc</p>
-                            
-                        </li>
-                        
-                    </ul>
-                    
-                    <a href="code-standards.html" class="card-link">Explore &rarr;</a>
+                    <a href="cleanup-and-teardown.html" class="card-link">Explore &rarr;</a>
                     
                 </div>
                 
@@ -697,7 +542,7 @@
         </main>
 
         <footer class="page-footer">
-            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docsfy</a>
+            Generated with <a href="https://github.com/myk-org/docsfy" target="_blank" rel="noopener">docs<span class="brand-accent">fy</span></a>
             <span class="footer-sep">·</span>
             <span class="footer-llm">LLM-friendly: <a href="llms.txt">llms.txt</a> · <a href="llms-full.txt">llms-full.txt</a></span>
         </footer>
@@ -713,49 +558,49 @@
     <script src="assets/codelabels.js"></script>
     <script src="assets/github.js"></script>
     <script>
-    (function() {
-        var toggle = document.getElementById('sidebar-toggle');
-        var sidebar = document.getElementById('sidebar');
-        var overlay = document.getElementById('sidebar-overlay');
-        if (toggle && sidebar) {
-            toggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-                if (overlay) overlay.classList.toggle('open');
-                var expanded = sidebar.classList.contains('open');
-                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-            });
-        }
-        if (overlay) {
-            overlay.addEventListener('click', function() {
-                sidebar.classList.remove('open');
-                overlay.classList.remove('open');
-                if (toggle) toggle.setAttribute('aria-expanded', 'false');
-            });
-        }
-    })();
-    </script>
-    <script>
-    (function() {
-        var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
-        if (!sidebar) return;
-
-        // Restore scroll position
-        var saved = sessionStorage.getItem('sidebar-scroll');
-        if (saved) sidebar.scrollTop = parseInt(saved, 10);
-
-        // Save scroll position before navigating
-        sidebar.addEventListener('scroll', function() {
-            sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+(function() {
+    var toggle = document.getElementById('sidebar-toggle');
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebar-overlay');
+    if (toggle && sidebar) {
+        toggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            if (overlay) overlay.classList.toggle('open');
+            var expanded = sidebar.classList.contains('open');
+            toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         });
+    }
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        });
+    }
+})();
+</script>
+<script>
+(function() {
+    var sidebar = document.querySelector('.sidebar-nav') || document.querySelector('.sidebar');
+    if (!sidebar) return;
 
-        // Also scroll active link into view if no saved position
-        if (!saved) {
-            var active = sidebar.querySelector('.nav-link.active');
-            if (active) {
-                active.scrollIntoView({ block: 'center', behavior: 'instant' });
-            }
+    // Restore scroll position
+    var saved = sessionStorage.getItem('sidebar-scroll');
+    if (saved) sidebar.scrollTop = parseInt(saved, 10);
+
+    // Save scroll position before navigating
+    sidebar.addEventListener('scroll', function() {
+        sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop.toString());
+    });
+
+    // Also scroll active link into view if no saved position
+    if (!saved) {
+        var active = sidebar.querySelector('.nav-link.active');
+        if (active) {
+            active.scrollIntoView({ block: 'center', behavior: 'instant' });
         }
-    })();
-    </script>
+    }
+})();
+</script>
 </body>
 </html>

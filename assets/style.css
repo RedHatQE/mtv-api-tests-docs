@@ -365,22 +365,20 @@ a:hover {
 
 .theme-toggle {
     background: none;
-    border: 1px solid var(--border-primary);
+    border: none;
     color: var(--text-secondary);
     cursor: pointer;
-    padding: 7px;
-    border-radius: 8px;
+    padding: 6px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color var(--transition-fast), background-color var(--transition-fast),
-                border-color var(--transition-fast);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .theme-toggle:hover {
     color: var(--text-primary);
     background: var(--bg-tertiary);
-    border-color: var(--border-primary);
 }
 
 /* Show sun in dark mode, moon in light mode */
@@ -624,9 +622,25 @@ blockquote.callout-tip {
     margin: 1.5rem 0;
 }
 
+blockquote.callout-danger {
+    border-left: 4px solid #ef4444;
+    background: rgba(239, 68, 68, 0.08);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+}
+
+blockquote.callout-important {
+    border-left: 4px solid #8b5cf6;
+    background: rgba(139, 92, 246, 0.08);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0;
+}
+
 /* Chained :not() for broader browser compatibility */
 /* Default blockquote styling (not a callout) */
-blockquote:not(.callout-note):not(.callout-warning):not(.callout-tip) {
+blockquote:not(.callout-note):not(.callout-warning):not(.callout-tip):not(.callout-danger):not(.callout-important) {
     border-left: 4px solid var(--border-primary);
     padding: 1rem 1.25rem;
     margin: 1.5rem 0;
@@ -1364,6 +1378,10 @@ pre:hover .copy-btn {
 .docsfy-badge:hover {
     border-color: var(--accent);
     background: var(--accent-light);
+}
+
+.brand-accent {
+    color: var(--accent);
 }
 
 /* --------------------------------------------------------------------------

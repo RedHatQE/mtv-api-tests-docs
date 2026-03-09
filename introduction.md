@@ -1,500 +1,321 @@
 # Introduction
 
-## What is MTV API Tests?
+`mtv-api-tests` is an end-to-end validation suite for Migration Toolkit for Virtualization (MTV). It is built on `pytest`, but it is not a typical unit-test project: it connects to real source providers, creates real MTV custom resources on OpenShift, runs actual migrations, and then checks the migrated virtual machines on the destination cluster.
 
-MTV API Tests is an end-to-end test suite for **Migration Toolkit for Virtualization (MTV)**, a Kubernetes-native operator that migrates virtual machines from legacy virtualization platforms to Red Hat OpenShift. The test suite exercises the complete migration lifecycle through the MTV API -- from provider registration and resource mapping to migration execution and post-migration validation.
+That makes it useful when you need to answer practical questions such as:
 
-Rather than testing through a UI, MTV API Tests interacts directly with Kubernetes Custom Resources (CRs) using the [openshift-python-wrapper](https://github.com/RedHatQE/openshift-python-wrapper) library. This enables precise, repeatable verification of MTV's core functionality: creating `StorageMap`, `NetworkMap`, and `Plan` resources, executing migrations, and validating that migrated VMs match their source configuration.
+- Can MTV migrate this VM from my provider into OpenShift Virtualization?
+- Do warm migrations still behave correctly after an MTV or cluster upgrade?
+- Did advanced plan settings such as hooks, copy-offload, PVC naming, labels, affinity, or target placement actually take effect?
 
-```
-┌─────────────────────┐         ┌──────────────────────┐
-│   Source Provider    │         │  OpenShift Cluster    │
-│                      │  MTV    │                       │
-│  VMware vSphere      │────────▶│  KubeVirt VMs         │
-│  RHV/oVirt           │  Plan   │                       │
-│  OpenStack           │────────▶│  StorageMap           │
-│  OVA Files           │         │  NetworkMap           │
-│  OpenShift           │         │  Migration CR         │
-└─────────────────────┘         └──────────────────────┘
-```
+## What mtv-api-tests is for
 
-The project is built with **Python 3.12+**, uses **pytest** as its test framework, and is managed with **uv** for dependency resolution.
+This project is aimed at people who need confidence in real migration behavior, not just API-level validation:
 
-## What MTV Does
+- QE and release-validation teams qualifying MTV across supported migration paths
+- Platform engineers testing migrations in their own OpenShift environments
+- Storage, provider, and partner teams validating feature-specific scenarios such as copy-offload
+- Operators who need proof that a migrated VM still behaves the way they expect after the move
 
-MTV (Migration Toolkit for Virtualization) is deployed as an operator in the `openshift-mtv` namespace and consists of several key concepts:
+> **Warning:** `mtv-api-tests` is not a mock-based local test harness. It expects a live OpenShift environment with MTV installed, real source-provider credentials, and real VMs or templates to migrate.
 
-| Concept | Description |
-|---------|-------------|
-| **Provider** | A connection definition to a source virtualization platform or destination OpenShift cluster |
-| **StorageMap** | Maps source storage domains/datastores to target OpenShift storage classes |
-| **NetworkMap** | Maps source networks to target OpenShift networks (pod network or Multus) |
-| **Plan** | Orchestrates the migration of a set of VMs, referencing a StorageMap, NetworkMap, and provider pair |
-| **Migration** | The execution instance of a Plan -- triggers the actual data transfer |
+## What it validates
 
-The test suite validates that these resources are created correctly, that migrations complete successfully, and that the resulting KubeVirt VMs preserve the properties of their source counterparts.
+The repository covers the full MTV workflow, not just a single API call or resource:
 
-## Supported Source Providers
+| Area | What the suite covers |
+| --- | --- |
+| Source providers | vSphere, RHV/oVirt, OpenStack, OVA, and OpenShift source-provider flows |
+| Destination | OpenShift Virtualization, including remote-cluster-style scenarios |
+| Migration types | Cold migration, warm migration, copy-offload, hook-based flows, and comprehensive feature combinations |
+| MTV resources | `Provider`, `StorageMap`, `NetworkMap`, `Plan`, `Hook`, and `Migration` custom resources |
+| VM outcome checks | Power state, CPU, memory, network mapping, storage mapping, PVC naming, guest agent, SSH connectivity, static IP preservation, node placement, labels, and affinity |
 
-MTV API Tests supports five source provider types, each implemented as a subclass of `BaseProvider`:
+Warm migration coverage is provider-aware. The warm test suite explicitly skips unsupported source types such as OpenStack, OpenShift, and OVA, so the test matrix follows the support rules encoded by the project itself.
 
-### VMware vSphere
+> **Tip:** Start with the `tier0` scenarios such as `test_sanity_cold_mtv_migration` or `test_sanity_warm_mtv_migration`. They exercise the same MTV lifecycle as the larger suites, but with a smaller and easier-to-debug scope.
 
-The most feature-rich provider, supporting cold migration, warm migration, and copy-offload (XCOPY) transfers. Uses the `pyVmomi` SDK for vSphere API interaction.
+## How a migration is validated
 
-```python
-# libs/providers/vmware.py
-from pyVim.connect import Disconnect, SmartConnect
-from pyVmomi import vim
+A typical `mtv-api-tests` run follows the same five-step pattern used throughout the repository:
 
-from libs.base_provider import BaseProvider
+1. Load the selected source provider from `.providers.json`.
+2. Create or connect the MTV `Provider` resources on OpenShift.
+3. Build `StorageMap` and `NetworkMap` resources for the selected VMs.
+4. Create a `Plan` and then a `Migration` custom resource.
+5. Inspect the migrated VM on OpenShift and compare it to the source VM and expected plan settings.
 
-class VMWareProvider(BaseProvider):
-    # Supports disk types: thin, thick-lazy, thick-eager
-    # Supports copy-offload via VAAI XCOPY
-    # Supports snapshot handling and datastore management
-    ...
-```
-
-### Red Hat Virtualization (RHV)
-
-Connects to oVirt/RHV environments using the `ovirt-sdk4`. Supports template-based VM cloning and datacenter management.
+The core cold-migration test shows that pattern directly:
 
 ```python
-# libs/providers/rhv.py
-import ovirtsdk4
-from ovirtsdk4 import types
+vms = [vm["name"] for vm in prepared_plan["virtual_machines"]]
+self.__class__.storage_map = get_storage_migration_map(
+    fixture_store=fixture_store,
+    source_provider=source_provider,
+    destination_provider=destination_provider,
+    source_provider_inventory=source_provider_inventory,
+    ocp_admin_client=ocp_admin_client,
+    target_namespace=target_namespace,
+    vms=vms,
+)
+assert self.storage_map, "StorageMap creation failed"
 
-class OvirtProvider(BaseProvider):
-    ...
+vms = [vm["name"] for vm in prepared_plan["virtual_machines"]]
+self.__class__.network_map = get_network_migration_map(
+    fixture_store=fixture_store,
+    source_provider=source_provider,
+    destination_provider=destination_provider,
+    source_provider_inventory=source_provider_inventory,
+    ocp_admin_client=ocp_admin_client,
+    target_namespace=target_namespace,
+    multus_network_name=multus_network_name,
+    vms=vms,
+)
+assert self.network_map, "NetworkMap creation failed"
+
+populate_vm_ids(prepared_plan, source_provider_inventory)
+
+self.__class__.plan_resource = create_plan_resource(
+    ocp_admin_client=ocp_admin_client,
+    fixture_store=fixture_store,
+    source_provider=source_provider,
+    destination_provider=destination_provider,
+    storage_map=self.storage_map,
+    network_map=self.network_map,
+    virtual_machines_list=prepared_plan["virtual_machines"],
+    target_namespace=target_namespace,
+    warm_migration=prepared_plan.get("warm_migration", False),
+)
+assert self.plan_resource, "Plan creation failed"
+
+execute_migration(
+    ocp_admin_client=ocp_admin_client,
+    fixture_store=fixture_store,
+    plan=self.plan_resource,
+    target_namespace=target_namespace,
+)
+
+check_vms(
+    plan=prepared_plan,
+    source_provider=source_provider,
+    destination_provider=destination_provider,
+    network_map_resource=self.network_map,
+    storage_map_resource=self.storage_map,
+    source_provider_data=source_provider_data,
+    source_vms_namespace=source_vms_namespace,
+    source_provider_inventory=source_provider_inventory,
+    vm_ssh_connections=vm_ssh_connections,
+)
 ```
 
-### OpenStack
+That same lifecycle appears across cold, warm, comprehensive, hook, remote, and copy-offload suites. What changes from test to test is the migration scenario and the validation expectations, not the basic MTV flow.
 
-Uses the `openstacksdk` to manage instances and volumes on OpenStack platforms.
+Under the hood, that flow stays grounded in real platform state:
 
-```python
-# libs/providers/openstack.py
-from openstack.connection import Connection
+- Source-provider adapters in `libs/providers/` connect to actual provider APIs.
+- The `prepared_plan` fixture can clone source VMs, power them on or off, create hooks, and prepare extra namespaces or networks before migration begins.
+- The `ForkliftInventory` helpers query the live `forklift-inventory` route and wait until provider, VM, storage, and network data are actually available before proceeding.
 
-class OpenStackProvider(BaseProvider):
-    ...
+## How configuration works
+
+`mtv-api-tests` separates environment configuration from migration-scenario configuration.
+
+### Provider and environment configuration
+
+Source-provider credentials and connection details are loaded from `.providers.json`. The example file shows the expected shape:
+
+```jsonc
+{
+  "vsphere": {
+    "type": "vsphere",
+    "version": "<SERVER VERSION>",
+    "fqdn": "SERVER FQDN/IP",
+    "api_url": "<SERVER FQDN/IP>/sdk",
+    "username": "USERNAME",
+    "password": "PASSWORD",  # pragma: allowlist secret
+    "guest_vm_linux_user": "LINUX VMS USERNAME",
+    "guest_vm_linux_password": "LINUX VMS PASSWORD",  # pragma: allowlist secret
+    "guest_vm_win_user": "WINDOWS VMS USERNAME",
+    "guest_vm_win_password": "WINDOWS VMS PASSWORD",  # pragma: allowlist secret
+    "vddk_init_image": "<PATH TO VDDK INIT IMAGE>"
+  }
+}
 ```
 
-### OVA
+The same example file also includes entries for `ovirt`, `openstack`, `openshift`, and `ova`, so the project can model more than one kind of source platform. For copy-offload scenarios, the example file adds a `copyoffload` section with storage-vendor and datastore settings.
 
-Imports virtual machines from OVA files stored on NFS paths. A lightweight provider that requires no live connection to a hypervisor.
+> **Note:** `.providers.json.example` contains inline comments for documentation and secret-scanning rules. Your real `.providers.json` must be valid JSON without those comments.
 
-```python
-# libs/providers/ova.py
-class OVAProvider(BaseProvider):
-    ...
-```
+Those provider entries do more than create MTV `Provider` resources. They also supply guest credentials used later for SSH-based validation of migrated VMs.
 
-### OpenShift (Virtual-to-Virtual)
+### Scenario configuration
 
-Migrates VMs between OpenShift clusters (or within the same cluster). Uses `ocp_resources` for VirtualMachine resource management.
+Individual migration scenarios live in `tests/tests_config/config.py`. That file is effectively the catalog of what the project knows how to validate. A single scenario can switch advanced MTV features on and off:
 
 ```python
-# libs/providers/openshift.py
-from ocp_resources.virtual_machine import VirtualMachine
-
-class OCPProvider(BaseProvider):
-    ...
-```
-
-> **Note:** OpenShift always serves as the **destination** provider. When used as a source, it enables virtual-to-virtual migration between OpenShift environments.
-
-### Provider Abstraction
-
-All providers inherit from `BaseProvider`, which defines the contract every provider must implement:
-
-```python
-# libs/base_provider.py
-class BaseProvider(abc.ABC):
-    VIRTUAL_MACHINE_TEMPLATE: dict[str, Any] = {
-        "id": "",
-        "name": "",
-        "provider_type": "",
-        "network_interfaces": [],
-        "disks": [],
-        "cpu": {},
-        "memory_in_mb": 0,
-        "snapshots_data": [],
-        "power_state": "",
-    }
-
-    @abc.abstractmethod
-    def connect(self) -> Any: ...
-
-    @abc.abstractmethod
-    def disconnect(self) -> Any: ...
-
-    @abc.abstractmethod
-    def vm_dict(self, **kwargs: Any) -> dict[str, Any]: ...
-
-    @abc.abstractmethod
-    def clone_vm(self, source_vm_name: str, clone_vm_name: str, session_uuid: str, **kwargs: Any) -> Any: ...
-
-    @abc.abstractmethod
-    def delete_vm(self, vm_name: str) -> Any: ...
-
-    @abc.abstractmethod
-    def get_vm_or_template_networks(self, names: list[str], inventory: ForkliftInventory) -> list[dict[str, str]]: ...
-```
-
-The unified `VIRTUAL_MACHINE_TEMPLATE` ensures VM metadata is represented consistently across all providers, enabling the same validation logic in `check_vms()` regardless of the source platform.
-
-## Migration Types
-
-### Cold Migration
-
-The source VM is powered off during the entire data transfer. This is the simplest and most reliable migration strategy.
-
-```python
-# tests/tests_config/config.py
-"test_sanity_cold_mtv_migration": {
-    "virtual_machines": [
-        {"name": "mtv-tests-rhel8", "guest_agent": True},
-    ],
-    "warm_migration": False,
-},
-```
-
-- **Supported providers:** All (VMware, RHV, OpenStack, OVA, OpenShift)
-- **Test marker:** `@pytest.mark.tier0`
-- **Test file:** `tests/test_mtv_cold_migration.py`
-
-### Warm Migration
-
-The source VM remains running during the initial data copy. MTV performs incremental snapshots at configurable intervals, then executes a final cutover that briefly stops the VM to transfer the last delta.
-
-```python
-# tests/tests_config/config.py
-"test_sanity_warm_mtv_migration": {
+"test_warm_migration_comprehensive": {
     "virtual_machines": [
         {
-            "name": "mtv-tests-rhel8",
+            "name": "mtv-win2022-ip-3disks",
             "source_vm_power": "on",
             "guest_agent": True,
         },
     ],
     "warm_migration": True,
+    "target_power_state": "on",
+    "preserve_static_ips": True,
+    "vm_target_namespace": "custom-vm-namespace",
+    "multus_namespace": "default",
+    "pvc_name_template": '{{ .FileName | trimSuffix ".vmdk" | replace "_" "-" }}-{{.DiskIndex}}',
+    "pvc_name_template_use_generate_name": True,
+    "target_labels": {
+        "mtv-comprehensive-test": None,
+        "static-label": "static-value",
+    },
+    "target_affinity": {
+        "podAffinity": {
+            "preferredDuringSchedulingIgnoredDuringExecution": [
+                {
+                    "podAffinityTerm": {
+                        "labelSelector": {"matchLabels": {"app": "comprehensive-test"}},
+                        "topologyKey": "kubernetes.io/hostname",
+                    },
+                    "weight": 75,
+                }
+            ]
+        }
+    },
 },
 ```
 
-- **Supported providers:** VMware vSphere, RHV
-- **Test marker:** `@pytest.mark.warm`
-- **Test file:** `tests/test_mtv_warm_migration.py`
-- **Key parameters:** `snapshots_interval` (default: 2 minutes), `mins_before_cutover` (default: 5 minutes)
+This is a good example of what makes `mtv-api-tests` more than a smoke suite. A scenario can describe not only which VM to migrate, but also which migration mode to use and what should still be true afterward.
 
-> **Note:** Warm migration is not supported for OpenStack, OVA, or OpenShift source providers. The test file automatically skips these:
->
-> ```python
-> pytestmark = [
->     pytest.mark.skipif(
->         _SOURCE_PROVIDER_TYPE
->         in (Provider.ProviderType.OPENSTACK, Provider.ProviderType.OPENSHIFT, Provider.ProviderType.OVA),
->         reason=f"{_SOURCE_PROVIDER_TYPE} warm migration is not supported.",
->     ),
-> ]
-> ```
+The same configuration file also carries global test settings such as:
 
-### Copy-Offload (XCOPY)
+- `mtv_namespace = "openshift-mtv"`
+- `target_namespace_prefix = "auto"`
+- `snapshots_interval = 2`
+- `plan_wait_timeout = 3600`
 
-A high-performance migration method exclusive to VMware vSphere. Instead of transferring data through the MTV controller pod (VDDK), copy-offload leverages VAAI XCOPY primitives on shared storage arrays. The storage array copies data directly between vSphere datastores and OpenShift persistent volumes, dramatically reducing migration time and network load.
+Those defaults tell you a lot about the intended environment: MTV is expected to be present on the cluster, namespaces are created per test session, warm-migration precopy timing is tunable, and migrations are expected to run long enough to justify an explicit timeout.
+
+## Why this is real migration validation
+
+A successful MTV `Plan` is not the same thing as a successful migration outcome. `mtv-api-tests` adds value because it keeps checking after the migration controller finishes.
+
+The `check_vms()` logic in `utilities/post_migration.py` shows the kind of user-visible validation the suite performs:
 
 ```python
-# tests/tests_config/config.py
-"test_copyoffload_thin_migration": {
-    "virtual_machines": [
-        {
-            "name": "xcopy-template-test",
-            "source_vm_power": "off",
-            "guest_agent": True,
-            "clone": True,
-            "disk_type": "thin",
-        },
-    ],
-    "warm_migration": False,
-    "copyoffload": True,
-},
-```
+if vm_guest_agent:
+    try:
+        check_guest_agent(destination_vm=destination_vm)
+    except Exception as exp:
+        res[vm_name].append(f"check_guest_agent - {str(exp)}")
 
-- **Supported providers:** VMware vSphere only (requires shared storage)
-- **Test marker:** `@pytest.mark.copyoffload`
-- **Test file:** `tests/test_copyoffload_migration.py`
-- **Disk types tested:** thin, thick-lazy, RDM virtual, independent persistent/nonpersistent
-- **Scenarios covered:** multi-disk, multi-datastore, snapshots, large VMs (1TB+), simultaneous migrations, warm+copy-offload, scale (5 VMs)
-
-## The 5-Step Test Pattern
-
-Every migration test in the suite follows a standardized 5-step sequential pattern. Each step is a separate test method within an `@pytest.mark.incremental` class -- if any step fails, all subsequent steps are automatically marked as expected failures (xfail).
-
-```
-┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-│  1. StorageMap   │────▶│  2. NetworkMap    │────▶│  3. Plan         │
-│  Map source      │     │  Map source       │     │  Create          │
-│  storage to      │     │  networks to      │     │  migration       │
-│  target classes  │     │  target networks  │     │  orchestration   │
-└──────────────────┘     └──────────────────┘     └──────────────────┘
-                                                          │
-                              ┌──────────────────┐        │
-                              │  5. Check VMs    │        ▼
-                              │  Validate CPU,   │  ┌──────────────────┐
-                              │  memory, disks,  │◀─│  4. Migrate      │
-                              │  networks, power │  │  Execute plan    │
-                              └──────────────────┘  │  and wait for    │
-                                                    │  completion      │
-                                                    └──────────────────┘
-```
-
-Here is the complete pattern from an actual test class (`tests/test_mtv_cold_migration.py`):
-
-```python
-import pytest
-from ocp_resources.network_map import NetworkMap
-from ocp_resources.plan import Plan
-from ocp_resources.storage_map import StorageMap
-from pytest_testconfig import config as py_config
-
-from utilities.mtv_migration import (
-    create_plan_resource,
-    execute_migration,
-    get_network_migration_map,
-    get_storage_migration_map,
-)
-from utilities.post_migration import check_vms
-from utilities.utils import populate_vm_ids
-
-
-@pytest.mark.tier0
-@pytest.mark.incremental
-@pytest.mark.parametrize(
-    "class_plan_config",
-    [
-        pytest.param(
-            py_config["tests_params"]["test_sanity_cold_mtv_migration"],
-        )
-    ],
-    indirect=True,
-    ids=["rhel8"],
-)
-@pytest.mark.usefixtures("cleanup_migrated_vms")
-class TestSanityColdMtvMigration:
-    """Cold migration test - sanity check."""
-
-    storage_map: StorageMap
-    network_map: NetworkMap
-    plan_resource: Plan
-
-    def test_create_storagemap(self, prepared_plan, fixture_store, ocp_admin_client,
-                                source_provider, destination_provider,
-                                source_provider_inventory, target_namespace):
-        """Step 1: Create StorageMap resource for migration."""
-        vms = [vm["name"] for vm in prepared_plan["virtual_machines"]]
-        self.__class__.storage_map = get_storage_migration_map(
-            fixture_store=fixture_store,
-            source_provider=source_provider,
-            destination_provider=destination_provider,
-            source_provider_inventory=source_provider_inventory,
-            ocp_admin_client=ocp_admin_client,
-            target_namespace=target_namespace,
-            vms=vms,
-        )
-        assert self.storage_map, "StorageMap creation failed"
-
-    def test_create_networkmap(self, prepared_plan, fixture_store, ocp_admin_client,
-                                source_provider, destination_provider,
-                                source_provider_inventory, target_namespace,
-                                multus_network_name):
-        """Step 2: Create NetworkMap resource for migration."""
-        vms = [vm["name"] for vm in prepared_plan["virtual_machines"]]
-        self.__class__.network_map = get_network_migration_map(
-            fixture_store=fixture_store,
-            source_provider=source_provider,
-            destination_provider=destination_provider,
-            source_provider_inventory=source_provider_inventory,
-            ocp_admin_client=ocp_admin_client,
-            target_namespace=target_namespace,
-            multus_network_name=multus_network_name,
-            vms=vms,
-        )
-        assert self.network_map, "NetworkMap creation failed"
-
-    def test_create_plan(self, prepared_plan, fixture_store, ocp_admin_client,
-                          source_provider, destination_provider, target_namespace,
-                          source_provider_inventory):
-        """Step 3: Create MTV Plan CR resource."""
-        populate_vm_ids(prepared_plan, source_provider_inventory)
-        self.__class__.plan_resource = create_plan_resource(
-            ocp_admin_client=ocp_admin_client,
-            fixture_store=fixture_store,
-            source_provider=source_provider,
-            destination_provider=destination_provider,
-            storage_map=self.storage_map,
-            network_map=self.network_map,
-            virtual_machines_list=prepared_plan["virtual_machines"],
-            target_namespace=target_namespace,
-            warm_migration=prepared_plan.get("warm_migration", False),
-        )
-        assert self.plan_resource, "Plan creation failed"
-
-    def test_migrate_vms(self, fixture_store, ocp_admin_client, target_namespace):
-        """Step 4: Execute migration."""
-        execute_migration(
-            ocp_admin_client=ocp_admin_client,
-            fixture_store=fixture_store,
-            plan=self.plan_resource,
-            target_namespace=target_namespace,
-        )
-
-    def test_check_vms(self, prepared_plan, source_provider, destination_provider,
-                        source_provider_data, target_namespace,
-                        source_vms_namespace, source_provider_inventory,
-                        vm_ssh_connections):
-        """Step 5: Validate migrated VMs."""
-        check_vms(
-            plan=prepared_plan,
-            source_provider=source_provider,
-            destination_provider=destination_provider,
-            network_map_resource=self.network_map,
-            storage_map_resource=self.storage_map,
-            source_provider_data=source_provider_data,
-            source_vms_namespace=source_vms_namespace,
-            source_provider_inventory=source_provider_inventory,
+# SSH connectivity check - only when destination VM is powered on
+if vm_ssh_connections and destination_vm.get("power_state") == "on":
+    try:
+        check_ssh_connectivity(
+            vm_name=vm_name,
             vm_ssh_connections=vm_ssh_connections,
+            source_provider_data=source_provider_data,
+            source_vm_info=source_vm,
         )
+    except Exception as exp:
+        res[vm_name].append(f"check_ssh_connectivity - {str(exp)}")
+
+    # Static IP preservation check - only for Windows VMs with static IPs migrated from VSPHERE
+    source_vm_data = plan.get("source_vms_data", {}).get(vm["name"], {})
+
+    if (
+        source_vm_data
+        and source_vm_data.get("win_os")
+        and source_provider.type == Provider.ProviderType.VSPHERE
+    ):
+        try:
+            check_static_ip_preservation(
+                vm_name=vm_name,
+                vm_ssh_connections=vm_ssh_connections,
+                source_vm_data=source_vm_data,
+                source_provider_data=source_provider_data,
+            )
+        except Exception as exp:
+            res[vm_name].append(f"check_static_ip_preservation - {str(exp)}")
+
+# Check node placement if configured
+if plan.get("target_node_selector") and labeled_worker_node:
+    try:
+        check_vm_node_placement(
+            destination_vm=destination_vm,
+            expected_node=labeled_worker_node["node_name"],
+        )
+    except Exception as exp:
+        res[vm_name].append(f"check_vm_node_placement - {str(exp)}")
+
+# Check VM labels if configured
+if plan.get("target_labels") and target_vm_labels:
+    try:
+        check_vm_labels(
+            destination_vm=destination_vm,
+            expected_labels=target_vm_labels["vm_labels"],
+        )
+    except Exception as exp:
+        res[vm_name].append(f"check_vm_labels - {str(exp)}")
+
+# Check affinity if configured
+if plan.get("target_affinity"):
+    try:
+        check_vm_affinity(
+            destination_vm=destination_vm,
+            expected_affinity=plan["target_affinity"],
+        )
+    except Exception as exp:
+        res[vm_name].append(f"check_vm_affinity - {str(exp)}")
 ```
 
-### What Each Step Does
+That means a run can fail for the reasons users actually care about:
 
-| Step | Method | Purpose |
-|------|--------|---------|
-| **1** | `test_create_storagemap` | Creates a `StorageMap` CR that maps source storage (datastores, storage domains) to target OpenShift storage classes |
-| **2** | `test_create_networkmap` | Creates a `NetworkMap` CR that maps source networks to target networks (pod network or Multus NADs) |
-| **3** | `test_create_plan` | Creates a `Plan` CR that references the StorageMap, NetworkMap, source/destination providers, and the list of VMs to migrate |
-| **4** | `test_migrate_vms` | Creates a `Migration` CR to trigger execution of the Plan, then waits for completion |
-| **5** | `test_check_vms` | Validates that each migrated VM matches its source: power state, CPU, memory, disks, networks, and optionally SSH connectivity |
+- The VM came up with the wrong power state
+- Guest connectivity never returned
+- Static IP preservation did not hold
+- The VM landed on the wrong node
+- Labels or affinity settings were not applied
+- Storage or network mappings did not produce the expected result
 
-### Key Pattern Features
+The repository also includes feature-specific suites that go beyond basic migration success:
 
-- **`@pytest.mark.incremental`** -- If Step 1 fails, Steps 2-5 are automatically xfailed. This prevents cascading errors from obscuring the root cause.
-- **`self.__class__.attribute`** -- Resources created in earlier steps are stored on the class so later steps can reference them (e.g., `self.storage_map` in `test_create_plan`).
-- **`indirect=True` parametrization** -- Test configuration from `tests_config/config.py` is passed through the `class_plan_config` fixture, which processes it into a `prepared_plan` with cloned VMs and unique names.
-- **`@pytest.mark.usefixtures("cleanup_migrated_vms")`** -- A teardown fixture automatically removes migrated VMs from the target cluster after the test class completes.
+- Copy-offload tests validate vSphere shared-storage migrations using `vsphere-xcopy-volume-populator`
+- Hook tests validate both expected success and expected failure paths for pre- and post-migration hooks
+- Comprehensive tests validate PVC naming, target namespaces, affinity, labels, and node selectors
+- Remote scenarios validate migrations where the destination is modeled as an explicit OpenShift provider
 
-## Post-Migration Validation
+## Automation-friendly by design
 
-The `check_vms()` function in `utilities/post_migration.py` performs comprehensive validation of each migrated VM. It compares the destination VM's properties against the source, checking:
-
-- **Power state** -- Matches source power or explicit `target_power_state`
-- **CPU** -- Core count and topology preserved
-- **Memory** -- Allocation matches source
-- **Networks** -- Interface count and network mappings match the NetworkMap
-- **Disks** -- Count and capacity match the StorageMap
-- **SSL configuration** -- Provider connection security settings are consistent
-- **SSH connectivity** -- When guest agent is present, validates the VM is reachable
-- **Static IPs** -- For warm migrations with `preserve_static_ips: True`
-
-Failures are collected per-VM rather than failing on the first error, providing a complete picture of all validation mismatches in a single test run.
-
-## Test Markers
-
-Tests are organized using pytest markers that map to migration scenarios:
+Although these are real-environment tests, the project is structured to run cleanly in automation. The repository-wide `pytest.ini` configuration makes that clear:
 
 ```ini
-# pytest.ini
-markers =
-    tier0: Core functionality tests (smoke tests)
-    remote: Remote cluster migration tests
-    warm: Warm migration tests
-    copyoffload: Copy-offload (XCOPY) tests
-    incremental: marks tests as incremental (xfail on previous failure)
-    min_mtv_version: mark test to require minimum MTV version
+addopts =
+  -s
+  -o log_cli=true
+  -p no:logging
+  --tc-file=tests/tests_config/config.py
+  --tc-format=python
+  --junit-xml=junit-report.xml
+  --basetemp=/tmp/pytest
+  --show-progress
+  --strict-markers
+  --jira
+  --dist=loadscope
 ```
 
-Run specific test categories:
+In practice, that means:
 
-```bash
-pytest -m tier0          # Smoke tests only
-pytest -m warm           # Warm migration tests
-pytest -m copyoffload    # Copy-offload tests
-pytest -m "tier0 or warm"  # Multiple categories
-```
+- Scenario data is injected consistently from `tests/tests_config/config.py`
+- Results are emitted in JUnit format for downstream reporting
+- Marker usage is enforced
+- The suite is prepared for class-scoped parallel execution
+- Jira integration is part of the default test run
 
-## Project Structure
+The repository also ships a `Dockerfile` that installs the project with `uv` and provides a repeatable containerized execution environment. That makes it easier to run the same validation flow across teams, clusters, or lab environments without rebuilding the toolchain by hand.
 
-```
-mtv-api-tests/
-├── conftest.py                    # Pytest fixtures and hooks (~1500 lines)
-├── pyproject.toml                 # Dependencies and project metadata
-├── pytest.ini                     # Test runner configuration
-├── Dockerfile                     # Container image for test execution
-│
-├── libs/                          # Provider abstraction layer
-│   ├── base_provider.py           # Abstract base class for all providers
-│   ├── forklift_inventory.py      # Forklift inventory API client
-│   └── providers/
-│       ├── vmware.py              # VMware vSphere provider
-│       ├── rhv.py                 # RHV/oVirt provider
-│       ├── openstack.py           # OpenStack provider
-│       ├── ova.py                 # OVA file provider
-│       └── openshift.py           # OpenShift provider
-│
-├── utilities/                     # Core utilities
-│   ├── mtv_migration.py           # Migration orchestration (StorageMap, NetworkMap, Plan, Migration)
-│   ├── post_migration.py          # Post-migration validation (check_vms)
-│   ├── resources.py               # OpenShift resource creation (create_and_store_resource)
-│   ├── utils.py                   # General utilities (provider loading, client creation)
-│   ├── copyoffload_migration.py   # Copy-offload specific utilities
-│   ├── hooks.py                   # Pre/post migration hooks
-│   ├── ssh_utils.py               # SSH connection management
-│   └── ...
-│
-├── tests/                         # Test files
-│   ├── test_mtv_cold_migration.py
-│   ├── test_mtv_warm_migration.py
-│   ├── test_copyoffload_migration.py
-│   ├── test_cold_migration_comprehensive.py
-│   ├── test_warm_migration_comprehensive.py
-│   ├── test_post_hook_retain_failed_vm.py
-│   └── tests_config/
-│       └── config.py              # Test parameters and VM definitions
-│
-└── exceptions/
-    └── exceptions.py              # Domain-specific exception classes
-```
-
-## Resource Lifecycle
-
-Every OpenShift resource created during testing is managed through a single function: `create_and_store_resource()`. This ensures consistent naming, automatic cleanup, and conflict handling:
-
-```python
-# utilities/resources.py
-def create_and_store_resource(
-    client: "DynamicClient",
-    fixture_store: dict[str, Any],
-    resource: type[Resource],
-    test_name: str | None = None,
-    **kwargs: Any,
-) -> Any:
-    # 1. Auto-generates unique names using session UUID
-    # 2. Truncates to 63 chars (Kubernetes name limit)
-    # 3. Deploys resource with wait=True
-    # 4. Handles ConflictError (safe re-runs)
-    # 5. Stores in fixture_store["teardown"] for automatic cleanup
-    ...
-```
-
-> **Warning:** Direct resource creation (e.g., `Namespace(name=...).deploy()`) bypasses the tracking system and will not be cleaned up automatically. Always use `create_and_store_resource()`.
-
-## Requirements
-
-- **Python:** 3.12 or 3.13
-- **OpenShift cluster** with MTV operator installed in the `openshift-mtv` namespace
-- **Source provider** with pre-configured VMs matching the test configuration
-- **Provider credentials** defined in a `.providers.json` file
-- **Storage class** available on the target OpenShift cluster
-
-> **Tip:** Tests require live infrastructure and cannot be run in isolation. The test suite connects to real clusters and source providers to perform actual VM migrations.
+`mtv-api-tests` is best understood as a migration-confidence suite. If you need to know whether MTV can really move VMs from a supported source provider into OpenShift Virtualization, and whether the result still matches your expectations after the move, this project is built to answer that question.
